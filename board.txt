@@ -124,3 +124,5 @@ insert into noti_board values(noti_board_seq.nextval,0,'test','content',sysdate)
 
 
 
+commit;
+
