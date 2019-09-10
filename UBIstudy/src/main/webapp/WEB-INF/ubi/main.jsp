@@ -222,7 +222,8 @@ background-image: url('<%=request.getContextPath()%>/resources/images/project_im
 	<div id="div1_obj4" class="bar">
 	</div>	
 </div>
-<div id="div1_3" class="divContents" style="min-width: 100%;height: 500px;z-index: 1;cursor: pointer;">
+<div id="div1_3" class="divContents" style="min-width: 100%;height: 500px;z-index: 1;cursor: pointer;
+background-image: url('<%=request.getContextPath()%>/resources/images/project_img7.png');background-size: cover;">
 
 
 
