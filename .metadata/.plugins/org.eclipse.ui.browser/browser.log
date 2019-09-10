@@ -1,0 +1,9 @@
+
+9월 09, 2019 13:50:47.74 NEW SESSION
+9월 09, 2019 13:50:47.74 [19280:12092:0909/135047.728:ERROR:socket_stream.cc(219)] Closing stream with result -2
+9월 09, 2019 14:25:28.32 [19280:12092:0909/142528.326:ERROR:socket_stream.cc(219)] Closing stream with result -2
+
+9월 09, 2019 16:23:36.56 NEW SESSION
+9월 09, 2019 16:23:36.56 [17592:11888:0909/162336.551:ERROR:browser_process_sub_thread.cc(203)] Waited 29 ms for network service
+9월 09, 2019 16:23:36.66 
+9월 09, 2019 16:23:36.67 KLIB_SelfTest return : KLR_OK

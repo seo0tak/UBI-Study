@@ -1,0 +1,31 @@
+package useJAVA;
+
+public class mainM {
+	public static void main(String[] args) {
+		int k=1;
+		for(int i=0;i<9;i++) {
+			for(int j=0;j<9;j++) {
+				System.out.println("무기"+i+j);
+				System.out.println("이름=\"\"");
+				System.out.println("제작자=\"\"");
+				System.out.println("무게=0");
+				System.out.println("위력=0");
+				System.out.println("예술=0");
+				System.out.println("코드="+k);
+				System.out.println("설명=\"\"");
+				k+=1;
+			}
+		}
+		
+		
+	}
+}
+/*:무기01
+이름=""
+제작자=""
+무게=1
+위력=5
+예술=9
+코드=2
+설명=""
+[멈춤]*/

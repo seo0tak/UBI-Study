@@ -1,0 +1,10 @@
+package ubi.model;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+public class ubiBean {
+
+	
+	
+	
+}

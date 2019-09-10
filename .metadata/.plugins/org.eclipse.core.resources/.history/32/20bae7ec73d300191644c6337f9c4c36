@@ -1,0 +1,63 @@
+package ubi.model;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.RowBounds;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import utility.Paging;
+
+@Component("myBoardDao")
+public class ubiDao {
+	private final String namespace = "board.BoardBean";
+	
+	@Autowired
+	SqlSessionTemplate sqlSessionTemplate;
+	
+	public ubiBean GetData(int num) {
+		ubiBean bean = null;
+		bean = sqlSessionTemplate.selectOne(namespace + ".GetData",	num);
+		return bean;
+	}
+	
+	public void updateReadCount(int num) {
+		sqlSessionTemplate.update(namespace + ".updateReadCount", num);
+	}
+	
+	public void insertBoard(ubiBean board) 
+	{
+		sqlSessionTemplate.insert(namespace + ".InsertBoard", board);
+	}
+
+	public void updateBoard(ubiBean bean) 
+	{
+		sqlSessionTemplate.update(namespace + ".UpdateBoard", bean);
+	}
+	
+	public void insertRef(ubiBean bean) {
+		System.out.println("dao : "+bean.getRef());
+		sqlSessionTemplate.insert(namespace + ".insertRef", bean);
+	}
+
+	public int GetTotalCount(Map<String, String> map) {
+		int cnt = -1;
+		cnt = sqlSessionTemplate.selectOne(namespace + ".GetTotalCount", map);
+		return cnt;
+	}
+
+	public List<ubiBean> GetDataList(Paging pageInfo, Map<String, String> map) {
+		List<ubiBean> lists = new ArrayList<ubiBean>();
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+		lists = sqlSessionTemplate.selectList(namespace + ".GetDataList", map, rowBounds);
+		System.out.println("바이             "+lists.size());
+		return lists;
+	}
+
+	public void DeleteBoard(int num) {
+		sqlSessionTemplate.delete(namespace + ".DeleteBoard", num);
+	}
+}
