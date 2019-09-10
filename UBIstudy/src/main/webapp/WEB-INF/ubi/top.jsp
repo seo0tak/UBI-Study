@@ -68,6 +68,10 @@
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<%
+	String[] util={"스터디 그룹","동영상 강의","자유 게시판","공지"};
+	String[] ubi={"","","freeboard_list.ubi",""};
+%>
 <script type="text/javascript">
 	$(function(){
 		var animationSpeed=300;
@@ -105,24 +109,29 @@
 				 scrollTop : 0
 			}, 400);
 		});
+		
+		$('.topBut1').click(function(){
+			var topId=$(this).attr("id");
+			location.href=topId;
+		});
+		
 	});
 </script>
 </head>
 <body>
-<%
-	String[] util={"스터디 그룹","동영상 강의","자유 게시판","공지"};
-%>
 <div id="divTop">
 
 	<div id="divTop_in">
 	<div id="top_top">
-		<img src="<%=request.getContextPath()%>/resources/images/logo1.png" width="250px" height="50px">
+		<a href="main.ubi">
+		<img src="<%=request.getContextPath()%>/resources/images/logo1.png" width="250px" height="50px" style="cursor: pointer;">
+		</a>
 	</div>
 	<div id="top_mid"><!--top메뉴의 중간 기능선택부분-->
-		<span class="topBut1" id="<%=util[0]%>"><%=util[0]%></span>
+		<span class="topBut1" id="<%=ubi[0]%>"><%=util[0]%></span>
 		<%for(int i=1;i<util.length;i++){%>	
 		<span>　│　</span>
-		<span class="topBut1" id="<%=util[i]%>"><%=util[i]%></span>
+		<span class="topBut1" id="<%=ubi[i]%>"><%=util[i]%></span>
 		<%}%>
 	</div>	
 	<div id="top_bot">

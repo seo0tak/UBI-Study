@@ -235,19 +235,29 @@ background-image: url('<%=request.getContextPath()%>/resources/images/project_im
 
 
 
-<div style="background-color: black;height: 810px;box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.2);padding-top: 200px;">
+<div style="background-color: black;height: 810px;box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.2);padding-top: 70px;">
 
 	<div style="color: white;text-align: center;font-size: 40px;">
+	
+	<span style="color:rgba(207,175,100,1);">
+	│ Make Ubi Study Great Again │<br>
+	<br>
+	│ No Ubi No Study │<br>
+	<br>
+	│ Ubi is Gold │<br>
+	<br><br>
+	</span>
 	<span style="color: white;">〔 대충 이 사이트를 이용하면 이득본다는 내용 〕</span>
 	<br>
 	<br>
-	<span style="color:rgba(207,175,100,1);">
+	<span style="color:rgba(207,175,100,1);font-size: 35px;">
 	유비ㅎㅁㄷㄹㅇ리러훅ㄴㅇ날<br>;ㄴ이ㅗㅁㄹ너<br>
 	<br>
-	：<br>
-	：<br>
-	：<br>
-	：<br>
+	│<br>
+	│<br>
+	│<br>
+	│<br>
+	│<br>
 	</span>	
 	</div>
 
