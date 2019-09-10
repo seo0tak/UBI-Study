@@ -5,7 +5,7 @@
 
 ------------------------------freeboard자유게시판
 
-drop table free_board;
+drop table free_board; 
 
 --order by ref, re_level, num순서로 select
 
