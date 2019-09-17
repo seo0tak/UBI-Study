@@ -9,7 +9,6 @@
 <style type="text/css">
 
 	#div1_1{
-		background-image: url("<%=request.getContextPath()%>/resources/images/project_img1.png");
 		min-width: 100%;
 		height: 500px;
 		z-index: 1;
@@ -191,7 +190,7 @@
 <%@ include file="top.jsp" %>
 
 
-<div id="div1_1" class="divContents">
+<div id="div1_1" class="divContents" style="background-image: url('<%=request.getContextPath()%>/resources/images/project_img1(2).png');background-size: cover;">
 	<div id="div1_obj1">
 	</div>
 	<div id="div1_obj2" align="center">

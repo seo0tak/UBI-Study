@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div id="bottom" style="background-color: rgb(242,242,242);padding: 50px;border-top:2px solid rgb(166,166,166);color: rgb(150,150,150);">
+<div id="bottom" style="background-color: rgb(242,242,242);padding: 100px;border-top:2px solid rgb(166,166,166);color: rgb(150,150,150);">
 <p>
 bottom.jsp<br>
 가나다라마바사<br>
@@ -25,7 +25,7 @@ Abcdefghijklmnopqrstuvwxyz<br>
 라마바<br>
 사아자ㅏㄴ마ㄴㅁ히ㅓㅇㄹ엉ㄹㄴㅇㄹㄴㄹㅇ
 </p>
-<p style="text-align: right;"><img src="<%=request.getContextPath()%>/resources/images/logo3.png" width="250px" height="40px"></p>
+<p style="text-align: left;"><img src="<%=request.getContextPath()%>/resources/images/logo3.png" width="250px" height="40px"></p>
 </div>
 </body>
 </html>
