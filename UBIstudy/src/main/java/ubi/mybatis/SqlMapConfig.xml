@@ -6,6 +6,10 @@
  <configuration>
  	<typeAliases>
  		<typeAlias type="ubi.model.UbiBean" alias="MyUbi"/>
+ 		<typeAlias type="ubi.member.model.MemberBean" alias="MyMember"/>
  	</typeAliases>
+ 	<mappers>
+ 		<mapper resource="ubi/mybatis/member.xml"/>
+ 	</mappers>
  </configuration>
  

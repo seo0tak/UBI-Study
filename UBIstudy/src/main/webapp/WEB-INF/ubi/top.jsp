@@ -65,6 +65,21 @@
 	#gotoTop{
 		cursor: pointer;
 	}
+	.eft2{
+		position:absolute;
+		z-index: 15;
+		min-width: 100%;
+		min-height: 100%;
+		background-color: rgba(0,0,0,0.5);
+		left: 0px;
+		top: 0px;
+		position: fixed;
+	}
+	.err{
+		font-size: 20px;
+		color: red;
+		font-weight: bold;
+	}
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -115,7 +130,19 @@
 			location.href=topId;
 		});
 		
+		$('.closeX').click(function(){
+	         $('.eft2').hide("fade",1,function(){
+	            location.reload();               
+	         });
+	      });
+		
+		$('#join').click(function () {
+			location.href="register.ubi";
+		});
+		
+		$('.eft2').hide();
 	});
+
 </script>
 </head>
 <body>
@@ -148,6 +175,72 @@
 	</span>
 	
 </div>
+
+<%-- <div class="eft2" id="register">
+   <div style="width:50%;margin: auto;background-color: rgba(255,255,255,1);margin-top: 100px;padding: 50px;padding-top: 10px;font-size: 20px;color: black;">
+      <p style="text-align: right;font-size: 30px;cursor: pointer;">
+         <span class="closeX">X</span> 
+      </p>
+      <span style="font-size: 30px;">회원가입</span>
+      <hr>
+      <form:form commandName="member" method="post" action="register.ubi">
+      <table border="1" width="100%" height="500px">
+      	<tr>
+      		<th width="20%">아이디</th>
+      		<td>
+      			<input type="text" name="id" id="userid" style="width: 50%;line-height: 100%">
+      			<button class="button1" id="idck">중복확인</button>
+      			<form:errors cssClass="err" path="id" />
+      		</td>
+      	</tr>
+      	<tr>
+      		<th width="20%">비밀번호</th>
+      		<td>
+      			<input type="text" name="pw" id="userpwd">
+      			<form:errors cssClass="err" path="pw" />
+      		</td>
+      	</tr>
+      	<tr>
+      		<th width="20%">비밀번호확인</th>
+      		<td>
+      			<input type="text" name="pw_check">
+      			<form:errors cssClass="err" path="pw_check" />
+      		</td>
+      	</tr>
+      	<tr>
+      		<th width="20%">이름</th>
+      		<td>
+      			<input type="text" name="name">
+      			<form:errors cssClass="err" path="name" />
+      		</td>
+      	</tr>
+      	<tr>
+      		<th width="20%">이메일</th>
+      		<td>
+      			<input type="text" name="email">
+      			<form:errors cssClass="err" path="email" />
+      		</td>
+      	</tr>
+      	<tr>
+      		<th width="20%">핸드폰</th>
+      		<td>
+      			<input type="text" name="pnum">
+      			<form:errors cssClass="err" path="pnum" />
+      		</td>
+      	</tr>
+      	<tr>
+      		<th width="20%">닉네임</th>
+      		<td>
+      			<input type="text" name="nick">
+      			<form:errors cssClass="err" path="nick" />
+      			
+      		</td>
+      	</tr>
+      </table> 
+      </form:form>
+      
+   </div>
+</div> --%>
 
 </body>
 </html>
