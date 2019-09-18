@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ubi.member.model.MemberBean">
+	<insert id="InsertData">
+		insert into member(num,id,pw,name,email,pnum,nick) 
+		values (member_seq.nextval,#{id},#{pw},#{name},#{email},#{pnum},#{nick}) 
+	</insert>
+	
+	<select id="IdCheck" resultType="Integer">
+		select count(*) from member 
+		where id = #{id}
+	</select>
+	
+	<update id="GetKey" parameterType="MyMember">
+		update member set proof = #{proof} where id = #{id}
+	</update>
+	
+	<update id="alter_proof" parameterType="MyMember">
+		update member set proof='o' where id=#{id} and proof=#{proof}
+	</update>
+</mapper>
