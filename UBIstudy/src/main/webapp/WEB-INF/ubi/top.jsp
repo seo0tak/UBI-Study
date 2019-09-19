@@ -88,6 +88,7 @@
 	String[] ubi={"","","freeboard_list.ubi",""};
 %>
 <script type="text/javascript">
+
 	$(function(){
 		var animationSpeed=300;
 		$('.topBut1').mouseover(function(){
