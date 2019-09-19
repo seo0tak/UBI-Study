@@ -64,7 +64,16 @@
                 <c:forEach items="${fbList }" var="fb">
 			<tr>
 				<td>${fb.num }</td>
-				<td>${fb.title }</td>
+				<td>
+				<c:if test="${fb.re_level>0}">
+					<img src="<%=request.getContextPath()%>/resources/images/eft1.png" width="${(fb.re_level-1)*25}px" height="5px">
+					<img src="<%=request.getContextPath()%>/resources/images/ref2.png" width="20px">
+				</c:if>
+				${fb.title }
+				<c:if test="${fb.read_count>=10}">
+					<img src="<%=request.getContextPath()%>/resources/images/hot2.gif" width="100px">
+				</c:if>
+				</td>
 				<td>${fb.name }</td>
 				<td>${fb.read_count }</td>
 				<td>${fb.day }</td>
@@ -76,7 +85,7 @@
                 </tbody>
               </table>
             </div>
-           <center> 페이지!</center>
+           <center> ${pageInfo.pagingHtml}</center>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->

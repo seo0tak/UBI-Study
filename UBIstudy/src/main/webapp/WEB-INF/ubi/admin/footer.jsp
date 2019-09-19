@@ -223,5 +223,7 @@
 <script src="resources/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="resources/dist/js/demo.js"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="resources/bower_components/Flot/jquery.flot.pie.js"></script>
 </body>
 </html>
