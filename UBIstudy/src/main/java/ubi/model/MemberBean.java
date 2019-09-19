@@ -118,6 +118,12 @@ public class MemberBean {
 	public void setProof(String proof) {
 		this.proof = proof;
 	}
+	@Override
+	public String toString() {
+		return "MemberBean [num=" + num + ", point=" + point + ", id=" + id + ", pw=" + pw + ", name=" + name
+				+ ", email=" + email + ", pnum=" + pnum + ", nick=" + nick + ", grade=" + grade + ", day=" + day
+				+ ", memo=" + memo + ", image=" + image + ", fav=" + fav + ", proof=" + proof + "]";
+	}
 	
 	
 }
