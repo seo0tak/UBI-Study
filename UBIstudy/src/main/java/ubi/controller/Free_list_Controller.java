@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import ubi.model.MemberBean;
+import ubi.member.model.MemberBean;
 import ubi.model.UbiBean;
 import ubi.model.UbiDao;
 import utility.Paging;
