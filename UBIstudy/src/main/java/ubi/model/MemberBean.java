@@ -1,30 +1,43 @@
 package ubi.model;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class MemberBean {
-	int num;
-	int point;
-	String id;
-	String pw;
-	String name;
-	String email;
-	String pnum;
-	String nick;
-	String grade;
-	String day;
-	String memo;
-	String image;
-	String fav;
-	String proof;
+	@NotEmpty(message="아이디 입력은 필수!!")
+	@Email(message="아이디 형식이 다릅니다.")
+	private String id;
+	@NotEmpty(message="비밀번호 입력은 필수!!")
+	@Size(min=4,max=12,message="8~20자 입력하시오!!")
+	private String pw;
+	
+	@NotEmpty(message="이름 입력은 필수!!")
+	private String name;
+	
+	@NotEmpty(message="핸드폰번호 입력은 필수!!")
+	private String pnum;
+	
+	@NotEmpty(message="닉네임 입력은 필수!!")
+	private String nick;
+	
+	private String grade;
+	private String day;
+	private String memo;
+	private String image;
+	private String fav;
+	private String proof;
+	private int num;
+	private int point;
 	public MemberBean() {}
-	public MemberBean(int num, int point, String id, String pw, String name, String email, String pnum, String nick,
-			String grade, String day, String memo, String image, String fav, String proof) {
+
+	public MemberBean(String id, String pw, String name, String pnum, String nick, String grade, String day,
+			String memo, String image, String fav, String proof, int num, int point) {
 		super();
-		this.num = num;
-		this.point = point;
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
-		this.email = email;
 		this.pnum = pnum;
 		this.nick = nick;
 		this.grade = grade;
@@ -33,19 +46,10 @@ public class MemberBean {
 		this.image = image;
 		this.fav = fav;
 		this.proof = proof;
-	}
-	public int getNum() {
-		return num;
-	}
-	public void setNum(int num) {
 		this.num = num;
-	}
-	public int getPoint() {
-		return point;
-	}
-	public void setPoint(int point) {
 		this.point = point;
 	}
+
 	public String getId() {
 		return id;
 	}
@@ -63,12 +67,6 @@ public class MemberBean {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public String getPnum() {
 		return pnum;
@@ -118,12 +116,17 @@ public class MemberBean {
 	public void setProof(String proof) {
 		this.proof = proof;
 	}
-	@Override
-	public String toString() {
-		return "MemberBean [num=" + num + ", point=" + point + ", id=" + id + ", pw=" + pw + ", name=" + name
-				+ ", email=" + email + ", pnum=" + pnum + ", nick=" + nick + ", grade=" + grade + ", day=" + day
-				+ ", memo=" + memo + ", image=" + image + ", fav=" + fav + ", proof=" + proof + "]";
+	public int getNum() {
+		return num;
 	}
-	
+	public void setNum(int num) {
+		this.num = num;
+	}
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
+	}
 	
 }

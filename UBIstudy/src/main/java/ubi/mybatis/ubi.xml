@@ -30,4 +30,16 @@
 	<delete id="FreeDelete">	
 		delete from free_board where num=#{id}
 	</delete>
+	
+	<select resultType="int" id="LoginSelectOne">
+		select count(*) from member where id=#{id}
+	</select>
+	
+	<select resultType="String" id="LoginSelectPw">
+		select pw from member where id=#{id}
+	</select>
+	
+	<select resultType="String" id="SelectProof">
+		select proof from member where id=#{id}
+	</select>
 </mapper>

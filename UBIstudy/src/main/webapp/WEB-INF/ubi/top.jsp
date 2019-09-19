@@ -177,7 +177,7 @@
 		            var c=strArray[0];
 		            var nt=strArray[1];
 		            var proof=strArray[2];
-		            
+		            //alert(proof);
 		            if(input_id==""){
 		            	$('#idMs').html("※아이디를 입력하세요.※");
 		            }
@@ -199,7 +199,7 @@
 		            			$('.loginDiv').show();
 		            			$('.loginDiv span').html(loginId+"님 환영한다");
 		            		}
-		            		else if(proof=="x"){
+		            		else{
 		            			alert("이메일 인증이 필요합니다.");
 		            			location.reload();
 		            		}
