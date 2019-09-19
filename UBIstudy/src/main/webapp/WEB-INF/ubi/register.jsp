@@ -99,7 +99,7 @@ function checkId() {
                            <br><form:errors cssClass="err" path="pw"/>
                        </div><br><span style="color: rgba(160,160,160,1);font-size:30px;">◇◇◇◇◇</span><br>
                        <div>
-                           <br><input class="input1" type="password" name="pwConfirm" value="${member.pw}" placeholder="비밀번호확인" id="repwd" oninput="checkPwd()">
+                           <br><input class="input1" type="password" name="pwConfirm" placeholder="비밀번호확인" id="repwd" oninput="checkPwd()">
                        </div><br>
                        <div>
                            <input class="input1" type="text" name="name" id="name" value="${member.name}" placeholder="이름" autofocus>
