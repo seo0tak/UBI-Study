@@ -10,7 +10,7 @@ public class MemberBean {
 	@Email(message="아이디 형식이 다릅니다.")
 	private String id;
 	@NotEmpty(message="비밀번호 입력은 필수!!")
-	@Size(min=4,max=12,message="8~20자 입력하시오!!")
+	@Size(min=8,max=20,message="8~20자 입력하시오!!")
 	private String pw;
 	
 	@NotEmpty(message="이름 입력은 필수!!")

@@ -22,30 +22,24 @@ input::placeholder {
 }
 </style>
 <script type="text/javascript">
- var pwdCheck = 0;
- //아이디 체크하여 가입버튼 비활성화, 중복확인.
- function checkId() {
-     var inputed = $('.id').val();
-     console.log(inputed);
-     $.ajax({
-         data : {
-             id : inputed
-         },
-         url : "checkId.ubi",
-         success : function(data) {
-        	 alert(data);
-             if(inputed=="" && data==0) {
-                 $("#checkaa").css("background-color", "#FFCECE");
-                 return false;
-             } else if (data ==0) {
-                 $("#checkaa").css("background-color", "#B0F6AC");
-             } else if (data == 1) {
-                 $("#checkaa").css("background-color", "#FFCECE");
-                 return false;
-             } 
-         }
-     });
- }
+function checkId() {
+	   var inputed = $('#checkaa').val();
+	     $.ajax({
+	         data : {
+	             id : inputed
+	         },
+	         url : "checkId.ubi",
+	         success : function(data) {
+	            if (data == 0) {
+	            	 $("#checkaa").css("background-color", "#B0F6AC");
+	             } 
+	            else if (data == 1) {
+	            	$("#checkaa").css("background-color", "#FFCECE");
+	                 return false;
+	             } 
+	         }
+	     });
+}
 //재입력 비밀번호 체크하여 가입버튼 비활성화 또는 맞지않음을 알림.
  function checkPwd() {
      var inputed = $('#pw').val();
@@ -57,14 +51,30 @@ input::placeholder {
      }
      else if (inputed == reinputed) {
          $("#repwd").css("background-color", "#B0F6AC");
-         pwdCheck = 1;
          if(idCheck==1 && pwdCheck == 1) {
          }
      } else if (inputed != reinputed) {
-         pwdCheck = 0;
          $("#repwd").css("background-color", "#FFCECE");
      }
  }
+ function checkNick() {
+	   var inputed = $('#nick').val();
+	     $.ajax({
+	         data : {
+	             nick : inputed
+	         },
+	         url : "checkNick.ubi",
+	         success : function(data) {
+	            if (data == 0) {
+	            	 $("#nick").css("background-color", "#B0F6AC");
+	             } 
+	            else if (data == 1) {
+	            	$("#nick").css("background-color", "#FFCECE");
+	                 return false;
+	             } 
+	         }
+	     });
+}
 </script>
 </head>
 <body>
@@ -81,7 +91,7 @@ input::placeholder {
                <div>
                    <form:form commandName="member" method="post" action="register.ubi">
                        <div>
-                           <input class="input1" type="text" name="id" placeholder="아이디" onSubmit="return checkId()" id="checkaa" value="${member.id}" autofocus>
+                           <input class="input1" type="text" name="id" placeholder="아이디" oninput="checkId()" id="checkaa" value="${member.id}" autofocus>
                            <br><form:errors cssClass="err" path="id"/>
                        </div><br>
                        <div>
@@ -100,7 +110,7 @@ input::placeholder {
                            <br><form:errors cssClass="err" path="pnum"/>
                        </div><br>
                        <div>
-                           <input class="input1" type="text" name="nick" id="nick" value="${member.nick}" placeholder="닉네임" autofocus>
+                           <input class="input1" type="text" name="nick" id="nick" value="${member.nick}" oninput="checkNick()" placeholder="닉네임" autofocus>
                            <br><form:errors cssClass="err" path="nick"/>
                        </div><br>
                        <div>
