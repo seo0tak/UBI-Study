@@ -11,14 +11,16 @@
  		<typeAlias type="ubi.admin.nboard.model.NboardBean" alias="ANboard"/>
  		<typeAlias type="ubi.admin.vboard.model.VboardBean" alias="AVboard"/>
  		<typeAlias type="ubi.admin.member.model.AdminMemberBean" alias="AMember"/>
+ 		<typeAlias type="ubi.member.model.MemberBean" alias="MyMember"/>
  	</typeAliases>
  	<mappers>
- 		<mapper resource="ubi/mybatis/ubi.xml"></mapper>
- 		<mapper resource="ubi/mybatis/admin_fboard.xml"></mapper>
- 		<mapper resource="ubi/mybatis/admin_sboard.xml"></mapper>
- 		<mapper resource="ubi/mybatis/admin_nboard.xml"></mapper>
- 		<mapper resource="ubi/mybatis/admin_vboard.xml"></mapper>
- 		<mapper resource="ubi/mybatis/admin_member.xml"></mapper>
+ 		<mapper resource="ubi/mybatis/member.xml"/>
+ 		<mapper resource="ubi/mybatis/ubi.xml"/>
+ 		<mapper resource="ubi/mybatis/admin_fboard.xml"/>
+ 		<mapper resource="ubi/mybatis/admin_sboard.xml"/>
+ 		<mapper resource="ubi/mybatis/admin_nboard.xml"/>
+ 		<mapper resource="ubi/mybatis/admin_vboard.xml"/>
+ 		<mapper resource="ubi/mybatis/admin_member.xml"/>
  	</mappers>
  </configuration>
  
