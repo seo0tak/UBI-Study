@@ -76,6 +76,7 @@
 		position: fixed;
 	}
 	.input1{
+<<<<<<< HEAD
       resize: none;
       width: 500px;
       font-size: 22px;
@@ -92,6 +93,24 @@
       outline-color: #fa1;
       outline-width: 2px;
    }
+=======
+		resize: none;
+		width: 500px;
+		font-size: 22px;
+		outline-color: #fa1;
+		outline-width: 2px;
+		border: 1px solid white;
+		border-bottom: 1px solid gray;
+		background-color: #fafafa;
+	}
+	.input1[type=password]{
+		font-family: initial;
+	}
+	input{
+		outline-color: #fa1;
+		outline-width: 2px;
+	}
+>>>>>>> 4aff4e30ecf809d6ed3d33e01c6733eec43dd736
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -101,6 +120,7 @@
 %>
 <script type="text/javascript">
 	$(function(){
+		
 		var animationSpeed=300;
 		$('.topBut1').mouseover(function(){
 			$(this).stop().animate({
@@ -141,20 +161,107 @@
 			var topId=$(this).attr("id");
 			location.href=topId;
 		});
+		$('.loginDiv').hide();
 		
-		$('.closeX').click(function(){
-	         $('.eft2').hide("fade",1,function(){
-	            location.reload();               
-	         });
-	      });
-		
-		$('#join').click(function () {
-			location.href="register.ubi";
+		$('#login').click(function(){
+			$('#loginDiv').animate({
+				opacity:1
+			},0);
+			$('#loginDiv').show(200);
+			
 		});
-		
+		$('.closeX').click(function(){
+			$('.eft2').hide("fade",1,function(){
+				location.reload();					
+			});
+		});
 		$('.eft2').hide();
+		
+		$('#loginBut').click(function(){
+			$('#idMs').html("");
+			$('#idPw').html("");
+			var input_id=$('#loginId').val().trim();
+			var input_pw=$('#loginPw').val().trim();
+			
+			$.ajax({
+		        url:"login.ubi",
+		        data : {id : input_id},
+		        success: function(cnt){
+		            //alert("success");
+		            //alert("su : "+cnt);
+					var strArray=cnt.split('/');
+		            var c=strArray[0];
+		            var nt=strArray[1];
+		            var proof=strArray[2];
+		            
+		            if(input_id==""){
+		            	$('#idMs').html("※아이디를 입력하세요.※");
+		            }
+		            else if(input_pw==""){
+		            	$('#idPw').html("※비밀번호를 입력하세요.※");
+		            }
+		            else if(c==0){
+		            	$('#idMs').html("※이딴 아이디는 존재하지 않습니다.※");
+		            }else if(c==1){
+		            	$('#idMs').html("");
+		            	$('#idPw').html("");
+		            	if(input_pw==nt){
+		            		//로그인에 성공하였으니 이메일 인증이 되었는지 확인해야 한다.
+		            		if(proof=="o"){
+		            			$('.eft2').hide();
+		            			localStorage.setItem("loginId", input_id);
+		            			loginId=localStorage.getItem("loginId");
+		            			$('.logoutDiv').hide();
+		            			$('.loginDiv').show();
+		            			$('.loginDiv span').html(loginId+"님 환영한다");
+		            		}
+		            		else if(proof=="x"){
+		            			alert("이메일 인증이 필요합니다.");
+		            			location.reload();
+		            		}
+		            		
+		            	}else{
+		            		$('#idPw').html("※비밀번호가 틀렸습니다.※");
+		            	}
+		            	
+		            }
+		            
+		        },
+		        error: function(cnt) {
+		            //alert("error");
+		            var cnt=JSON.stringify(cnt);
+		            alert("er : "+cnt);
+		        	location.reload();
+		        }
+		    });
+			
+		});
+		var loginInfo=$('#loginInfo').val();
+		if(loginInfo==0){
+		}else{
+			$('#loginDiv').animate({
+				opacity:1
+			},0);
+			$('#loginDiv').show(200);
+		}
+		
+		$('.loginDiv').hide();
+		
+		//localStorage.setItem("loginId", "");
+		//var loginId=localStorage.setItem("loginId", "");;
+		var loginId=localStorage.getItem("loginId");
+		if(loginId==null){}
+		else{
+			$('.logoutDiv').hide();
+			$('.loginDiv').show();
+			$('.loginDiv span').html(loginId+"님 환영한다");
+		}
+		
+		$('#UserLogout').click(function(){{
+			localStorage.removeItem('loginId');
+			location.reload();
+		}});
 	});
-
 </script>
 </head>
 <body>
@@ -173,10 +280,18 @@
 		<span class="topBut1" id="<%=ubi[i]%>"><%=util[i]%></span>
 		<%}%>
 	</div>	
-	<div id="top_bot">
+	<div id="top_bot" class="logoutDiv">
 		<input type="button" value="로그인" id="login" class="button1">
 		<input type="button" value="회원가입" id="join" class="button1">
 	</div>
+	
+	<div id="top_bot" class="loginDiv">
+		<span style="color:white;margin-top: 10px;">a</span><br>
+		<input type="button" class="button1" value="마이페이지" style="margin-top: 10px;" id="myPage">
+		<input type="button" class="button1" value="로그아웃" style="margin-top: 10px;" id="UserLogout">
+	</div>
+	
+	
 	</div>
 	
 </div>
@@ -187,5 +302,43 @@
 	</span>
 	
 </div>
+<<<<<<< HEAD
+=======
+
+<div class="eft2" id="loginDiv" style="opacity: 0;">
+	<div style="width:60%;margin: auto;background-color: rgba(255,255,255,1);margin-top: 100px;padding: 50px;padding-top: 10px;font-size: 20px;color: black;">
+		<p style="text-align: right;font-size: 30px;cursor: pointer;">
+			<span class="closeX">X</span> 
+		</p>
+		<span style="font-size: 40px;">Log In
+		
+		</span>
+		<hr>
+		
+		<table style="margin: auto;font-size: 28px;margin-top: 50px;">
+			<tr>
+				<td>ID</td>
+				<td><input id="loginId" type="text" class="input1" style="padding: 10px;font-size: 25px;margin-left: 50px;">
+				<br><span id="idMs" style="font-size: 20px;color: red;margin-left: 50px;"></span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="color: #ddd;text-align: center;">
+				◇◇◇◇◇
+				</td>
+			</tr>
+			<tr>
+				<td>PassWord</td>
+				<td><input id="loginPw" type="password" class="input1" style="padding: 10px;font-size: 25px;margin-left: 50px;">
+				<br><span id="idPw" style="font-size: 20px;color: red;margin-left: 50px;"></span>
+				</td>
+			</tr>
+		</table>
+		<p style="text-align:right; "><input type="submit" value="Log In" class="button1" id="loginBut"></p>
+	</div>
+</div>
+<input type="hidden" value="${login}" id="loginInfo">
+
+>>>>>>> 4aff4e30ecf809d6ed3d33e01c6733eec43dd736
 </body>
 </html>

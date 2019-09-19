@@ -6,10 +6,19 @@
  <configuration>
  	<typeAliases>
  		<typeAlias type="ubi.model.UbiBean" alias="MyUbi"/>
- 		<typeAlias type="ubi.member.model.MemberBean" alias="MyMember"/>
+ 		<typeAlias type="ubi.admin.fboard.model.FboardBean" alias="AFboard"/>
+ 		<typeAlias type="ubi.admin.sboard.model.SboardBean" alias="ASboard"/>
+ 		<typeAlias type="ubi.admin.nboard.model.NboardBean" alias="ANboard"/>
+ 		<typeAlias type="ubi.admin.vboard.model.VboardBean" alias="AVboard"/>
+ 		<typeAlias type="ubi.admin.member.model.AdminMemberBean" alias="AMember"/>
  	</typeAliases>
  	<mappers>
- 		<mapper resource="ubi/mybatis/member.xml"/>
+ 		<mapper resource="ubi/mybatis/ubi.xml"></mapper>
+ 		<mapper resource="ubi/mybatis/admin_fboard.xml"></mapper>
+ 		<mapper resource="ubi/mybatis/admin_sboard.xml"></mapper>
+ 		<mapper resource="ubi/mybatis/admin_nboard.xml"></mapper>
+ 		<mapper resource="ubi/mybatis/admin_vboard.xml"></mapper>
+ 		<mapper resource="ubi/mybatis/admin_member.xml"></mapper>
  	</mappers>
  </configuration>
  

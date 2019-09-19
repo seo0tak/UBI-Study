@@ -11,6 +11,8 @@
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
+
+	 
  
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -19,7 +21,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="ubi" />
-	<context:component-scan base-package="ubi.member" />
+	
 	
 </beans:beans>
 

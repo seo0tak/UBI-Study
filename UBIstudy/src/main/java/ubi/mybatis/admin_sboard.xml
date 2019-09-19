@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ubi.admin.sboard.model.SboardBean" >
+	<select resultType="int" id="GetTotalCount">
+		select count(*) from study_board
+	</select>
+	<select resultType="ASboard" id="GetDataList" parameterType="hashmap" >
+		select * from study_board order by ref desc, re_level asc,num desc
+	</select>
+	
+	<delete id="DeleteData">
+		delete from study_board where num=#{num}
+	</delete>
+</mapper>
+	
