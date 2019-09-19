@@ -53,14 +53,14 @@ public class UserMailSendService {
 		}
 
 		// 회원가입 발송 이메일(인증키 발송)
-		public void mailSendWithUserKey(String e_mail, String user_id, HttpServletRequest request) {
-			
+		public void mailSendWithUserKey(String e_mail, HttpServletRequest request) {
 			String key = getKey(false, 20);
-			memberDao.GetKey(user_id, key);
+			memberDao.GetKey(e_mail, key);
 			MimeMessage mail = mailSender.createMimeMessage();
-			String htmlStr = "<h2>안녕하세요 UBI STUDY 입니다!</h2><br><br>" 
-					+ "<h3>" + user_id + "님</h3>" + "<p>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " 
-					+ "<a href='http://localhost:9090" + request.getContextPath() + "/proof.ubi?id="+ user_id +"&proof="+key+"'>인증하기</a></p>"
+			String htmlStr = "<h2>안녕하세요 UBI STUDY 입니다!</h2><br><br>"
+					/*+ "<img src='${pageContext.request.contextPath}/resources/images/logo1.png' width='200px'>"*/
+					+ "<h3>" + e_mail + "님</h3>" + "<p>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " 
+					+ "<a href='http://localhost:9090" + request.getContextPath() + "/proof.ubi?id="+ e_mail +"&proof="+key+"'>인증하기</a></p>"
 					+ "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
 			try {
 				mail.setSubject("[본인인증] UBI STUDY 인증메일입니다", "utf-8");

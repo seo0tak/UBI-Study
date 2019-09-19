@@ -1,54 +1,70 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="top.jsp" %>    
-<!DOCTYPE HTML>
+<%@ include file="top.jsp" %>
+<!DOCTYPE html> 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	
+.err{
+	font-size: 10pt;
+	color: red;
+	font-weight: bold;
+}	
+input{
+	padding:5px;
+	border-radius: 10px;
+	border-bottom: 1px solid rgba(180,180,180,1) !important; 
+}
+input::placeholder {
+  color: rgba(200,200,200,1);
+}
 </style>
 <script type="text/javascript">
-/* //아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )
-var idck = 0;
-
-$("#idck").click(function() {
-    alert("1");
-    //userid 를 param.
-    var id =  $("#id").val(); 
-    
-    $.ajax({
-        async: true,
-        type : 'POST',
-        data : id,
-        url : "idcheck.ubi",
-        dataType : "json",
-        contentType: "application/json; charset=UTF-8",
-        success : function(data) {
-            if (data.cnt > 0) {
-                alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
-                //$("#userid").addClass("has-success")
-               // $("#userid").removeClass("has-error")
-                //아이디가 존제할 경우 빨깡으로 , 아니면 파랑으로 처리하는 디자인
-                $("#id").focus();
-            
-            } else {
-                alert("사용가능한 아이디입니다.");
-                //아이디가 존제할 경우 빨깡으로 , 아니면 파랑으로 처리하는 디자인
-               // $("#userid").addClass("has-success")
-               // $("#userid").removeClass("has-error")
-                $("#pw").focus();
-                //아이디가 중복하지 않으면  idck = 1 
-                idck = 1;
-            }
-        },
-        error : function(error) {
-            
-            alert("error : " + error);
-        }
-    });
-}); */
+ var pwdCheck = 0;
+ //아이디 체크하여 가입버튼 비활성화, 중복확인.
+ function checkId() {
+     var inputed = $('.id').val();
+     console.log(inputed);
+     $.ajax({
+         data : {
+             id : inputed
+         },
+         url : "checkId.ubi",
+         success : function(data) {
+        	 alert(data);
+             if(inputed=="" && data==0) {
+                 $("#checkaa").css("background-color", "#FFCECE");
+                 return false;
+             } else if (data ==0) {
+                 $("#checkaa").css("background-color", "#B0F6AC");
+             } else if (data == 1) {
+                 $("#checkaa").css("background-color", "#FFCECE");
+                 return false;
+             } 
+         }
+     });
+ }
+//재입력 비밀번호 체크하여 가입버튼 비활성화 또는 맞지않음을 알림.
+ function checkPwd() {
+     var inputed = $('#pw').val();
+     var reinputed = $('#repwd').val();
+     console.log(inputed);
+     console.log(reinputed);
+     if(reinputed=="" && (inputed != reinputed || inputed == reinputed)){
+         $("#repwd").css("background-color", "#FFCECE");
+     }
+     else if (inputed == reinputed) {
+         $("#repwd").css("background-color", "#B0F6AC");
+         pwdCheck = 1;
+         if(idCheck==1 && pwdCheck == 1) {
+         }
+     } else if (inputed != reinputed) {
+         pwdCheck = 0;
+         $("#repwd").css("background-color", "#FFCECE");
+     }
+ }
 </script>
 </head>
 <body>
@@ -59,68 +75,43 @@ $("#idck").click(function() {
 <hr color="#ddd">
 </div>
 <div style="margin: 100px;text-align: center;">
-
-	<form:form commandName="member" method="post" action="register.ubi">
-	   <table border=1 style="margin: auto;width: 85%;background-color: rgba(255,255,255,1);box-shadow: 0px 0px 10px 10px rgba(255,255,255,1);text-align:left;border-collapse: collapse;">
-	      	<tr>
-	      		<th width="10%">아이디</th>
-	      		<td>
-	      			<input type="text" name="id" id="id" style="width: 50%;line-height:30px;font-size:20px;" value="${member.id}">
-	      			<input type="button" class="button1" value="중복확인" id="idck">
-	      			<form:errors cssClass="err" path="id" />
-	      		</td>
-	      	</tr>
-	      	<tr>
-	      		<th width="20%">비밀번호</th>
-	      		<td>
-	      			<input type="text" name="pw" id="pw" style="width: 50%;line-height:30px;font-size:20px;">
-	      			<form:errors cssClass="err" path="pw" />
-	      		</td>
-	      	</tr>
-	      	<tr>
-	      		<th width="20%">비밀번호확인</th>
-	      		<td>
-	      			<input type="text" name="pw_check" style="width: 50%;line-height:30px;font-size:20px;">
-	      			<form:errors cssClass="err" path="pw_check" />
-	      		</td>
-	      	</tr>
-	      	<tr>
-	      		<th width="20%">이름</th>
-	      		<td>
-	      			<input type="text" name="name" style="width: 50%;line-height:30px;font-size:20px;">
-	      			<form:errors cssClass="err" path="name" />
-	      		</td>
-	      	</tr>
-	      	<tr>
-	      		<th width="20%">이메일</th>
-	      		<td>
-	      			<input type="text" name="email" style="width: 50%;line-height:30px;font-size:20px;">
-	      			<form:errors cssClass="err" path="email" />
-	      		</td>
-	      	</tr>
-	      	<tr>
-	      		<th width="20%">핸드폰</th>
-	      		<td>
-	      			<input type="text" name="pnum" style="width: 50%;line-height:30px;font-size:20px;">
-	      			<form:errors cssClass="err" path="pnum" />
-	      		</td>
-	      	</tr>
-	      	<tr>
-	      		<th width="20%">닉네임</th>
-	      		<td>
-	      			<input type="text" name="nick" style="width: 50%;line-height:30px;font-size:20px;">
-	      			<form:errors cssClass="err" path="nick" />
-	      			
-	      		</td>
-	      	</tr>
-	      	<tr>
-	      		<td colspan="2" align="center">
-	      			<input type="submit" class="button1" value="가입하기">
-	      		</td>
-	      	</tr>
-	      </table> 
-	</form:form>
-</div>	
+  <div align="center">
+       <div>
+           <div>
+               <div>
+                   <form:form commandName="member" method="post" action="register.ubi">
+                       <div>
+                           <input class="input1" type="text" name="id" placeholder="아이디" onSubmit="return checkId()" id="checkaa" value="${member.id}" autofocus>
+                           <br><form:errors cssClass="err" path="id"/>
+                       </div><br>
+                       <div>
+                           <input class="input1" type="password" name="pw" id="pw" value="${member.pw}" placeholder="비밀번호" oninput="checkPwd()">
+                           <br><form:errors cssClass="err" path="pw"/>
+                       </div><br><span style="color: rgba(160,160,160,1);font-size:30px;">◇◇◇◇◇</span><br>
+                       <div>
+                           <br><input class="input1" type="password" name="pwConfirm" value="${member.pw}" placeholder="비밀번호확인" id="repwd" oninput="checkPwd()">
+                       </div><br>
+                       <div>
+                           <input class="input1" type="text" name="name" id="name" value="${member.name}" placeholder="이름" autofocus>
+                           <br><form:errors cssClass="err" path="name"/>
+                       </div><br>
+                       <div>
+                           <input class="input1" type="text" name="pnum" id="pnum" value="${member.pnum}" placeholder="핸드폰" autofocus>
+                           <br><form:errors cssClass="err" path="pnum"/>
+                       </div><br>
+                       <div>
+                           <input class="input1" type="text" name="nick" id="nick" value="${member.nick}" placeholder="닉네임" autofocus>
+                           <br><form:errors cssClass="err" path="nick"/>
+                       </div><br>
+                       <div>
+                           <button type="submit" id="register" class="button1">회원가입</button>
+                       </div>
+                   </form:form>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
 </body>
 </html>
 <%@ include file="bottom.jsp" %>

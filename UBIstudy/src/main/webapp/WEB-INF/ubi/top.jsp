@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="./../common/common.jsp" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -75,11 +75,23 @@
 		top: 0px;
 		position: fixed;
 	}
-	.err{
-		font-size: 20px;
-		color: red;
-		font-weight: bold;
-	}
+	.input1{
+      resize: none;
+      width: 500px;
+      font-size: 22px;
+      outline-color: #fa1;
+      outline-width: 2px;
+      border: 1px solid white;
+      border-bottom: 1px solid gray;
+      background-color: #fafafa;
+   }
+   .input1[type=password]{
+      font-family: initial;
+   }
+   input{
+      outline-color: #fa1;
+      outline-width: 2px;
+   }
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -175,72 +187,5 @@
 	</span>
 	
 </div>
-
-<%-- <div class="eft2" id="register">
-   <div style="width:50%;margin: auto;background-color: rgba(255,255,255,1);margin-top: 100px;padding: 50px;padding-top: 10px;font-size: 20px;color: black;">
-      <p style="text-align: right;font-size: 30px;cursor: pointer;">
-         <span class="closeX">X</span> 
-      </p>
-      <span style="font-size: 30px;">회원가입</span>
-      <hr>
-      <form:form commandName="member" method="post" action="register.ubi">
-      <table border="1" width="100%" height="500px">
-      	<tr>
-      		<th width="20%">아이디</th>
-      		<td>
-      			<input type="text" name="id" id="userid" style="width: 50%;line-height: 100%">
-      			<button class="button1" id="idck">중복확인</button>
-      			<form:errors cssClass="err" path="id" />
-      		</td>
-      	</tr>
-      	<tr>
-      		<th width="20%">비밀번호</th>
-      		<td>
-      			<input type="text" name="pw" id="userpwd">
-      			<form:errors cssClass="err" path="pw" />
-      		</td>
-      	</tr>
-      	<tr>
-      		<th width="20%">비밀번호확인</th>
-      		<td>
-      			<input type="text" name="pw_check">
-      			<form:errors cssClass="err" path="pw_check" />
-      		</td>
-      	</tr>
-      	<tr>
-      		<th width="20%">이름</th>
-      		<td>
-      			<input type="text" name="name">
-      			<form:errors cssClass="err" path="name" />
-      		</td>
-      	</tr>
-      	<tr>
-      		<th width="20%">이메일</th>
-      		<td>
-      			<input type="text" name="email">
-      			<form:errors cssClass="err" path="email" />
-      		</td>
-      	</tr>
-      	<tr>
-      		<th width="20%">핸드폰</th>
-      		<td>
-      			<input type="text" name="pnum">
-      			<form:errors cssClass="err" path="pnum" />
-      		</td>
-      	</tr>
-      	<tr>
-      		<th width="20%">닉네임</th>
-      		<td>
-      			<input type="text" name="nick">
-      			<form:errors cssClass="err" path="nick" />
-      			
-      		</td>
-      	</tr>
-      </table> 
-      </form:form>
-      
-   </div>
-</div> --%>
-
 </body>
 </html>

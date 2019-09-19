@@ -33,15 +33,16 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value=command , method=RequestMethod.POST)
-	public ModelAndView doAction(@ModelAttribute @Valid MemberBean member,BindingResult result,HttpServletRequest request){
+	public ModelAndView doAction(@ModelAttribute("member") @Valid MemberBean member, BindingResult result, HttpServletRequest request){
 		
 		ModelAndView mav = new ModelAndView();
+		System.out.println("이거뭐냐                    :               "+result.hasErrors());
 		if(result.hasErrors()) {
 			mav.setViewName(getPage);
 			return mav;
 		}
 		memberDao.InsertData(member);
-		mailsender.mailSendWithUserKey(member.getEmail(), member.getId(), request);
+		mailsender.mailSendWithUserKey(member.getId(), request);
 		
 		mav.setViewName(gotoPage);
 		return mav;

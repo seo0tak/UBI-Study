@@ -15,13 +15,11 @@ public class MemberDao {
 	public void InsertData(MemberBean member) {
 		sqlSessionTemplate.insert(namespace+".InsertData",member);
 	}
-
-	public int IdCheck(String id) {
-		int cnt = 0;
-		cnt = sqlSessionTemplate.selectOne(namespace+".IdCheck",id);
-		return cnt;
-	}
-
+	
+	public String getMember(MemberBean bean){
+        return sqlSessionTemplate.selectOne(namespace+".getMember",bean);
+    }
+	
 	public void GetKey(String user_id, String key) {
 		MemberBean bean = new MemberBean();
 		bean.setId(user_id);
@@ -35,4 +33,10 @@ public class MemberDao {
 		bean.setProof(key);
 		sqlSessionTemplate.update(namespace+".alter_proof",bean);
 	}
+
+	public String getNick(MemberBean bean) {
+		return sqlSessionTemplate.selectOne(namespace+".getNick",bean);
+	}
+	
+	
 }

@@ -4,13 +4,18 @@
 
 <mapper namespace="ubi.member.model.MemberBean">
 	<insert id="InsertData">
-		insert into member(num,id,pw,name,email,pnum,nick) 
-		values (member_seq.nextval,#{id},#{pw},#{name},#{email},#{pnum},#{nick}) 
+		insert into member(num,id,pw,name,pnum,nick) 
+		values (member_seq.nextval,#{id},#{pw},#{name},#{pnum},#{nick}) 
 	</insert>
 	
-	<select id="IdCheck" resultType="Integer">
-		select count(*) from member 
+	<select id="getMember" resultType="String">
+		select id from member 
 		where id = #{id}
+	</select>
+	
+	<select id="getNick" resultType="String">
+		select nick from member 
+		where nick = #{nick}
 	</select>
 	
 	<update id="GetKey" parameterType="MyMember">
