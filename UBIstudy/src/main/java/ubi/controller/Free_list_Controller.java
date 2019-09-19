@@ -14,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import ubi.model.MemberBean;
 import ubi.model.UbiBean;
 import ubi.model.UbiDao;
 import utility.Paging;
@@ -60,7 +62,7 @@ public class Free_list_Controller {
 		model.addAttribute("serverTime", formattedDate );
 		
 		
-		
+		mav.addObject( "login", 0 );
 		mav.setViewName(getPage);
 		return mav;
 	}
@@ -68,5 +70,23 @@ public class Free_list_Controller {
 	@RequestMapping(value="read_count_update")
 	public void updateReadCount(@RequestParam(value = "id", required = false ) String id) {
 		ubiDao.updateReadCount(Integer.valueOf(id));
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/login.ubi")
+	public String login(MemberBean bean) {
+		int cnt=0;
+		String pw="";
+		String proof="";
+		cnt=ubiDao.loginCheck(bean);
+		pw=ubiDao.loginPwCheck(bean);
+		proof=ubiDao.SelectProof(bean);
+		if(cnt==0) {
+		}
+		System.out.println("cnt : "+cnt);
+		String cnts=String.valueOf(cnt)+"/"+pw+"/"+proof;
+		return cnts;
 	}
 }

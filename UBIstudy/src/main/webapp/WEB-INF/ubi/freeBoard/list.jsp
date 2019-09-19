@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="ubi.model.UbiDao"%>
 <%@page import="ubi.model.UbiBean"%>
 <%@page import="java.util.ArrayList"%>
@@ -51,7 +52,6 @@
 	input{
 		outline-color: #fa1;
 		outline-width: 2px;
-		
 	}
 	#divTop{
 		z-index: 10;
@@ -75,11 +75,11 @@
 		$('.eft1').mouseover(function(){
 			$(this).stop().animate({
 				color:'#fa1'
-			},200);
+			},100);
 		}).mouseout(function(){
 			$(this).stop().animate({
 				color:'black'
-			},200);
+			},100);
 		}).click(function(){
 			fid1=$(this).attr("id");
 			$.ajax({
@@ -127,18 +127,24 @@
 			$('.eft2').hide("fade",1,function(){
 				location.reload();					
 			});
-
 		});
 		
 		var WhatType="input";
 		$('#inputBut').click(function(){
-			$('#detailCon').animate({opacity:'1'},0);
-			$('#FreeBoardInput').animate({opacity:'1'},0);
-			$('#InputPassword').animate({opacity:'1'},0);
-			WhatType="input";
-			$('#inputTitleW').html("글쓰기");
-			$('#pwDiv').show();
-			$('#FreeBoardInput').show("fade",100);
+			
+			loginId=localStorage.getItem("loginId");
+			if(loginId==null){
+				alert("회원만 글을 쓸 수 있습니다.");
+			}else{
+				$('#detailCon').animate({opacity:'1'},0);
+				$('#FreeBoardInput').animate({opacity:'1'},0);
+				$('#InputPassword').animate({opacity:'1'},0);
+				WhatType="input";
+				$('#inputTitleW').html("글쓰기");
+				$('#pwDiv').show();
+				$('#FreeBoardInput').show("fade",100);
+				
+			}
 		});
 		$('#updateBut').click(function(){
 			$('.eft2').hide();
@@ -237,6 +243,38 @@
 		});
 		
 		
+		var nowTime=new Date();
+		var total=$('#total').val();
+		var dbTime="";
+		for(var i=1;i<=total;i++){
+			dbTime=$('#time'+i).val();
+			var y=dbTime.substr(0,4)*1,now_y=nowTime.getFullYear();
+			var m=dbTime.substr(5,2)*1,now_m=nowTime.getMonth()+1;
+			var d=dbTime.substr(8,2)*1,now_d=nowTime.getDate();
+			var h=dbTime.substr(11,2)*1,now_h=nowTime.getHours();
+			var mn=dbTime.substr(14,2)*1,now_mn=nowTime.getMinutes();
+			
+			//alert(dbTime+" : "+y+" / "+m+" / "+d+" / "+h+" / "+mn);
+			
+			if(now_y>y){
+				$('#timeLook'+i).html((now_y-y)+"년 전");
+			}else{
+				if(now_m>m){$('#timeLook'+i).html(now_m-m+"달 전");}
+				else{
+					if(now_d>d){$('#timeLook'+i).html(now_d-d+"일 전");}
+					else{
+						if(now_h>h){$('#timeLook'+i).html(now_h-h+"시간 전");}
+						else{
+							if(now_mn>mn&&now_mn-mn>10){$('#timeLook'+i).html(now_mn-mn+"분 전");}
+							else{
+								$('#timeLook'+i).html("<img src=\"<%=request.getContextPath()%>/resources/images/new1.gif\" width=\"35px\">");
+							}
+						}
+					}
+				}
+			}
+		}
+		
 		
 	});
 </script>
@@ -244,6 +282,8 @@
 </head>
 <body>
 <%@ include file="../top.jsp" %>
+<input type="hidden" value="${serverTime}" id="serverTime">
+<input type="hidden" value="${totalCount}" id="total">
 <div style="background-color: rgba(255,255,255,0.8); padding: 40px;box-shadow: 0px 10px 8px 8px rgba(255,255,255,0.8);padding-left: 100px;">
 <span style="font-size: 50px;">
 자유 게시판
@@ -268,9 +308,9 @@
 	<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: center;padding: 5px;">작성자</td>
 	<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: center;padding: 5px;">작성일</td>
 </tr>
-
+<%int i=0; %>
 <c:forEach items="${lists }" var="list">
-
+	<%i+=1; %>
 	<tr>
 		<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: center;">${list.read_count}</td>
 	
@@ -304,7 +344,8 @@
 		<span style="color: rgba(0,0,0,0.4);">${list.name }</span>
 	</td>
 	<td style="border: 1px solid #ddd; text-align: center;background-color: white;">
-		<span style="color: rgba(0,0,0,0.3);">${list.day }</span>
+		<span style="color: rgba(0,0,0,0.3);" id="timeLook<%=i%>"></span>
+		<input  class="time" id="time<%=i%>" value="${list.day }" type="hidden">
 	</td>
 	</tr>
 </c:forEach>

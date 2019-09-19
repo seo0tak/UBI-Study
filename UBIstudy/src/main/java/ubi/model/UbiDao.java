@@ -69,5 +69,24 @@ public class UbiDao {
 		sqlSessionTemplate.delete(namespace + ".FreeDelete", id);
 	}
 	
+	public int loginCheck(MemberBean id) {
+		System.out.println(id.getId());
+		int cnt=0;
+		cnt=sqlSessionTemplate.selectOne(namespace + ".LoginSelectOne", id);
+		return cnt;
+	}
+	
+	public String loginPwCheck(MemberBean id) {
+		System.out.println(id.getId());
+		String pw="";
+		pw=sqlSessionTemplate.selectOne(namespace + ".LoginSelectPw", id);
+		return pw;
+	}
+	
+	public String SelectProof(MemberBean id) {
+		String proof="";
+		proof=sqlSessionTemplate.selectOne(namespace + ".SelectProof", id);
+		return proof;
+	}
 	
 }
