@@ -12,7 +12,7 @@
 		min-width: 100%;
 		height: 500px;
 		z-index: 1;
-		cursor: pointer;
+		cursor: pointeraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
 	}
 	#divTop{
 		z-index: 2;	
