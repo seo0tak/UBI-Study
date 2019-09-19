@@ -33,4 +33,9 @@ public class AdminMemberDao
 		lists = sqlSessionTemplate.selectList(namespace + ".GetDataList", map, rowBounds);
 		return lists;
 	}
+
+	public void deleteData(int num) 
+	{
+		sqlSessionTemplate.delete(namespace + ".DeleteData", num);
+	}
 }

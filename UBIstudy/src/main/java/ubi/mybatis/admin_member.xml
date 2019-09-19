@@ -8,6 +8,10 @@
 	<select resultType="AMember" id="GetDataList" parameterType="hashmap" >
 		select * from member order by num asc
 	</select>
+	
+	<delete id="DeleteData">
+		delete from member where num=#{num}
+	</delete>
 	<!-- <select resultType="int" id="GetTodayCount">
 		select count(*) from member where day=to_char(sysdate, 'yy/mm/dd');
 	</select> -->
