@@ -76,24 +76,6 @@
 		position: fixed;
 	}
 	.input1{
-<<<<<<< HEAD
-      resize: none;
-      width: 500px;
-      font-size: 22px;
-      outline-color: #fa1;
-      outline-width: 2px;
-      border: 1px solid white;
-      border-bottom: 1px solid gray;
-      background-color: #fafafa;
-   }
-   .input1[type=password]{
-      font-family: initial;
-   }
-   input{
-      outline-color: #fa1;
-      outline-width: 2px;
-   }
-=======
 		resize: none;
 		width: 500px;
 		font-size: 22px;
@@ -110,7 +92,6 @@
 		outline-color: #fa1;
 		outline-width: 2px;
 	}
->>>>>>> 4aff4e30ecf809d6ed3d33e01c6733eec43dd736
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -176,6 +157,9 @@
 			});
 		});
 		$('.eft2').hide();
+		$('#join').click(function(){
+			location.href="register.ubi";
+		});
 		
 		$('#loginBut').click(function(){
 			$('#idMs').html("");
@@ -302,8 +286,6 @@
 	</span>
 	
 </div>
-<<<<<<< HEAD
-=======
 
 <div class="eft2" id="loginDiv" style="opacity: 0;">
 	<div style="width:60%;margin: auto;background-color: rgba(255,255,255,1);margin-top: 100px;padding: 50px;padding-top: 10px;font-size: 20px;color: black;">
@@ -339,6 +321,5 @@
 </div>
 <input type="hidden" value="${login}" id="loginInfo">
 
->>>>>>> 4aff4e30ecf809d6ed3d33e01c6733eec43dd736
 </body>
 </html>
