@@ -3,7 +3,6 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ubi.UbiBean" >
-	
 	<select resultType="MyUbi" id="selectAll" parameterType="hashmap" >
 		select * from free_board order by ref desc, re_level asc,num desc
 	</select>
@@ -13,6 +12,8 @@
 	<update id="updateReadCount" parameterType="MyUbi">
 		update free_board set read_count=read_count+1 where num=#{id}
 	</update>
+	
+	
 	<insert id="FreeInsert" parameterType="MyUbi">
 		insert into free_board(num,ref,re_level,read_count,name,title,content,pw,day)
 		values(free_board_seq.nextval,free_board_seq.currval,0,0,#{name,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{pw,jdbcType=VARCHAR},sysdate)
@@ -29,17 +30,4 @@
 	<delete id="FreeDelete">	
 		delete from free_board where num=#{id}
 	</delete>
-	
-	<select resultType="int" id="LoginSelectOne">
-		select count(*) from member where id=#{id}
-	</select>
-	
-	<select resultType="String" id="LoginSelectPw">
-		select pw from member where id=#{id}
-	</select>
-	
-	<select resultType="String" id="SelectProof">
-		select proof from member where id=#{id}
-	</select>
-	
 </mapper>
