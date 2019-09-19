@@ -8,7 +8,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.junit.runner.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,18 +77,22 @@ public class Free_list_Controller {
 	
 	
 	@ResponseBody
-	@RequestMapping(value="/login.ubi")
-	public String login(MemberBean bean) {
+	@RequestMapping(value="/login.ubi",produces = "application/text; charset=utf8")
+	public String login(MemberBean bean,HttpServletResponse response) {
+		//response.setCharacterEncoding("UTF-8");
 		int cnt=0;
 		String pw="";
 		String proof="";
+		String nick="";
 		cnt=ubiDao.loginCheck(bean);
 		pw=ubiDao.loginPwCheck(bean);
 		proof=ubiDao.SelectProof(bean);
+		nick=ubiDao.SelectNick(bean);
 		if(cnt==0) {
 		}
 		System.out.println("cnt : "+cnt);
-		String cnts=String.valueOf(cnt)+"/"+pw+"/"+proof;
+		System.out.println("ctrl : "+nick);
+		String cnts=String.valueOf(cnt)+"/"+pw+"/"+proof+"/"+nick;
 		return cnts;
 	}
 }

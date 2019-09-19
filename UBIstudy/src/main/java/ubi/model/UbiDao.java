@@ -88,5 +88,11 @@ public class UbiDao {
 		proof=sqlSessionTemplate.selectOne(namespace + ".SelectProof", id);
 		return proof;
 	}
+	public String SelectNick(MemberBean id) {
+		String nick="";
+		nick=sqlSessionTemplate.selectOne(namespace + ".SelectNick", id);
+		System.out.println("dao : "+nick);
+		return nick;
+	}
 	
 }

@@ -168,6 +168,7 @@
 			var input_pw=$('#loginPw').val().trim();
 			
 			$.ajax({
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 		        url:"login.ubi",
 		        data : {id : input_id},
 		        success: function(cnt){
@@ -177,6 +178,9 @@
 		            var c=strArray[0];
 		            var nt=strArray[1];
 		            var proof=strArray[2];
+		            var nick=strArray[3];
+		            //alert(cnt);
+		            //alert(nick);
 		            //alert(proof);
 		            if(input_id==""){
 		            	$('#idMs').html("※아이디를 입력하세요.※");
@@ -194,10 +198,13 @@
 		            		if(proof=="o"){
 		            			$('.eft2').hide();
 		            			localStorage.setItem("loginId", input_id);
+		            			localStorage.setItem("nick", nick);
 		            			loginId=localStorage.getItem("loginId");
+		            			nick=localStorage.getItem("nick");
+		            			
 		            			$('.logoutDiv').hide();
 		            			$('.loginDiv').show();
-		            			$('.loginDiv span').html(loginId+"님 환영한다");
+		            			$('.loginDiv span').html(nick+"님 환영한다");
 		            		}
 		            		else{
 		            			alert("이메일 인증이 필요합니다.");
@@ -234,15 +241,17 @@
 		//localStorage.setItem("loginId", "");
 		//var loginId=localStorage.setItem("loginId", "");;
 		var loginId=localStorage.getItem("loginId");
+		var nick=localStorage.getItem("nick");
 		if(loginId==null){}
 		else{
 			$('.logoutDiv').hide();
 			$('.loginDiv').show();
-			$('.loginDiv span').html(loginId+"님 환영한다");
+			$('.loginDiv span').html(nick+"님 환영한다");
 		}
 		
 		$('#UserLogout').click(function(){{
 			localStorage.removeItem('loginId');
+			localStorage.removeItem('nick');
 			location.reload();
 		}});
 	});

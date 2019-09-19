@@ -42,4 +42,9 @@
 	<select resultType="String" id="SelectProof">
 		select proof from member where id=#{id}
 	</select>
+	
+	<select resultType="String" id="SelectNick">
+		select nick from member where id=#{id}
+	</select>
+	
 </mapper>
