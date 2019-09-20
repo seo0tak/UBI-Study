@@ -47,4 +47,8 @@
 		select nick from member where id=#{id}
 	</select>
 	
+	<select resultType="MyMember" id="SelectOneMember">
+		select * from member where id=#{id}
+	</select>
+	
 </mapper>

@@ -95,4 +95,18 @@ public class Free_list_Controller {
 		String cnts=String.valueOf(cnt)+"/"+pw+"/"+proof+"/"+nick;
 		return cnts;
 	}
+	
+	@RequestMapping(value="user_myPage")
+	public ModelAndView user_myPage(@RequestParam(value = "id", required = false ) String id) {
+		//System.out.println(id);
+		MemberBean bean=ubiDao.SelectOneMember(id);
+		System.out.println(bean.getId());
+		System.out.println(bean.getPoint());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject( "bean", bean );
+		mav.setViewName("myPage");
+		return mav;
+	}
+	
 }

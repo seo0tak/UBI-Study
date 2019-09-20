@@ -95,5 +95,10 @@ public class UbiDao {
 		System.out.println("dao : "+nick);
 		return nick;
 	}
+	public MemberBean SelectOneMember(String id) {
+		MemberBean bean=null;
+		bean=sqlSessionTemplate.selectOne(namespace + ".SelectOneMember", id);
+		return bean;
+	}
 	
 }

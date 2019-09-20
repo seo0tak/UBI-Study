@@ -204,7 +204,7 @@
 		            			
 		            			$('.logoutDiv').hide();
 		            			$('.loginDiv').show();
-		            			$('.loginDiv span').html(nick+"님 환영한다");
+		            			$('.loginDiv #nicknameLine').html(nick+"님 환영한다");
 		            		}
 		            		else{
 		            			alert("이메일 인증이 필요합니다.");
@@ -246,7 +246,7 @@
 		else{
 			$('.logoutDiv').hide();
 			$('.loginDiv').show();
-			$('.loginDiv span').html(nick+"님 환영한다");
+			$('.loginDiv #nicknameLine').html(nick+"님 환영한다");
 		}
 		
 		$('#UserLogout').click(function(){{
@@ -254,6 +254,39 @@
 			localStorage.removeItem('nick');
 			location.reload();
 		}});
+		
+		$('#myPage').click(function(){
+			//alert(loginId);
+			if(loginId=="admin"){
+				location.href="admin_main.ubi";
+			}else{
+				location.href="user_myPage.ubi?id="+loginId;
+			}
+		});
+		
+		var menuFlag=0;
+		$('#menuCont').hide();
+		$('#menuIcon').click(function(){
+			//alert(menuFlag);
+			if(menuFlag==0){
+				menuFlag=1;
+				$('#menuCont').show("blind",100);
+			}else if(menuFlag==1){
+				menuFlag=0;
+				$('#menuCont').hide("blind",100);
+			}
+		});
+		
+		$('#menuIcon').mouseover(function(){
+			$('#menuEft').stop().animate({
+				'borderColor': '#fa1'
+			},100);
+		}).mouseout(function(){
+			$('#menuEft').stop().animate({
+				'borderColor': 'rgba(100,100,100,1)'
+			},100);
+		});
+		
 	});
 </script>
 </head>
@@ -278,10 +311,16 @@
 		<input type="button" value="회원가입" id="join" class="button1">
 	</div>
 	
-	<div id="top_bot" class="loginDiv">
-		<span style="color:white;margin-top: 10px;">a</span><br>
-		<input type="button" class="button1" value="마이페이지" style="margin-top: 10px;" id="myPage">
-		<input type="button" class="button1" value="로그아웃" style="margin-top: 10px;" id="UserLogout">
+	<div id="top_bot" class="loginDiv" style="width: 500px;" align="right">
+		<div id="menuEft" style="float: right;border-radius: 7px 7px 7px 7px; border: 1px solid rgba(100,100,100,1); text-align: center;" align="right"><span>
+			<img src="<%=request.getContextPath()%>/resources/images/menu.png" width="35px" id="menuIcon">
+		</span></div>
+		<div style="float: right;padding: 10px;" align="right"><span style="color:white;margin-right: 20px;" id="nicknameLine"></span></div>
+		<br>
+		<div style="position: absolute;right: 0px;top: 50px;background-color: black;padding: 10px;border-radius: 7px 7px 7px 7px; border: 1px solid white; text-align: center;" id="menuCont">
+			<input type="button" class="button1" value="마이페이지" style="margin-top: 10px;" id="myPage"><br>
+			<input type="button" class="button1" value="로그아웃" style="margin-top: 10px;" id="UserLogout">
+		</div>
 	</div>
 	
 	
