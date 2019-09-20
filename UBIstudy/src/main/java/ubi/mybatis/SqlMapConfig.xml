@@ -12,9 +12,11 @@
  		<typeAlias type="ubi.admin.vboard.model.VboardBean" alias="AVboard"/>
  		<typeAlias type="ubi.admin.member.model.AdminMemberBean" alias="AMember"/>
  		<typeAlias type="ubi.member.model.MemberBean" alias="MyMember"/>
+ 		<typeAlias type="ubi.study.model.StudyBoardBean" alias="MyStudyBoard"/>
  	</typeAliases>
  	<mappers>
  		<mapper resource="ubi/mybatis/member.xml"/>
+ 		<mapper resource="ubi/mybatis/study_board.xml"/>
  		<mapper resource="ubi/mybatis/ubi.xml"/>
  		<mapper resource="ubi/mybatis/admin_fboard.xml"/>
  		<mapper resource="ubi/mybatis/admin_sboard.xml"/>
