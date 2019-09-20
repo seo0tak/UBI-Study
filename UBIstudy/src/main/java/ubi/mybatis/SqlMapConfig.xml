@@ -13,6 +13,7 @@
  		<typeAlias type="ubi.admin.member.model.AdminMemberBean" alias="AMember"/>
  		<typeAlias type="ubi.member.model.MemberBean" alias="MyMember"/>
  		<typeAlias type="ubi.study.model.StudyBoardBean" alias="MyStudyBoard"/>
+ 		<typeAlias type="ubi.member.model.PlanerBean" alias="MyPlaner"/>
  	</typeAliases>
  	<mappers>
  		<mapper resource="ubi/mybatis/member.xml"/>

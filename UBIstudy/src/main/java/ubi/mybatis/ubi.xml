@@ -51,4 +51,7 @@
 		select * from member where id=#{id}
 	</select>
 	
+	<select resultType="MyPlaner" id="selectPlanById" parameterType="hashmap" >
+		select * from planer where id=#{id}
+	</select>
 </mapper>
