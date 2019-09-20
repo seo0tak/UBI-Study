@@ -1,3 +1,5 @@
+<%@page import="ubi.member.model.PlanerBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html >
@@ -28,6 +30,13 @@
 <script>
 
   document.addEventListener('DOMContentLoaded', function() {
+	  
+	  
+	var tit="fotTest";
+	<%String[] title={"\"tit1\"","\"tit2\"","\"tit3\""};
+	ArrayList<PlanerBean> plan=(ArrayList<PlanerBean>)request.getAttribute("plan");
+	%>
+	
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -48,32 +57,20 @@
       googleCalendarApiKey: 'AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE',
 
       // US Holidays
-      
-     /* $.ajax({
-				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-		        url:"login.ubi",
-		        data : {id : input_id},
-		        dataType:"json",
-		        success: function(plan){
-		        	
-		        }
-     }); */
-      
+     
+     
       events: [
+    	    <%for(int i=0;i<plan.size();i++){%>
     	    {
-    	        title  : 'title',
-    	        start  : '2019-09-20',
-    	        end    : '2019-09-21'
+    	        title  : "<%=plan.get(i).getTitle()%>",
+    	        start  : "<%=plan.get(i).getStart_day().substring(0,10)%>",
+    	        end    : "<%=plan.get(i).getEnd_day().substring(0,10)%>"
     	    },
+    	    <%}%>
     	    {
-    	        title  : 'event2',
-    	        start  : '2019-09-10',
-    	        end    : '2019-09-15'
-    	    },
-    	    {
-    	        title  : 'event3',
-    	        start  : '2019-09-10',
-    	        end    : '2019-09-15'
+    	        title  : 'great day',
+    	        start  : '1999-12-28',
+    	        end    : '1999-12-28'
     	    }
     	],
 
@@ -92,17 +89,8 @@
     });
 
     calendar.render();
-  });
-  $(function(){
-	  $('.fc-view-container').animate({
-		  backgroundColor:'white'
-	  },10);
-	  $('.fc-toolbar fc-header-toolbar').animate({
-		  backgroundColor:'white'
-	  },10);
-	  
-	  
-	  
+ 
+    
   });
 </script>
 <style>

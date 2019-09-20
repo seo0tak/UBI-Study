@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ubi.member.model.MemberBean;
+import ubi.member.model.PlanerBean;
 import utility.Paging;
 
 @Component("myUbiDao")
@@ -100,5 +101,13 @@ public class UbiDao {
 		bean=sqlSessionTemplate.selectOne(namespace + ".SelectOneMember", id);
 		return bean;
 	}
+	public List<PlanerBean> selectPlanById(String id,Paging pageInfo, Map<String, String> map) {
+		List<PlanerBean> plan=null;
+		plan= sqlSessionTemplate.selectList(namespace + ".selectPlanById", id);
+		System.out.println("여긴 DAO : "+plan.size());
+		System.out.println("여긴 DAO의 id! : "+id);
+		return plan;
+	}
+	
 	
 }

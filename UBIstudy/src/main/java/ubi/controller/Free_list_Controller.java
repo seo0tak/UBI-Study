@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ubi.member.model.MemberBean;
+import ubi.member.model.PlanerBean;
 import ubi.model.UbiBean;
 import ubi.model.UbiDao;
 import utility.Paging;
@@ -97,16 +98,36 @@ public class Free_list_Controller {
 	}
 	
 	@RequestMapping(value="user_myPage")
-	public ModelAndView user_myPage(@RequestParam(value = "id", required = false ) String id) {
+	public ModelAndView user_myPage(@RequestParam(value = "whatColumn", required = false ) String whatColumn,
+			@RequestParam(value = "keyword", required = false ) String keyword,
+			@RequestParam(value = "pageNumber", required = false ) String pageNumber,
+			@RequestParam(value = "pageSize", required = false ) String pageSize,
+			HttpServletRequest request, Model model,Locale locale,@RequestParam(value = "id", required = false ) String id) {
 		//System.out.println(id);
 		MemberBean bean=ubiDao.SelectOneMember(id);
 		System.out.println(bean.getId());
 		System.out.println(bean.getPoint());
+Map<String, String> map = new HashMap<String, String>() ;
+		int totalCount=1;
+		String url="";
+		Paging pageInfo 
+		= new Paging( pageNumber, pageSize, totalCount, url, whatColumn, keyword, null);
+		
+		List<PlanerBean> plan=ubiDao.selectPlanById(id, pageInfo, map);
+		try {			
+			System.out.println(plan.get(0).getStart_day().substring(0,10));
+		}catch(Exception e){
+			System.out.println("실패다 애송이"+plan.size());
+		}
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject( "bean", bean );
+		mav.addObject( "plan", plan );
 		mav.setViewName("myPage");
 		return mav;
 	}
+	
+	
+	
 	
 }
