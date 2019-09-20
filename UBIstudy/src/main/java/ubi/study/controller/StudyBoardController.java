@@ -10,7 +10,8 @@ public class StudyBoardController {
 	
 	@RequestMapping(value=command)
 	public String doAction() {
-		
 		return getPage;
 	}
+	
+	
 }

@@ -5,7 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="./../../common/common.jsp" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -61,6 +61,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 	$(function(){
+		var nick = localStorage.getItem("nick");
 		var pw1="";
 		var fid1="";
 		
@@ -303,17 +304,15 @@
 <table style="margin: auto;width: 85%;background-color: rgba(255,255,255,1);box-shadow: 0px 0px 10px 10px rgba(255,255,255,1);text-align:left;border-collapse: collapse;">
 
 <tr>
-	<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: center;padding: 5px;">조회수</td>
 	<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: left;padding: 5px;">제목</td>
 	<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: center;padding: 5px;">작성자</td>
 	<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: center;padding: 5px;">작성일</td>
+	<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: center;padding: 5px;">조회수</td>
 </tr>
 <%int i=0; %>
 <c:forEach items="${lists }" var="list">
 	<%i+=1; %>
 	<tr>
-		<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: center;">${list.read_count}</td>
-	
 	<%-- <td class="eft1" id="${list.num}"> --%>
 	<td class="eft1" id="${list.num}" style="border: 1px solid #ddd;background-color: white;">
 	<div class="listOne" style="cursor: pointer;">
@@ -347,6 +346,7 @@
 		<span style="color: rgba(0,0,0,0.3);" id="timeLook<%=i%>"></span>
 		<input  class="time" id="time<%=i%>" value="${list.day }" type="hidden">
 	</td>
+	<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: center;">${list.read_count}</td>
 	</tr>
 </c:forEach>
 </table>
@@ -396,10 +396,10 @@
 		<div style="text-align: center;" >
 		<span style="">제목</span>
 		<br>
-		<input type="text" value="" name="input_title" class="input1"><br><br>
+		<input type="text" value="" name="input_title" class="input1" autofocus><br><br>
 		<span>작성자</span>
 		<br>
-		<input type="text" value="" name="input_name" class="input1"><br><br>
+		<%= pageContext.getAttribute("nick") %><br><br>
 		<div id="pwDiv"><span>패스워드</span>
 		<br>
 		<input type="password" value="" name="input_pw" class="input1"></div><br><br>
