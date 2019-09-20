@@ -97,7 +97,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <%
 	String[] util={"스터디 그룹","동영상 강의","자유 게시판","공지"};
-	String[] ubi={"","","freeboard_list.ubi",""};
+	String[] ubi={"studyboard_list.ubi","","freeboard_list.ubi",""};
 %>
 <script type="text/javascript">
 	$(function(){
@@ -138,9 +138,24 @@
 			}, 400);
 		});
 		
+		$('.studyboardDiv').hide();
 		$('.topBut1').click(function(){
 			var topId=$(this).attr("id");
-			location.href=topId;
+			if(topId=="studyboard_list.ubi"){
+				//스터디그룹
+				$('#studyboardDiv').animate({
+					opacity:1
+				},0);
+				$('#studyboardDiv').show(200);
+				$('.closeX').click(function(){
+					$('.eft2').hide("fade",1,function(){
+						location.reload();					
+					});
+				});
+			}
+			else{
+				location.href=topId;
+			}
 		});
 		$('.loginDiv').hide();
 		
@@ -151,12 +166,15 @@
 			$('#loginDiv').show(200);
 			
 		});
+		$('.eft2').hide();
+		
 		$('.closeX').click(function(){
 			$('.eft2').hide("fade",1,function(){
 				location.reload();					
 			});
 		});
-		$('.eft2').hide();
+		
+		//회원가입
 		$('#join').click(function(){
 			location.href="register.ubi";
 		});
@@ -328,6 +346,30 @@
 		<p style="text-align:right; "><input type="submit" value="Log In" class="button1" id="loginBut"></p>
 	</div>
 </div>
+
+<div class="eft2" id="studyboardDiv" style="opacity: 0;">
+	<div style="width:40%;margin: auto;background-color: rgba(255,255,255,1);margin-top: 100px;padding: 50px;padding-top: 10px;font-size: 20px;color: black;">
+		<p style="text-align: right;font-size: 30px;cursor: pointer;">
+			<span class="closeX">X</span>
+		</p>
+		<table style="margin:auto;width: 80%;">
+			<tr>
+				<td align="center" onClick="location.href='study_list.ubi'" onmouseover="this.style.border='2px solid #fa1'" onmouseout="this.style.border='2px solid white'" style="cursor:pointer;width:50%">
+					<img style="width: 100%" src="<%=request.getContextPath()%>/resources/images/online_icon.png"/><br><br>
+					<span style="font-size: 35px">온라인</span>
+				</td>
+				<td>
+					<div style="width: 50px"></div>
+				</td>
+				<td align="center" onClick="location.href='studyboard_list.ubi'" onmouseover="this.style.border='2px solid #fa1'" onmouseout="this.style.border='2px solid white'" style="cursor:pointer;width:50%">
+					<img style="width: 100%" src="<%=request.getContextPath()%>/resources/images/offline_icon.png"/><br><br>
+					<span style="font-size: 35px">오프라인</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
 <input type="hidden" value="${login}" id="loginInfo">
 
 </body>
