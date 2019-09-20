@@ -1,5 +1,6 @@
 package ubi.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -107,6 +108,24 @@ public class UbiDao {
 		System.out.println("여긴 DAO : "+plan.size());
 		System.out.println("여긴 DAO의 id! : "+id);
 		return plan;
+	}
+
+	public void updatePlanByoldstart(String title, String start, String end, String oldstart) {
+		/* oracle dateformat : YYYY-MM-DD HH:MI:SS */
+		/* java dateformat : yyyy-MM-dd HH:mm:ss */
+		System.out.println(oldstart);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		java.sql.Date d = java.sql.Date.valueOf(oldstart);//string을date형식으로
+		System.out.println(d);
+		String id = sdf.format(d);
+		System.out.println(id);
+		System.out.println("          adgadgda       "+sdf.format(d));
+		PlanerBean bean = new PlanerBean();
+		bean.setStart_day(start);
+		bean.setEnd_day(end);
+		bean.setTitle(title);
+		bean.setId(id);
+		sqlSessionTemplate.update(namespace + ".updatePlanByoldstart",bean);
 	}
 	
 	

@@ -54,4 +54,8 @@
 	<select resultType="MyPlaner" id="selectPlanById" parameterType="hashmap" >
 		select * from planer where id=#{id}
 	</select>
+	
+	<update id="updatePlanByoldstart">
+		update planer set start_day=#{start_day}, end_day=#{end_day}, title=#{title} where to_char(start_day,'YYYY-MM-DD HH:MI:SS')=#{id}
+	</update>
 </mapper>

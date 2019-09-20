@@ -14,6 +14,7 @@ import org.junit.runner.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -107,7 +108,7 @@ public class Free_list_Controller {
 		MemberBean bean=ubiDao.SelectOneMember(id);
 		System.out.println(bean.getId());
 		System.out.println(bean.getPoint());
-Map<String, String> map = new HashMap<String, String>() ;
+		Map<String, String> map = new HashMap<String, String>() ;
 		int totalCount=1;
 		String url="";
 		Paging pageInfo 
@@ -127,7 +128,14 @@ Map<String, String> map = new HashMap<String, String>() ;
 		return mav;
 	}
 	
-	
+	@RequestMapping(value="update_plan")
+	public void update_plan(@RequestParam("title") String title,
+							@RequestParam("start") String start,
+							@RequestParam("end") String end,
+							@RequestParam("oldstart") String oldstart
+							) {
+		ubiDao.updatePlanByoldstart(title,start,end,oldstart);
+	}
 	
 	
 }

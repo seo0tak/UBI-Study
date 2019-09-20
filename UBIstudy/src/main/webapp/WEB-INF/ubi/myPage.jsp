@@ -20,6 +20,7 @@
 <link href='<%=request.getContextPath() %>/resources/packages/daygrid/main.css' rel='stylesheet' />
 <link href='<%=request.getContextPath() %>/resources/packages/list/main.css' rel='stylesheet' />
 <script src='<%=request.getContextPath() %>/resources/packages/core/main.js'></script>
+<script src='<%=request.getContextPath() %>/resources/packages/moment/main.js'></script>
 <script src='<%=request.getContextPath() %>/resources/packages/interaction/main.js'></script>
 <script src='<%=request.getContextPath() %>/resources/packages/daygrid/main.js'></script>
 <script src='<%=request.getContextPath() %>/resources/packages/list/main.js'></script>
@@ -30,19 +31,26 @@
 <script>
 
   document.addEventListener('DOMContentLoaded', function() {
-	  
+	var srcCalendarEl = document.getElementById('source-calendar');
 	  
 	var tit="fotTest";
 	<%String[] title={"\"tit1\"","\"tit2\"","\"tit3\""};
-	ArrayList<PlanerBean> plan=(ArrayList<PlanerBean>)request.getAttribute("plan");
+		ArrayList<PlanerBean> plan=(ArrayList<PlanerBean>)request.getAttribute("plan");
 	%>
 	
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-
-      plugins: [ 'interaction', 'dayGrid', 'list', 'googleCalendar' ],
-
+      plugins: [ 'interaction', 'dayGrid', 'list', 'googleCalendar', 'moment' ],
+      eventsTimeFormat: { 
+   		    month: '2-digit',
+   		    year: 'numeric',
+   		    day: '2-digit',
+   		 	hour: '2-digit'
+   		  },
+   	  eventsFormat: 'YYYY-MM-DD HH',
+      editable: true,
+      
       header: {
         left: 'prev,next today',
         center: 'title',
@@ -63,8 +71,8 @@
     	    <%for(int i=0;i<plan.size();i++){%>
     	    {
     	        title  : "<%=plan.get(i).getTitle()%>",
-    	        start  : "<%=plan.get(i).getStart_day().substring(0,10)%>",
-    	        end    : "<%=plan.get(i).getEnd_day().substring(0,10)%>"
+    	        start  : "<%=plan.get(i).getStart_day()%>",
+    	        end    : "<%=plan.get(i).getEnd_day()%>"
     	    },
     	    <%}%>
     	    {
@@ -73,23 +81,42 @@
     	        end    : '1999-12-28'
     	    }
     	],
-
+	  
       eventClick: function(arg) {
         // opens events in a popup window
         window.open(arg.event.url, 'google-calendar-event', 'width=700,height=600');
 
         arg.jsEvent.preventDefault() // don't navigate in main tab
       },
-
+	  
       loading: function(bool) {
         document.getElementById('loading').style.display =
           bool ? 'block' : 'none';
+      },
+      
+      eventDrop: function(info) {
+    	  alert(info.oldEvent.start);
+          if (!confirm("일정을 바꾸시겠습니까?")) {
+              revertFunc();
+          }
+    	  $.ajax({
+    		  url:"update_plan.ubi",
+		      data : 	
+		    	  {
+		    	  oldstart : info.oldEvent.start,
+		    	  title : info.event.title,
+		    	  start : info.event.start,
+		    	  end : info.event.end
+		    	  },
+		      success: function(){
+		    	  alert("성공");
+		      }
+    	  });
       }
 
     });
-
+    
     calendar.render();
- 
     
   });
 </script>
