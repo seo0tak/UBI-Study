@@ -37,6 +37,10 @@ public class MemberDao {
 	public String getNick(MemberBean bean) {
 		return sqlSessionTemplate.selectOne(namespace+".getNick",bean);
 	}
+
+	public String getName(String e_mail) {
+		return sqlSessionTemplate.selectOne(namespace+".getName",e_mail);
+	}
 	
 	
 }

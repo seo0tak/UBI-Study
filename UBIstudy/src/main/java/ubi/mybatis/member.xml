@@ -18,6 +18,11 @@
 		where nick = #{nick}
 	</select>
 	
+	<select id="getName" resultType="String">
+		select name from member 
+		where id = #{id}
+	</select>
+	
 	<update id="GetKey" parameterType="MyMember">
 		update member set proof = #{proof} where id = #{id}
 	</update>

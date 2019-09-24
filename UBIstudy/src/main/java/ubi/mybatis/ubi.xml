@@ -77,5 +77,9 @@
 		select * from fav_video order by num desc 
 	</select>
 	
+	<select resultType="MyPlaner" id="PlanByNick">
+		select * from planer where nick=#{nick}
+	</select>
+	
 	
 </mapper>

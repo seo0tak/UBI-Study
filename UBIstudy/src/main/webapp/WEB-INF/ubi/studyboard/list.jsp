@@ -4,6 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel=" shortcut icon" href="image/favicon.ico">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/FullCalendar/vendor/css/bootstrap.min.css">
+<%-- <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/FullCalendar/vendor/css/jquery-ui.css"> --%>
+<script src="<%=request.getContextPath() %>/resources/FullCalendar/vendor/js/moment.min.js"></script>
+<%-- <script src="<%=request.getContextPath() %>/resources/FullCalendar/vendor/js/jquery-ui.js"></script> --%>
+<%-- <script src="<%=request.getContextPath() %>/resources/FullCalendar/vendor/js/select2.min.js"></script> --%>
+<script src="<%=request.getContextPath() %>/resources/FullCalendar/vendor/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href='<%=request.getContextPath() %>/resources/FullCalendar/vendor/css/bootstrap-datetimepicker.min.css' />
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
@@ -42,80 +51,112 @@
 		border-bottom: 1px solid gray;
 		background-color: #fafafa;
 	}
-	.input1[type=password]{
-		font-family: initial;
-	}
-	input{
+	.input_study{
+		resize: none;
+		width: 400px;
+		font-size: 22px;
 		outline-color: #fa1;
 		outline-width: 2px;
+		border: 1px solid white;
+		border-bottom: 1px solid gray;
+		background-color: #fafafa;
+	}
+	.input2{
+		font-size: 22px;
+		width: 120px;
+		outline-color: #fa1;
+		outline-width: 2px;
+	}
+	.input1[type=password]{
+		font-family: initial;
 	}
 	#divTop{
 		z-index: 10;
 	}
 </style>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
+
 $(function(){
+  //datetimepicker
+    $("#start_day,#end_day").datetimepicker({
+        format: 'YYYY-MM-DD HH:mm'
+    });
 	
-	var pw1="";
-	var fid1="";
+	$('.closeDetail').click(function(){
+		$('.eft2').hide("fade",1,function(){
+			location.reload();					
+		});
+	});
 	
-	var name1="";
-	var title1="";
-	var content1="";
-	var ref1=0;
-	var re_level1=0;
-	
-	$('.eft2').hide();
-	
-	$('.eft1').mouseover(function(){
-		$(this).stop().animate({
-			color:'#fa1'
-		},100);
-	}).mouseout(function(){
-		$(this).stop().animate({
-			color:'black'
-		},100);
-	}).click(function(){
-		fid1=$(this).attr("id");
+	var WhatType="input";
+	$('#inputBut').click(function(){
+		loginId=localStorage.getItem("loginId");
+		if(loginId==null){
+			alert("회원만 글을 쓸 수 있습니다.");
+		}else{
+			$('#detailCon').animate({opacity:'1'},0);
+			$('#StudyBoardInput').animate({opacity:'1'},0);
+			$('#InputPassword').animate({opacity:'1'},0);
+			WhatType="input";
+			$('#inputTitleW').html("스터디모임");
+			$('#pwDiv').show();
+			$('#StudyBoardInput').show("fade",100);
+		}
+	});
+	//글쓰기
+	$('#study_input').click(function () {
+		var pwdCheck = 0;
+		var inick = localStorage.getItem("nick");
+		var ititle = $('#title').val();
+		var istart_day = $('#start_day').val();
+		var iend_day = $('#end_day').val();
+		var ilang = $('#lang').val();
+		var icolor = $('#color').val();
+		var imemo = $('#memo').val();
+		var ipw = $('#pw').val();
+		var iflag = $('#flag').val();
+		
+		/* 
+		if(!ititle){
+			$('#errtitle').html("모임명 입력은 필수입니다!!");
+		}
+		else if(!istart_day){
+			$('#errstart_day').html("시작일 선택은 필수입니다!!");
+		}
+		else if(!iend_day){
+			$('#errend_day').html("마지막일 선택은 필수입니다!!");
+		}
+		else if(!ilang){
+			$('#errlang').html("언어 선택은 필수입니다!!");
+		}
+		else if(!color){
+			$('#errcolor').html("컬러 선택은 필수입니다!!");
+		}
+		else if(!pw){
+			$('#errpw').html("비밀번호 입력은 필수입니다!!");
+		} */
+		
 		$.ajax({
-			 	type:"POST",
-		        url:"read_count_update.ubi",
-		        data : {id : fid1},
-		        success: function(){
-		            //alert("success");			            
-		        },
-		        error: function() {
-		            //alert("error");
-		        }
-		    });
-		
-		var read_count=$('#'+fid1+' input[name=read_count]').val();
-		name1=$('#'+fid1+' input[name=name]').val();
-		title1=$('#'+fid1+' input[name=title]').val();
-		content1=$('#'+fid1+' input[name=content]').val();
-		var day=$('#'+fid1+' input[name=day]').val();
-		
-		pw1=$('#'+fid1+' input[name=pw]').val();
-		ref1=$('#'+fid1+' input[name=ref]').val();
-		re_level1=$('#'+fid1+' input[name=re_level]').val()*1;
-		
-		
-		
-		$('#detailCon #read_count').html("조회수 〔"+(read_count*1+1)+"〕");
-		$('#detailCon #name').html(name1);
-		$('#detailCon #title').html("◇"+title1);
-		$('#detailCon #content').html(content1);
-		$('#detailCon #day').html(day);
-		
-		$('#detailCon').animate({opacity:'1'},0);
-		$('#FreeBoardInput').animate({opacity:'1'},0);
-		$('#InputPassword').animate({opacity:'1'},0);
-		
-		
-		$('#detailCon').show("fade",100);
-		
+			type:"POST",
+	        url:"studyboard_insert.ubi",
+	        data:{
+	        	nick : inick,
+	        	title : ititle,
+	        	start_day : istart_day,
+	        	end_day : iend_day,
+	        	lang : ilang,
+	        	color : icolor,
+	        	memo : imemo,
+	        	pw : ipw,
+	        	flag : iflag
+	        },
+	        success: function(){
+	        	location.reload();	
+	        },
+	        error: function () {
+	        	location.reload();
+			}
+		});
 	});
 	
 	
@@ -152,6 +193,8 @@ $(function(){
 </script>
 </head>
 <body>
+<input type="hidden" value="${serverTime}" id="serverTime">
+<input type="hidden" value="${totalCount}" id="total">
 <div style="background-color: rgba(255,255,255,0.8); padding: 40px;box-shadow: 0px 10px 8px 8px rgba(255,255,255,0.8);padding-left: 100px;">
 <span style="font-size: 50px;">
 스터디 모임
@@ -163,18 +206,160 @@ $(function(){
 </div>
 
 <div style="position: absolute;left: 10px; bottom: 10px; position: fixed;"> 
-	<input id="inputBut" type="button" value="글쓰기" style="font-size: 25px; background-color: rgba(255,255,255,1); border: 1px solid #ccc; padding: 10px;padding-right: 50px;padding-left: 50px;">
+	<input id="inputBut" type="button" value="모임만들기" style="font-size: 25px; background-color: rgba(255,255,255,1); border: 1px solid #ccc; padding: 10px;padding-right: 50px;padding-left: 50px;">
 </div>
-
+<div align="center">
+	<form action="studyboard_list.ubi" method="get"> 
+			<select name="whatColumn" class="input2">
+				<option value="all">전체 검색
+				<option value="title">모임명
+				<option value="lang">언어
+			</select>
+			<input type="text" class="input1" name="keyword" value="">
+			<input type="submit" class="button1" value="검색">
+	</form>
+</div>
 <div style="margin: 100px;text-align: center;">
+<!-- 모임 추가 -->
+<div class="eft2" id="StudyBoardInput" style="opacity: 0;">
+	<div style="width:60%;margin: auto;background-color: rgba(255,255,255,1);margin-top: 40px;padding: 50px;padding-top: 10px;font-size: 20px;">
+		<p style="text-align: right;font-size: 30px;cursor: pointer;">
+			<span class="closeDetail">X</span> 
+		</p>
+		<span style="font-size: 40px;" id="inputTitleW">모임만들기</span>
+		<hr>
+		<input type="hidden" name="flag" id="flag" value="125125125"/>
+		<table border="1" style="width:100%;">
+			<tr>
+				<th>모임명</th>
+				<td>
+					<input class="input_study" type="text" name="title" id="title" value="">
+					<span id="errtitle" style="color: red"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>시작</th>
+				<td>
+					<input class="input_study" type="text" name="start_day" id="start_day" value="">
+					<span id="errstart_day" style="color: red"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>마지막</th>
+				<td>
+					<input class="input_study" type="text" name="end_day" id="end_day" value="">
+					<span id="errend_day" style="color: red"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>언어</th>
+				<td>
+				  <select name="lang" id="lang" style="width:20%">
+	                  <option value="">선택</option>
+	                  <option value="JAVA">JAVA</option>
+	                  <option value="C">C</option>
+	                  <option value="C++">C++</option>
+	                  <option value="Python">Python</option>
+                  </select>
+                  <span id="errlang" style="color: red"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>색상</th>
+				<td>
+					<select name="color" id="color">
+						<option value="">선택</option>
+		                <option value="#D25565" style="color:#D25565;">빨간색</option>
+		                <option value="#9775fa" style="color:#9775fa;">보라색</option>
+		                <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
+		                <option value="#74c0fc" style="color:#74c0fc;">파란색</option>
+		                <option value="#f06595" style="color:#f06595;">핑크색</option>
+		                <option value="#63e6be" style="color:#63e6be;">연두색</option>
+		                <option value="#a9e34b" style="color:#a9e34b;">초록색</option>
+		                <option value="#4d638c" style="color:#4d638c;">남색</option>
+		                <option value="#495057" style="color:#495057;">검정색</option>
+	                </select>
+	                <span style="font-size: 15px;color:#fa1;">*마이페이지에 등록될 색상입니다.*</span>
+	                <span id="errcolor" style="color: red"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>메모</th>
+				<td>
+					<textarea rows="4" cols="50" class="input_study" name="memo" id="memo"></textarea>
+					<span id="errmemo" style="color: red"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<td>
+					<input class="input_study" type="password" name="pw" id="pw" value="">
+					<span id="errpw" style="color: red"></span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="button" value="만들기" class="button1" id="study_input">
+				</td>
+			</tr>
+		</table>
+	</div>              
+</div>
+<!-- 모임 추가 -->
+
+
 	<table style="margin: auto;width: 85%;background-color: rgba(255,255,255,1);box-shadow: 0px 0px 10px 10px rgba(255,255,255,1);text-align:left;border-collapse: collapse;">
 		<tr>
 			<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: left;padding: 5px;">제목</td>
+			<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: left;padding: 5px;">언어</td>
 			<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: center;padding: 5px;">작성자</td>
 			<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: center;padding: 5px;">작성일</td>
 			<td style="border: 1px solid #ddd; background-color: #fafafa;color: rgba(0,0,0,0.5);text-align: center;padding: 5px;">조회수</td>
 		</tr>
-	</table>
+	<%int i=0; %>
+<c:forEach items="${lists }" var="list">
+	<%i+=1; %>
+	<tr>
+	<td class="eft1" id="${list.num}" style="border: 1px solid #ddd;background-color: white;">
+	<div class="listOne" style="cursor: pointer;">
+		<c:if test="${list.re_level==0}">
+			
+		</c:if>
+		<c:if test="${list.re_level>0}">
+			<img src="<%=request.getContextPath()%>/resources/images/eft1.png" width="${(list.re_level-1)*25}px" height="5px">
+			<img src="<%=request.getContextPath()%>/resources/images/ref2.png" width="20px">
+		</c:if>
+		<span style="font-size: 20px;">${list.title}</span>
+		<c:if test="${list.read_count>=10}">
+			<img src="<%=request.getContextPath()%>/resources/images/hot2.gif" width="100px">
+		</c:if>
+			<input type="hidden" value="${list.read_count}" name="read_count">
+			<input type="hidden" value="${list.title}" name="title">
+			<input type="hidden" value="${list.memo}" name="memo">
+			<input type="hidden" value="${list.day}" name="day">
+			<input type="hidden" value="${list.num}" name="num">
+			<input type="hidden" value="${list.ref}" name="ref">
+			<input type="hidden" value="${list.re_level}" name="re_level">
+			<input type="hidden" value="${list.pw}" name="pw">
+	</div>
+	</td>
+	<td style="border: 1px solid #ddd; text-align: center;background-color: #fafafa;">
+		<span style="color: rgba(0,0,0,0.3);">${list.lang }</span>
+	</td>
+	<td style="border: 1px solid #ddd; text-align: center;background-color: white;">
+		<span style="color: rgba(0,0,0,0.5);">${list.nick }</span>
+	</td>
+	<td style="border: 1px solid #ddd; text-align: center;background-color: #fafafa;">
+		<span style="color: rgba(0,0,0,0.3);" id="timeLook<%=i%>"></span>
+		<input class="time" id="time<%=i%>" value="${list.day }" type="hidden">
+	</td>
+	<td style="border: 1px solid #ddd; background-color: white;color: rgba(0,0,0,0.3);text-align: center;">${list.read_count}</td>
+	</tr>
+</c:forEach>
+</table>
+</div>
+<div align="center" style="font-size: 30px;">
+		${pageInfo.pagingHtml}
 </div>
 </body>
 </html>

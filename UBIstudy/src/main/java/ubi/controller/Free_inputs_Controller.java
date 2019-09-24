@@ -16,6 +16,7 @@ public class Free_inputs_Controller {
 	@Autowired
 	private UbiDao ubiDao;
 	
+	
 	@RequestMapping(value="freeboard_update.ubi", method=RequestMethod.POST)
 	public void FreeUpdate(@RequestParam(value = "id", required = false ) String id,
 			@RequestParam(value = "f_name", required = false ) String name,
