@@ -123,7 +123,6 @@ body {
         }
       },
       eventLimitClick: 'week', //popover
-      navLinks: true,
       timeFormat: 'HH:mm',
       defaultTimedEventDuration: '01:00:00',
       minTime: '00:00:00',
