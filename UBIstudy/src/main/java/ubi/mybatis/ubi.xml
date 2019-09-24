@@ -58,4 +58,24 @@
 	<update id="updatePlanByoldstart">
 		update planer set start_day=#{start_day}, end_day=#{end_day}, title=#{title} where to_char(start_day,'YYYY-MM-DD HH:MI:SS')=#{id}
 	</update>
+	
+	<select resultType="int" id="GetTotalVideoCount">
+		select count(*) from video_board
+	</select>
+	<select resultType="MyVideo" id="selectAllVideo" parameterType="hashmap" >
+		select * from video_board order by num desc
+	</select>
+	
+	<select resultType="int" id="GetTotalKeyVideoCount">
+		select count(*) from video_board where title like #{id}
+	</select>
+	<select resultType="MyVideo" id="selectKeyVideo" parameterType="hashmap" >
+		select * from video_board where title like #{id} order by num desc 
+	</select>
+	
+	<select resultType="MyFav" id="selectFavVideo" parameterType="hashmap" >
+		select * from fav_video order by num desc 
+	</select>
+	
+	
 </mapper>

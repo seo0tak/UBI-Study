@@ -96,6 +96,39 @@
       
       eventDrop: function(info) {
     	  alert(info.oldEvent.start);
+    	  var old=info.oldEvent.start;
+    	  //Fri Sep 13 2019 00:00:00 GMT+0900 (한국 표준시)
+    	  var m=old.substr(4,3);
+    	  var m_int=0;
+    	  if(m=="Jan"){
+    		  m_int="01";
+    	  }else if(m=="Feb"){
+    		  m_int="02";
+    	  }else if(m=="Mar"){
+    		  m_int="03";
+    	  }else if(m=="Apr"){
+    		  m_int="04";
+    	  }else if(m=="May"){
+    		  m_int="05";
+    	  }else if(m=="Jun"){
+    		  m_int="06";
+    	  }else if(m=="Jul"){
+    		  m_int="07";
+    	  }else if(m=="Aug"){
+    		  m_int="08";
+    	  }else if(m=="Sep"){
+    		  m_int="09";
+    	  }else if(m=="Oct"){
+    		  m_int="10";
+    	  }else if(m=="Nov"){
+    		  m_int="11";
+    	  }else if(m=="Dec"){
+    		  m_int="12";
+    	  }
+    	  var real=old.substr(7,23);
+    	  
+    	  real=m_int+real;
+    	  alert(real);
           if (!confirm("일정을 바꾸시겠습니까?")) {
               revertFunc();
           }
@@ -103,7 +136,7 @@
     		  url:"update_plan.ubi",
 		      data : 	
 		    	  {
-		    	  oldstart : info.oldEvent.start,
+		    	  oldstart : real,
 		    	  title : info.event.title,
 		    	  start : info.event.start,
 		    	  end : info.event.end
