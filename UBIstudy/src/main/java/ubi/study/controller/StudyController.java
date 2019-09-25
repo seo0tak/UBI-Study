@@ -56,6 +56,7 @@ public class StudyController {
 		cmd.execCommand(command);
 		command = cmd.inputCommand("cd "+path2+" & java Main");
 		String result = cmd.execCommand(command);
+		System.out.println("result : " + result);
 		return result;
 	}
 	

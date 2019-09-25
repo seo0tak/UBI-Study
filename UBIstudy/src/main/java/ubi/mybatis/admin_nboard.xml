@@ -15,5 +15,9 @@
 	<select id="GetData" resultType="ANboard">
 		select * from noti_board where num = #{num}
 	</select>
+	<insert id="InsertData" parameterType="ANboard">
+		insert into noti_board 
+		values(noti_board_seq.nextval,0,#{title},#{content},sysdate)
+	</insert>
 </mapper>
 	
