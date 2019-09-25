@@ -39,4 +39,15 @@ public class FboardDao
 		sqlSessionTemplate.delete(namespace + ".DeleteData", num);
 	}
 
+	public FboardBean GetData(int num) 
+	{
+		FboardBean bean = null;
+		bean = sqlSessionTemplate.selectOne(namespace + ".GetData", num);
+		return bean;
+	}
+	public void InsertData(FboardBean bean)
+	{
+		sqlSessionTemplate.insert(namespace + ".InsertData", bean);
+	}
+
 }

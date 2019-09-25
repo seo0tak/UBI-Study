@@ -14,7 +14,7 @@ import utility.Paging;
 @Component("myVboardDao")
 public class VboardDao 
 {
-	private final String namespace = "ubi.admin.sboard.model.SboardBean";
+	private final String namespace = "ubi.admin.vboard.model.VboardBean";
 	
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
@@ -37,6 +37,13 @@ public class VboardDao
 	public void deleteData(int num) 
 	{
 		sqlSessionTemplate.delete(namespace + ".DeleteData", num);
+	}
+
+	public VboardBean GetData(int num) 
+	{
+		VboardBean bean = null;
+		bean = sqlSessionTemplate.selectOne(namespace + ".GetData", num);
+		return bean;
 	}
 	
 }

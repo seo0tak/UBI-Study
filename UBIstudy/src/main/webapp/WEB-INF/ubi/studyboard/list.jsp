@@ -6,10 +6,7 @@
 <head>
 <link rel=" shortcut icon" href="image/favicon.ico">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/FullCalendar/vendor/css/bootstrap.min.css">
-<%-- <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/FullCalendar/vendor/css/jquery-ui.css"> --%>
 <script src="<%=request.getContextPath() %>/resources/FullCalendar/vendor/js/moment.min.js"></script>
-<%-- <script src="<%=request.getContextPath() %>/resources/FullCalendar/vendor/js/jquery-ui.js"></script> --%>
-<%-- <script src="<%=request.getContextPath() %>/resources/FullCalendar/vendor/js/select2.min.js"></script> --%>
 <script src="<%=request.getContextPath() %>/resources/FullCalendar/vendor/js/bootstrap-datetimepicker.min.js"></script>
 <link rel="stylesheet" href='<%=request.getContextPath() %>/resources/FullCalendar/vendor/css/bootstrap-datetimepicker.min.css' />
 
@@ -87,7 +84,6 @@ $(function(){
 			location.reload();					
 		});
 	});
-	
 	var WhatType="input";
 	$('#inputBut').click(function(){
 		loginId=localStorage.getItem("loginId");
@@ -190,6 +186,23 @@ $(function(){
 		}
 	}
 });
+
+function view(num) {
+	var view_num = num;
+	$('#StudyBoardView').animate({opacity:'1'},0);
+	$('#StudyBoardView').show("fade",100);
+	$.ajax({
+		url :"study_board_view.ubi",
+		data:{
+			num : view_num
+		},
+		success:function(result){
+			$('#view_memo').html(result.memo);
+			$('#view_start').html(result.start_day);
+			$('#view_end').html(result.end_day);
+		}
+	});
+}	
 </script>
 </head>
 <body>
@@ -254,7 +267,7 @@ $(function(){
 			<tr>
 				<th>언어</th>
 				<td>
-				  <select name="lang" id="lang" style="width:20%">
+				  <select name="lang" id="lang" style="width:30%">
 	                  <option value="">선택</option>
 	                  <option value="JAVA">JAVA</option>
 	                  <option value="C">C</option>
@@ -305,7 +318,20 @@ $(function(){
 		</table>
 	</div>              
 </div>
-<!-- 모임 추가 -->
+
+
+<!-- 제목 -->
+<div class="eft2" id="StudyBoardView" style="opacity: 0;">
+	<div style="width:60%;margin: auto;background-color: rgba(255,255,255,1);margin-top: 40px;padding: 50px;padding-top: 10px;font-size: 20px;">
+		<p style="text-align: right;font-size: 30px;cursor: pointer;">
+			<span class="closeDetail">X</span> 
+		</p>
+		기간 : <span id="view_start"></span>&nbsp; ~ 
+		      &nbsp;<span id="view_end"></span> <br><br>
+			 <div id="view_memo"></div>
+	</div>
+</div>		
+
 
 
 	<table style="margin: auto;width: 85%;background-color: rgba(255,255,255,1);box-shadow: 0px 0px 10px 10px rgba(255,255,255,1);text-align:left;border-collapse: collapse;">
@@ -321,6 +347,7 @@ $(function(){
 	<%i+=1; %>
 	<tr>
 	<td class="eft1" id="${list.num}" style="border: 1px solid #ddd;background-color: white;">
+	<input type="hidden" value="${list.num}" name="num">
 	<div class="listOne" style="cursor: pointer;">
 		<c:if test="${list.re_level==0}">
 			
@@ -329,7 +356,7 @@ $(function(){
 			<img src="<%=request.getContextPath()%>/resources/images/eft1.png" width="${(list.re_level-1)*25}px" height="5px">
 			<img src="<%=request.getContextPath()%>/resources/images/ref2.png" width="20px">
 		</c:if>
-		<span style="font-size: 20px;">${list.title}</span>
+		<span style="font-size: 20px;" onclick="view('${list.num}')">${list.title}</span>
 		<c:if test="${list.read_count>=10}">
 			<img src="<%=request.getContextPath()%>/resources/images/hot2.gif" width="100px">
 		</c:if>
@@ -337,7 +364,6 @@ $(function(){
 			<input type="hidden" value="${list.title}" name="title">
 			<input type="hidden" value="${list.memo}" name="memo">
 			<input type="hidden" value="${list.day}" name="day">
-			<input type="hidden" value="${list.num}" name="num">
 			<input type="hidden" value="${list.ref}" name="ref">
 			<input type="hidden" value="${list.re_level}" name="re_level">
 			<input type="hidden" value="${list.pw}" name="pw">

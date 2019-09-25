@@ -38,4 +38,11 @@ public class AdminMemberDao
 	{
 		sqlSessionTemplate.delete(namespace + ".DeleteData", num);
 	}
+
+	public AdminMemberBean GetThisMember(String id) 
+	{
+		AdminMemberBean bean = null;
+		bean = sqlSessionTemplate.selectOne(namespace + ".GetThisMember", id);
+		return bean;
+	}
 }
