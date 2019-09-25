@@ -119,10 +119,6 @@ public class Free_list_Controller {
 		= new Paging( pageNumber, pageSize, totalCount, url, whatColumn, keyword, null);
 		//List<PlanerBean> plan =ubiDao.PlanByNick(bean.getNick());
 		List<PlanerBean> plan =studyBoardDao.PlanByNick(bean.getNick());
-		System.out.println(plan.get(0));
-		System.out.println(plan.get(1));
-		System.out.println(plan.get(0).getStart_day());
-		System.out.println(plan.get(0).getEnd_day());
 		ModelAndView mav = new ModelAndView();
 		mav.addObject( "bean", bean );
 		mav.addObject( "plan", plan );
