@@ -196,13 +196,21 @@ video{
 			
 			//소켓 서버로 부터 user_join를 통해 이벤트를 받을 경우 
 			socket.on('user_join', function(name) {
+<<<<<<< HEAD
 				$('<div class="log"></div>').text(name + '님 입장!!').appendTo("#chat_box");
+=======
+				$('<div class="log"></div>').text(name+'님 입장!!').appendTo("#chat_box");
+>>>>>>> branch 'master' of https://github.com/seo0tak/UBI-Study.git
 				$('#chat_box').scrollTop($('#chat_box').prop('scrollHeight'));
 			});
 			
 			//소켓 서버로 부터 user_exit를 통해 이벤트를 받을 경우 
 			socket.on('user_exit', function(name) {
+<<<<<<< HEAD
 				$('<div class="log"></div>').text(name + '님 나감!!').appendTo("#chat_box");
+=======
+				$('<div class="log"></div>').text(name+'님 나감!!').appendTo("#chat_box");
+>>>>>>> branch 'master' of https://github.com/seo0tak/UBI-Study.git
 				$('#chat_box').scrollTop($('#chat_box').prop('scrollHeight'));
 			});
 			

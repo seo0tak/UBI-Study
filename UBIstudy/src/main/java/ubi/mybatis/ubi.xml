@@ -81,5 +81,12 @@
 		select * from planer where nick=#{nick}
 	</select>
 	
+	<select resultType="MyFav" id="selectFavVideoById" parameterType="hashmap" >
+		select * from fav_video where id=#{id} order by num desc
+	</select>
+	
+	<select resultType="MyVideo" id="selectVideoByNum" parameterType="hashmap" >
+		select * from video_board where num=#{num} order by num desc
+	</select>
 	
 </mapper>

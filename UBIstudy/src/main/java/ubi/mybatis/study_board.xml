@@ -16,6 +16,9 @@
 			where title like #{keyword}
 		</if>
 	</select>
+	<select resultType="MyStudyBoard" id="selectAllByNick" parameterType="hashmap" >
+		select * from study_board where nick=#{nick}
+	</select>
 
 	<select resultType="int" id="GetTotalCount">
 		select count(*) from study_board 

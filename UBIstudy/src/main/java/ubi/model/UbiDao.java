@@ -151,4 +151,17 @@ public class UbiDao {
 		return sqlSessionTemplate.selectList(namespace + ".PlanByNick", nick);
 	}
 	
+	public List<Fav_VideoBean> selectFavVideoById(Paging pageInfo, Map<String, String> map,String id){
+		System.out.println("-----selectFavVideoById : ID :   "+id);
+		 List<Fav_VideoBean> list=new ArrayList<Fav_VideoBean>();
+		 list = sqlSessionTemplate.selectList(namespace + ".selectFavVideoById", id);
+		 System.out.println(list.size());
+		 return list;
+	}
+	
+	public VideoBean selectVideoByNum(int num) {
+		VideoBean bean=null;
+		bean=(VideoBean)sqlSessionTemplate.selectList(namespace + ".selectVideoByNum", num).get(0);
+		return bean;
+	}
 }

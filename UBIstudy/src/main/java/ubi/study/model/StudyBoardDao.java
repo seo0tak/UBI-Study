@@ -51,5 +51,7 @@ public class StudyBoardDao {
 		return sqlSessionTemplate.selectOne(namespace + ".GetData", num);
 	}
 	
-	
+	public List<StudyBoardBean> selectAllByNick(Paging pageInfo, Map<String, String> map,String nick) {
+		return sqlSessionTemplate.selectList(namespace + ".selectAllByNick", nick);
+	}
 }

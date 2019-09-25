@@ -160,6 +160,36 @@ body {
     
   });
 </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		loginId=localStorage.getItem("loginId");
+		if(loginId==null){
+			location.href="main.ubi";
+		}
+		
+		<%int k=0;%>
+		$(".leftContent").hide();
+		$('#cal').show();
+		$('input[id=myPageButton]').click(function(){
+			//alert("버튼클릭");
+			var tit=$(this).attr("title");
+			$(".leftContent").hide(0,function(){
+				if(tit=="오늘일정"){
+					$('#cal').show();
+				}else if(tit=="찜한영상"){
+					$('#facVideo').show();
+				}else if(tit=="참여한그룹"){
+					$('#joinGroup').show();
+				}else if(tit=="만든그룹"){
+					$('#myGroup').show();
+				}
+			});
+		});
+	});
+</script>
 <body style="overflow-x:hidden" >
 <%@ include file="top.jsp" %>
 <div style="float: none;width: 100%;">
@@ -170,6 +200,16 @@ body {
 		<span style="color: #aaa;">${bean.id }</span><br><br>
 		<span style="font-size: 30px;">${bean.nick }</span>
 		<hr>
+		
+		<div style="text-align: center;padding-top: 50px;padding-bottom: 50px;">
+		<input type="button" value="오늘 일정" class="button1" style="width: 95%;" id="myPageButton" title="오늘일정">
+		<input type="button" value="찜한 영상" class="button1" style="width: 95%;" id="myPageButton" title="찜한영상">
+		<input type="button" value="참여한 스터디 그룹" class="button1" style="width: 95%;" id="myPageButton" title="참여한그룹">
+		<input type="button" value="내가만든 스터디 그룹" class="button1" style="width: 95%;" id="myPageButton" title="만든그룹">
+		</div>
+		
+		
+		
 		<br><br>
 		<span style="font-size: 15px;color: #aaa;">${bean.nick }님의 포인트는?</span><br><br>
 		<span style="font-size: 30px;">〔${bean.point } P〕</span>
@@ -203,7 +243,7 @@ body {
 	</div>
 
 
-	<div style="width: 83%;float: none;margin-left: 100px;padding: 100px;">
+	<div style="width: 83%;float: none;margin-left: 100px;padding: 100px;" class="leftContent" id="cal">
 		<div id='loading'>loading...</div>
 	 	<div id='calendar' style="background-color: white;box-shadow:0px 0px 5px 5px white;"></div>
 	 	
@@ -217,9 +257,78 @@ body {
 				<div id="memo"></div>
 			</div>
 		</div>
-	 	
-		
 	</div>
+    
+    
+    
+    <!-- 찜한 영상 -->
+    <div class="leftContent" id="facVideo" style="text-align: center;width: 83%;float: none;margin-left: 100px;padding: 100px;">
+    
+    	<div style="width: 80%;text-align: center;margin: auto;">
+<table style="background-color: rgba(255,255,255,1);box-shadow: 0px 0px 10px 10px white;margin: auto;">
+
+<c:forEach items="${fav }" var="list">
+<%k+=1; %>
+
+<tr id="a<%=k%>" class="hiddenContents">
+<td style="text-align: left;">
+<!-- 
+ 	<iframe width="320" height="180" src="${list.url }" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+ -->
+ <img src="<%=request.getContextPath()%>/resources/images/default2.png" width="320" height="180" style="opacity: 0.2;" id="${list.url }" class="vidClick" alt="${list.title }">
+</td>
+<td style="text-align: left;width: 80%;vertical-align: top;">
+<br>
+<span style="font-size: 35px;margin-left: 10px;">${list.title }<span id="${list.num }" class="favSpan" style="color:rgba();"></span>
+</span><br>
+<span style="font-size: 20px;color: rgba(0,0,0,0.3);margin-left: 10px;">${list.day }</span><br><br>
+<span style="margin-left: 10px;">${list.content }</span>
+</td>
+</tr>
+<tr><td colspan="2"  id="b<%=k%>" class="hiddenContents"><br><hr><br></td></tr>
+
+</c:forEach>
+</table>
+</div>
+    </div>
+    
+    <div class="leftContent" id="joinGroup" style="text-align: center;width: 83%;float: none;margin-left: 100px;padding: 100px;">
+    	joinGroup
+    	
+    	
+    	
+    </div>
+    
+    <div class="leftContent" id="myGroup" style="text-align: center;width: 83%;float: none;margin-left: 100px;padding: 100px;">
+    <table style="text-align: left;margin: auto;background-color: rgba(255,255,255,1);box-shadow: 0px 0px 10px 10px white;">
+    
+    	<c:forEach items="${stdBean }" var="std">
+    	<tr><td style="padding: 50px;">
+    		<span style="font-size: 40px;">${std.title }</span>
+    		<br>
+			<span style="font-size: 20px;color: rgba(0,0,0,0.3);">시작 : ${std.start_day } ~ 종료 : ${std.end_day }</span>
+			<br>
+			<span style="font-size: 24px;color: rgba(0,0,0,0.8);">${std.nick }님의 모임</span>
+			<hr color="#fa1">
+			<span style="font-size: 24px;color: rgba(0,0,0,0.5);">언어 : </span><span style="font-size: 24px;color: rgba(0,0,0,1);">${std.lang }</span>
+			<br>
+			<span style="font-size: 20px;">${std.memo }</span>
+    	</td></tr>
+    	<tr height="50"><td style="text-align: center;">
+    	<span style="font-size: 50px; color: rgba(0,0,0,0.2);">◇◇◇◇◇</span>
+    	</td></tr>
+    	</c:forEach>
+    </table>
+    	
+ <!--nick
+title
+memo
+
+start_day
+end_day
+day
+lang -->
+    </div>
     
 </div>    
 </body>
