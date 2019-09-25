@@ -64,7 +64,7 @@ function deleteData(num)
 			<tr>
 				<td>${nb.num }</td>
 				<td>
-				${nb.title }
+				<a href="admin_nboard_view.ubi?num=${nb.num }">${nb.title }</a>
 				</td>
 				<td>${nb.read_count }</td>
 				<td>${nb.day }</td>

@@ -69,12 +69,12 @@ function deleteData(num)
 					<img src="<%=request.getContextPath()%>/resources/images/eft1.png" width="${(sb.re_level-1)*25}px" height="5px">
 					<img src="<%=request.getContextPath()%>/resources/images/ref2.png" width="20px">
 				</c:if>
-				${sb.title }
+				<a href="admin_sboard_view.ubi?num=${sb.num }">${sb.title }</a>
 				<c:if test="${sb.read_count>=10}">
 					<img src="<%=request.getContextPath()%>/resources/images/hot2.gif" width="100px">
 				</c:if>
 				</td>
-				<td>${sb.name }</td>
+				<td>${sb.nick }</td>
 				<td>${sb.read_count }</td>
 				<td>${sb.day }</td>
 				<td>

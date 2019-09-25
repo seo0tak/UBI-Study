@@ -12,5 +12,8 @@
 	<delete id="DeleteData">
 		delete from noti_board where num = #{num}
 	</delete>
+	<select id="GetData" resultType="ANboard">
+		select * from noti_board where num = #{num}
+	</select>
 </mapper>
 	

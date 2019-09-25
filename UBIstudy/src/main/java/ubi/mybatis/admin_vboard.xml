@@ -6,11 +6,14 @@
 		select count(*) from video_board
 	</select>
 	<select resultType="AVboard" id="GetDataList" parameterType="hashmap" >
-		select * from video_board order by ref desc, re_level asc,num desc
+		select * from video_board order by num desc
 	</select>
 	
 	<delete id="DeleteData">
 		delete from video_board where num=#{num}
 	</delete>
+	<select id="GetData" resultType="AVboard">
+		select * from video_board where num=#{num}
+	</select>
 </mapper>
 	

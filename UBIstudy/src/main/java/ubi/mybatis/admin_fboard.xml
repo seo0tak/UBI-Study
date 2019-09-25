@@ -11,6 +11,12 @@
 	<delete id="DeleteData">
 		delete from free_board where num=#{num}
 	</delete>
-
+	<select id="GetData" resultType="AFboard">
+		select * from free_board where num=#{num}
+	</select>
+	<insert id="InsertData" parameterType="AFboard">
+		insert into free_board
+		values(free_board_seq.nextval,free_board_seq.currval,0,0,#{name},#{title},#{content},#{pw},sysdate)
+	</insert>
 </mapper>
 	

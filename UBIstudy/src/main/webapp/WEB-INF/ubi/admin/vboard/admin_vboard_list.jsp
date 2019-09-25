@@ -65,11 +65,7 @@ function deleteData(num)
 			<tr>
 				<td>${vb.num }</td>
 				<td>
-				<c:if test="${vb.re_level>0}">
-					<img src="<%=request.getContextPath()%>/resources/images/eft1.png" width="${(vb.re_level-1)*25}px" height="5px">
-					<img src="<%=request.getContextPath()%>/resources/images/ref2.png" width="20px">
-				</c:if>
-				${vb.title }
+				<a href="admin_vboard_view.ubi?num=${vb.num }">${vb.title }</a>
 				<c:if test="${vb.read_count>=10}">
 					<img src="<%=request.getContextPath()%>/resources/images/hot2.gif" width="100px">
 				</c:if>
