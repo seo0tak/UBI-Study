@@ -1,6 +1,7 @@
 package ubi.controller;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,11 +11,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.junit.runner.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,8 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ubi.member.model.MemberBean;
 import ubi.member.model.PlanerBean;
+import ubi.model.Fav_VideoBean;
 import ubi.model.UbiBean;
 import ubi.model.UbiDao;
+import ubi.model.VideoBean;
+import ubi.study.model.StudyBoardBean;
 import ubi.study.model.StudyBoardDao;
 import utility.Paging;
 
@@ -119,13 +121,36 @@ public class Free_list_Controller {
 		= new Paging( pageNumber, pageSize, totalCount, url, whatColumn, keyword, null);
 		//List<PlanerBean> plan =ubiDao.PlanByNick(bean.getNick());
 		List<PlanerBean> plan =studyBoardDao.PlanByNick(bean.getNick());
-		System.out.println(plan.get(0));
-		System.out.println(plan.get(1));
-		System.out.println(plan.get(0).getStart_day());
-		System.out.println(plan.get(0).getEnd_day());
+		
+		Map<String, String> map2 = new HashMap<String, String>() ;
+		
+		List<Fav_VideoBean> favList=ubiDao.selectFavVideoById(pageInfo, map2, bean.getId());
+		
+		List<VideoBean> videoList=new ArrayList<VideoBean>();
+		for(int i=0;i<favList.size();i++) {
+			int favV=favList.get(i).getVideonum();
+			VideoBean bean2=ubiDao.selectVideoByNum(favV);
+			try{
+				System.out.println("------videoList : TITLE : "+bean2.getTitle());
+			}catch(Exception e) {
+				System.out.println("------videoList : TITLE : 실패");
+			}
+			videoList.add(bean2);
+		}
+		System.out.println(bean.getNick());
+		List<StudyBoardBean> stdBean =studyBoardDao.selectAllByNick(pageInfo, map2, bean.getNick());
+		try {
+			System.out.println("studyBoardDao.selectAllByNick : SIZE : "+stdBean.size());
+		}catch(Exception e) {
+			System.out.println("studyBoardDao.selectAllByNick : SIZE : 실패");
+		}
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject( "bean", bean );
 		mav.addObject( "plan", plan );
+		mav.addObject( "fav", videoList );
+		mav.addObject( "stdBean", stdBean );
+		
 		mav.setViewName("myPage");
 		return mav;
 	}
