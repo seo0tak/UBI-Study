@@ -29,13 +29,13 @@ function deleteData(num)
 			<th>조회수</th>
 			<th>날짜</th>
 		</tr>
-		<c:forEach items="${fbList }" var="fb">
+		<c:forEach items="${sbList }" var="sb">
 			<tr>
-				<td>${fb.num }</td>
-				<td>${fb.title }</td>
-				<td>${fb.name }</td>
-				<td>${fb.read_count }</td>
-				<td>${fb.day }</td>
+				<td>${sb.num }</td>
+				<td>${sb.title }</td>
+				<td>${sb.name }</td>
+				<td>${sb.read_count }</td>
+				<td>${sb.day }</td>
 			</tr>
 		</c:forEach>
 	</table> --%>
@@ -64,7 +64,16 @@ function deleteData(num)
                 <c:forEach items="${sbList }" var="sb">
 			<tr>
 				<td>${sb.num }</td>
-				<td>${sb.title }</td>
+				<td>
+				<c:if test="${sb.re_level>0}">
+					<img src="<%=request.getContextPath()%>/resources/images/eft1.png" width="${(sb.re_level-1)*25}px" height="5px">
+					<img src="<%=request.getContextPath()%>/resources/images/ref2.png" width="20px">
+				</c:if>
+				${sb.title }
+				<c:if test="${sb.read_count>=10}">
+					<img src="<%=request.getContextPath()%>/resources/images/hot2.gif" width="100px">
+				</c:if>
+				</td>
 				<td>${sb.name }</td>
 				<td>${sb.read_count }</td>
 				<td>${sb.day }</td>
@@ -76,7 +85,7 @@ function deleteData(num)
                 </tbody>
               </table>
             </div>
-           <center> 페이지!</center>
+           <center> ${pageInfo.pagingHtml}</center>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->

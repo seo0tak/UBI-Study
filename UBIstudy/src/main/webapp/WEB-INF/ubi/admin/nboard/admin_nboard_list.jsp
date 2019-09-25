@@ -63,7 +63,9 @@ function deleteData(num)
                 <c:forEach items="${nbList }" var="nb">
 			<tr>
 				<td>${nb.num }</td>
-				<td>${nb.title }</td>
+				<td>
+				${nb.title }
+				</td>
 				<td>${nb.read_count }</td>
 				<td>${nb.day }</td>
 				<td>
@@ -74,7 +76,7 @@ function deleteData(num)
                 </tbody>
               </table>
             </div>
-           <center> 페이지!</center>
+           <center> ${pageInfo.pagingHtml}</center>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->

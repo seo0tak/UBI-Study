@@ -14,7 +14,7 @@
 	{
 		if(num == 1)
 		{
-			alert("관리자는 탈퇴시킬 수 없습니다.");
+			alert("최고 관리자는 탈퇴시킬 수 없습니다.");
 			return false;
 		}
 		else
@@ -64,7 +64,7 @@
                 </tbody>
               </table>
             </div>
-           <center> 페이지!</center>
+           <center> ${pageInfo.pagingHtml}</center>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->

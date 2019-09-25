@@ -4,7 +4,6 @@
 	pageEncoding="UTF-8"%>
 
 <%@include file="header.jsp"%>
-
 <!-- Main content -->
 <section class="content">
 	<!-- Small boxes (Stat box) -->
@@ -30,15 +29,15 @@
 			<div class="small-box bg-green">
 				<div class="inner">
 					<h3>
-						99<sup style="font-size: 20px">%</sup>
+						${totalCount + ncount + scount + vcount}<sup style="font-size: 20px">개</sup>
 					</h3>
 
-					<p>대충 이것저것</p>
+					<p>새 글</p>
 				</div>
 				<div class="icon">
 					<i class="ion ion-stats-bars"></i>
 				</div>
-				<a href="#" class="small-box-footer">More info <i
+				<a href="admin_fboard_list.ubi" class="small-box-footer">More info <i
 					class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
@@ -54,7 +53,7 @@
 				<div class="icon">
 					<i class="ion ion-person-add"></i>
 				</div>
-				<a href="#" class="small-box-footer">More info <i
+				<a href="admin_member_list.ubi" class="small-box-footer">More info <i
 					class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
@@ -83,22 +82,20 @@
 		<section class="col-lg-7 connectedSortable">
 			<!-- Custom tabs (Charts with tabs)-->
 			<div class="nav-tabs-custom">
-				<!-- Tabs within a box -->
+				<!--Tabs within a box-->
 				<ul class="nav nav-tabs pull-right">
 					<li class="active"><a href="#revenue-chart" data-toggle="tab">에어리어</a></li>
 					<li><a href="#sales-chart" data-toggle="tab">드나쓰</a></li>
 					<li class="pull-left header"><i class="fa fa-inbox"></i>판매</li>
 				</ul>
 				<div class="tab-content no-padding">
-					<!-- Morris chart - Sales -->
+					<!-- Morris chart - Sales-->
 					<div class="chart tab-pane active" id="revenue-chart"
 						style="position: relative; height: 300px;"></div>
 					<div class="chart tab-pane" id="sales-chart"
 						style="position: relative; height: 300px;"></div>
 				</div>
 			</div>
-			<!-- /.nav-tabs-custom -->
-			
 			<!-- Chat box -->
 			<div class="box box-success">
 				<div class="box-header">
@@ -412,12 +409,21 @@
 				</div>
 			</div>
 			<!-- /.box -->
-
+				<table border=1 style="color: lime;">
+		<c:forEach items="${fbl }" var="f">
+			<tr>
+				<td>${f.num }</td>
+				<td>${f.title }</td>
+				<td>${f.name }</td>
+				<td>${f.read_count }</td>
+				<td>${f.day }</td>
+			</tr>
+		</c:forEach>	
+	</table>
 		</section>
 		<!-- right col -->
 	</div>
 	<!-- /.row (main row) -->
-
 </section>
 <!-- /.content -->
 </div>
