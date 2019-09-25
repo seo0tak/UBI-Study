@@ -7,6 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+body{
+	background-image: url("<%=request.getContextPath()%>/resources/images/project_img8-3.png");
+}
 .err{
 	font-size: 10pt;
 	color: red;
@@ -39,6 +42,7 @@ function checkId() {
 	             } 
 	         }
 	     });
+	     var calendar =[]
 }
 //재입력 비밀번호 체크하여 가입버튼 비활성화 또는 맞지않음을 알림.
  function checkPwd() {
@@ -88,25 +92,34 @@ function checkId() {
   <div align="center">
        <div>
            <div>
-               <div>
+               <div style="background-color: white;padding: 10px;width: 60%;box-shadow: 0px 0px 5px 5px white;">
+               <br>
+               <br>
+               <br>
+               <span style="font-size: 30px;color: #ccc;">UBI STUDY의 회원이 되어, 다양한 혜택을 누리십시오.<br><br>▼</span>
+               <br>
+               <br>
+               <br>
+               <br>
                    <form:form commandName="member" method="post" action="register.ubi">
                        <div>
                            <input class="input1" type="text" name="id" placeholder="아이디" oninput="checkId()" id="checkaa" value="${member.id}" autofocus>
                            <br><form:errors cssClass="err" path="id"/>
                        </div><br>
                        <div>
-                           <input class="input1" type="password" name="pw" id="pw" value="${member.pw}" placeholder="비밀번호" oninput="checkPwd()">
+                           <input class="input1" type="password" name="pw" id="pw" value="${member.pw}" placeholder="비밀번호" oninput="checkPwd()" autofocus>
                            <br><form:errors cssClass="err" path="pw"/>
                        </div><br><span style="color: rgba(160,160,160,1);font-size:30px;">◇◇◇◇◇</span><br>
                        <div>
-                           <br><input class="input1" type="password" name="pwConfirm" placeholder="비밀번호확인" id="repwd" oninput="checkPwd()">
+
+                           <br><input class="input1" type="password" name="pwConfirm" placeholder="비밀번호확인" id="repwd" oninput="checkPwd()" autofocus>
                        </div><br>
                        <div>
                            <input class="input1" type="text" name="name" id="name" value="${member.name}" placeholder="이름" autofocus>
                            <br><form:errors cssClass="err" path="name"/>
                        </div><br>
                        <div>
-                           <input class="input1" type="text" name="pnum" id="pnum" value="${member.pnum}" placeholder="핸드폰" autofocus>
+                           <input class="input1" type="text" name="pnum" id="pnum" value="${member.pnum}" placeholder="핸드폰" autofocus pattern="(010)-\d{3,4}-\d{4}">
                            <br><form:errors cssClass="err" path="pnum"/>
                        </div><br>
                        <div>

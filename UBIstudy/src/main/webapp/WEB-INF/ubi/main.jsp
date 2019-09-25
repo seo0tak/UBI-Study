@@ -7,7 +7,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-
+	#menuCont{
+	
+		z-index: 20;
+	}
 	#div1_1{
 		min-width: 100%;
 		height: 500px;

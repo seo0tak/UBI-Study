@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ubi.member.model.MemberBean;
+import ubi.member.model.PlanerBean;
 import utility.Paging;
 
 @Component("myUbiDao")
@@ -94,6 +95,60 @@ public class UbiDao {
 		nick=sqlSessionTemplate.selectOne(namespace + ".SelectNick", id);
 		System.out.println("dao : "+nick);
 		return nick;
+	}
+	public MemberBean SelectOneMember(String id) {
+		MemberBean bean=null;
+		bean=sqlSessionTemplate.selectOne(namespace + ".SelectOneMember", id);
+		return bean;
+	}
+	
+	 public int GetTotalVideo(Map<String, String> map){
+		 int cnt=0;
+		 cnt = sqlSessionTemplate.selectOne(namespace + ".GetTotalVideoCount", map);
+		 return cnt;
+	 }
+	 public List<VideoBean> selectAllVideo(Paging pageInfo, Map<String, String> map){
+		 List<VideoBean> list=new ArrayList<VideoBean>();
+		 list = sqlSessionTemplate.selectList(namespace + ".selectAllVideo", map);
+			try {
+				System.out.println("dao : "+list.get(0).getTitle());			
+			}catch(Exception e) {System.out.println("dao실패");}
+		 
+		 return list;
+	}
+	 
+	 
+	 public int GetTotalKeyVideo(Map<String, String> map,String id){
+		 int cnt=0;
+		 cnt = sqlSessionTemplate.selectOne(namespace + ".GetTotalKeyVideoCount", id+"%");
+		 return cnt;
+	 }
+	 public List<VideoBean> selectKeyVideo(Paging pageInfo, Map<String, String> map,String id){
+		 List<VideoBean> list=new ArrayList<VideoBean>();
+		 list = sqlSessionTemplate.selectList(namespace + ".selectKeyVideo", id+"%");
+		 System.out.println("dao : "+id+"%");
+		 
+			try {
+				System.out.println("dao : "+list.get(0).getTitle());			
+			}catch(Exception e) {System.out.println("dao실패");}
+		 
+		 return list;
+	}
+	 
+	 
+	public List<Fav_VideoBean> selectFavVideo(Paging pageInfo, Map<String, String> map){
+		 List<Fav_VideoBean> list=new ArrayList<Fav_VideoBean>();
+		 list = sqlSessionTemplate.selectList(namespace + ".selectFavVideo", map);
+		 
+		 try {
+			 System.out.println("dao : "+list.get(0).getId());			
+		 }catch(Exception e) {System.out.println("dao실패");}
+		 
+		 return list;
+	 }
+
+	public List<PlanerBean> PlanByNick(String nick) {
+		return sqlSessionTemplate.selectList(namespace + ".PlanByNick", nick);
 	}
 	
 }

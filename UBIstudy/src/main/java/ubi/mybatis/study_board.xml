@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ubi.study.model.StudyBoardBean">
+
+	<select resultType="MyStudyBoard" id="selectAll" parameterType="hashmap" >
+		select * from study_board 
+		<if test="whatColumn == 'all'">
+			where lang like #{keyword} or title like #{keyword}
+		</if>
+		<if test="whatColumn == 'lang'">
+			where lang like #{keyword}
+		</if>
+		<if test="whatColumn == 'title'">
+			where title like #{keyword}
+		</if>
+	</select>
+
+	<select resultType="int" id="GetTotalCount">
+		select count(*) from study_board 
+		<if test="whatColumn == 'all'">
+			where lang like #{keyword} or title like #{keyword}
+		</if>
+		<if test="whatColumn == 'lang'">
+			where lang like #{keyword}
+		</if>
+		<if test="whatColumn == 'title'">
+			where title like #{keyword}
+		</if>
+	</select>
+	
+	<select resultType="MyPlaner" id="PlanByNick">
+		select num,nick,title,start_day,end_day,color,memo from study_board where nick=#{nick}
+	</select>
+	
+	<insert id="InsertData">
+		insert into study_board values(study_board_seq.nextval,study_board_seq.currval,0,0,#{nick},#{title},#{memo},#{start_day},#{end_day},to_char(sysdate,'yyyy-MM-dd hh24:MI'),#{pw},#{flag},#{lang},#{color})
+	</insert>
+	
+</mapper>

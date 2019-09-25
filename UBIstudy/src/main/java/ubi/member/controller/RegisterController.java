@@ -1,5 +1,7 @@
 package ubi.member.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -33,17 +35,15 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value=command , method=RequestMethod.POST)
-	public ModelAndView doAction(@ModelAttribute("member") @Valid MemberBean member, BindingResult result, HttpServletRequest request){
+	public ModelAndView doAction(@ModelAttribute("member") @Valid MemberBean member, BindingResult result, HttpServletRequest request) throws IOException{
 		
 		ModelAndView mav = new ModelAndView();
-		System.out.println("이거뭐냐                    :               "+result.hasErrors());
 		if(result.hasErrors()) {
 			mav.setViewName(getPage);
 			return mav;
 		}
 		memberDao.InsertData(member);
 		mailsender.mailSendWithUserKey(member.getId(), request);
-		
 		mav.setViewName(gotoPage);
 		return mav;
 	}

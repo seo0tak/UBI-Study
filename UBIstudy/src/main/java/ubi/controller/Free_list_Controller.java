@@ -14,14 +14,17 @@ import org.junit.runner.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ubi.member.model.MemberBean;
+import ubi.member.model.PlanerBean;
 import ubi.model.UbiBean;
 import ubi.model.UbiDao;
+import ubi.study.model.StudyBoardDao;
 import utility.Paging;
 
 @Controller
@@ -31,6 +34,9 @@ public class Free_list_Controller {
 	
 	@Autowired
 	private UbiDao ubiDao;
+	
+	@Autowired
+	private StudyBoardDao studyBoardDao;
 	
 	@RequestMapping(value=command)
 	public ModelAndView doAction(@RequestParam(value = "whatColumn", required = false ) String whatColumn,
@@ -95,4 +101,33 @@ public class Free_list_Controller {
 		String cnts=String.valueOf(cnt)+"/"+pw+"/"+proof+"/"+nick;
 		return cnts;
 	}
+	
+	@RequestMapping(value="user_myPage")
+	public ModelAndView user_myPage(@RequestParam(value = "whatColumn", required = false ) String whatColumn,
+			@RequestParam(value = "keyword", required = false ) String keyword,
+			@RequestParam(value = "pageNumber", required = false ) String pageNumber,
+			@RequestParam(value = "pageSize", required = false ) String pageSize,
+			HttpServletRequest request, Model model,Locale locale,@RequestParam(value = "id", required = false ) String id) {
+		//System.out.println(id);
+		MemberBean bean=ubiDao.SelectOneMember(id);
+		System.out.println(bean.getId());
+		System.out.println(bean.getPoint());
+		Map<String, Object> map = new HashMap<String, Object>() ;
+		int totalCount=1;
+		String url="";
+		Paging pageInfo 
+		= new Paging( pageNumber, pageSize, totalCount, url, whatColumn, keyword, null);
+		//List<PlanerBean> plan =ubiDao.PlanByNick(bean.getNick());
+		List<PlanerBean> plan =studyBoardDao.PlanByNick(bean.getNick());
+		System.out.println(plan.get(0));
+		System.out.println(plan.get(1));
+		System.out.println(plan.get(0).getStart_day());
+		System.out.println(plan.get(0).getEnd_day());
+		ModelAndView mav = new ModelAndView();
+		mav.addObject( "bean", bean );
+		mav.addObject( "plan", plan );
+		mav.setViewName("myPage");
+		return mav;
+	}
+	
 }

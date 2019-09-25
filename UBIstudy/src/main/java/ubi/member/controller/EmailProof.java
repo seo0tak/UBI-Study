@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import ubi.member.model.MemberDao;
 
@@ -17,8 +18,12 @@ public class EmailProof {
 	MemberDao memberDao;
 	
 	@RequestMapping(value=command , method=RequestMethod.GET)
-	public String doAction(@RequestParam("id") String id,@RequestParam("proof") String proof){
+	public ModelAndView doAction(@RequestParam("id") String id,@RequestParam("proof") String proof){
 		memberDao.alter_proof(id, proof);
-		return getPage;
+		String name = memberDao.getName(id);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("name", name);
+		mav.setViewName(getPage);
+		return mav;
 	}
 }

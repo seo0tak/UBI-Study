@@ -56,10 +56,11 @@ public class UserMailSendService {
 		public void mailSendWithUserKey(String e_mail, HttpServletRequest request) {
 			String key = getKey(false, 20);
 			memberDao.GetKey(e_mail, key);
+			String name = memberDao.getName(e_mail);
 			MimeMessage mail = mailSender.createMimeMessage();
 			String htmlStr = "<h2>안녕하세요 UBI STUDY 입니다!</h2><br><br>"
 					/*+ "<img src='${pageContext.request.contextPath}/resources/images/logo1.png' width='200px'>"*/
-					+ "<h3>" + e_mail + "님</h3>" + "<p>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " 
+					+ "<h3>" + name + "님</h3>" + "<p>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " 
 					+ "<a href='http://localhost:9090" + request.getContextPath() + "/proof.ubi?id="+ e_mail +"&proof="+key+"'>인증하기</a></p>"
 					+ "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
 			try {

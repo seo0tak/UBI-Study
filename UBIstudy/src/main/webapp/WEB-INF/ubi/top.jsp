@@ -97,7 +97,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <%
 	String[] util={"스터디 그룹","동영상 강의","자유 게시판","공지"};
-	String[] ubi={"","","freeboard_list.ubi",""};
+	String[] ubi={"studyboard_list.ubi","videoboard_list.ubi","freeboard_list.ubi",""};
 %>
 <script type="text/javascript">
 	$(function(){
@@ -138,9 +138,24 @@
 			}, 400);
 		});
 		
+		$('.studyboardDiv').hide();
 		$('.topBut1').click(function(){
 			var topId=$(this).attr("id");
-			location.href=topId;
+			if(topId=="studyboard_list.ubi"){
+				//스터디그룹
+				$('#studyboardDiv').animate({
+					opacity:1
+				},0);
+				$('#studyboardDiv').show(200);
+				$('.closeX').click(function(){
+					$('.eft2').hide("fade",1,function(){
+						location.reload();					
+					});
+				});
+			}
+			else{
+				location.href=topId;
+			}
 		});
 		$('.loginDiv').hide();
 		
@@ -151,12 +166,15 @@
 			$('#loginDiv').show(200);
 			
 		});
+		$('.eft2').hide();
+		
 		$('.closeX').click(function(){
 			$('.eft2').hide("fade",1,function(){
 				location.reload();					
 			});
 		});
-		$('.eft2').hide();
+		
+		//회원가입
 		$('#join').click(function(){
 			location.href="register.ubi";
 		});
@@ -204,7 +222,8 @@
 		            			
 		            			$('.logoutDiv').hide();
 		            			$('.loginDiv').show();
-		            			$('.loginDiv span').html(nick+"님 환영한다");
+		            			$('.loginDiv #nicknameLine').html(nick+"님 환영한다");
+		            			location.reload();
 		            		}
 		            		else{
 		            			alert("이메일 인증이 필요합니다.");
@@ -246,7 +265,7 @@
 		else{
 			$('.logoutDiv').hide();
 			$('.loginDiv').show();
-			$('.loginDiv span').html(nick+"님 환영한다");
+			$('.loginDiv #nicknameLine').html(nick+"님 환영한다");
 		}
 		
 		$('#UserLogout').click(function(){{
@@ -254,6 +273,39 @@
 			localStorage.removeItem('nick');
 			location.reload();
 		}});
+		
+		$('#myPage').click(function(){
+			//alert(loginId);
+			if(loginId=="admin"){
+				location.href="admin_main.ubi";
+			}else{
+				location.href="user_myPage.ubi?id="+loginId;
+			}
+		});
+		
+		var menuFlag=0;
+		$('#menuCont').hide();
+		$('#menuIcon').click(function(){
+			//alert(menuFlag);
+			if(menuFlag==0){
+				menuFlag=1;
+				$('#menuCont').show("blind",100);
+			}else if(menuFlag==1){
+				menuFlag=0;
+				$('#menuCont').hide("blind",100);
+			}
+		});
+		
+		$('#menuIcon').mouseover(function(){
+			$('#menuEft').stop().animate({
+				'borderColor': '#fa1'
+			},100);
+		}).mouseout(function(){
+			$('#menuEft').stop().animate({
+				'borderColor': 'rgba(100,100,100,1)'
+			},100);
+		});
+		
 	});
 </script>
 </head>
@@ -278,10 +330,16 @@
 		<input type="button" value="회원가입" id="join" class="button1">
 	</div>
 	
-	<div id="top_bot" class="loginDiv">
-		<span style="color:white;margin-top: 10px;">a</span><br>
-		<input type="button" class="button1" value="마이페이지" style="margin-top: 10px;" id="myPage">
-		<input type="button" class="button1" value="로그아웃" style="margin-top: 10px;" id="UserLogout">
+	<div id="top_bot" class="loginDiv" style="width: 500px;" align="right">
+		<div id="menuEft" style="float: right;border-radius: 7px 7px 7px 7px; border: 1px solid rgba(100,100,100,1); text-align: center;" align="right"><span>
+			<img src="<%=request.getContextPath()%>/resources/images/menu.png" width="35px" id="menuIcon">
+		</span></div>
+		<div style="float: right;padding: 10px;" align="right"><span style="color:white;margin-right: 20px;" id="nicknameLine"></span></div>
+		<br>
+		<div style="position: absolute;right: 0px;top: 50px;background-color: black;padding: 10px;border-radius: 7px 7px 7px 7px; border: 1px solid white; text-align: center;" id="menuCont">
+			<input type="button" class="button1" value="마이페이지" style="margin-top: 10px;" id="myPage"><br>
+			<input type="button" class="button1" value="로그아웃" style="margin-top: 10px;" id="UserLogout">
+		</div>
 	</div>
 	
 	
@@ -328,6 +386,30 @@
 		<p style="text-align:right; "><input type="submit" value="Log In" class="button1" id="loginBut"></p>
 	</div>
 </div>
+
+<div class="eft2" id="studyboardDiv" style="opacity: 0;">
+	<div style="width:40%;margin: auto;background-color: rgba(255,255,255,1);margin-top: 100px;padding: 50px;padding-top: 10px;font-size: 20px;color: black;">
+		<p style="text-align: right;font-size: 30px;cursor: pointer;">
+			<span class="closeX">X</span>
+		</p>
+		<table style="margin:auto;width: 80%;">
+			<tr>
+				<td align="center" onClick="location.href='study_list.ubi'" onmouseover="this.style.border='2px solid #fa1'" onmouseout="this.style.border='2px solid white'" style="cursor:pointer;width:50%">
+					<img style="width: 100%" src="<%=request.getContextPath()%>/resources/images/online_icon.png"/><br><br>
+					<span style="font-size: 35px">온라인</span>
+				</td>
+				<td>
+					<div style="width: 50px"></div>
+				</td>
+				<td align="center" onClick="location.href='studyboard_list.ubi'" onmouseover="this.style.border='2px solid #fa1'" onmouseout="this.style.border='2px solid white'" style="cursor:pointer;width:50%">
+					<img style="width: 100%" src="<%=request.getContextPath()%>/resources/images/offline_icon.png"/><br><br>
+					<span style="font-size: 35px">오프라인</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
 <input type="hidden" value="${login}" id="loginInfo">
 
 </body>
