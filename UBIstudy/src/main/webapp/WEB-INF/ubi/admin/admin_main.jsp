@@ -29,7 +29,7 @@
 			<div class="small-box bg-green">
 				<div class="inner">
 					<h3>
-						42837<sup style="font-size: 20px">개</sup>
+						${totalCount + ncount + scount + vcount}<sup style="font-size: 20px">개</sup>
 					</h3>
 
 					<p>새 글</p>
@@ -81,39 +81,21 @@
 		<!-- Left col -->
 		<section class="col-lg-7 connectedSortable">
 			<!-- Custom tabs (Charts with tabs)-->
-			<!-- <div class="nav-tabs-custom">
-				Tabs within a box
+			<div class="nav-tabs-custom">
+				<!--Tabs within a box-->
 				<ul class="nav nav-tabs pull-right">
 					<li class="active"><a href="#revenue-chart" data-toggle="tab">에어리어</a></li>
 					<li><a href="#sales-chart" data-toggle="tab">드나쓰</a></li>
 					<li class="pull-left header"><i class="fa fa-inbox"></i>판매</li>
 				</ul>
 				<div class="tab-content no-padding">
-					Morris chart - Sales
+					<!-- Morris chart - Sales-->
 					<div class="chart tab-pane active" id="revenue-chart"
 						style="position: relative; height: 300px;"></div>
 					<div class="chart tab-pane" id="sales-chart"
 						style="position: relative; height: 300px;"></div>
 				</div>
-			</div> -->
-			<!-- /.nav-tabs-custom -->
-			 <div class="box box-primary">
-            <div class="box-header with-border">
-              <i class="fa fa-bar-chart-o"></i>
-
-              <h3 class="box-title">Donut Chart</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <div class="box-body">
-              <div id="donut-chart" style="height: 300px; padding: 0px; position: relative;"><canvas class="flot-base" width="592" height="375" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 473.6px; height: 300px;"></canvas><canvas class="flot-overlay" width="592" height="375" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 473.6px; height: 300px;"></canvas><span class="pieLabel" id="pieLabel0" style="position: absolute; top: 70.6px; left: 295.4px;"><div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">Series2<br>30%</div></span><span class="pieLabel" id="pieLabel1" style="position: absolute; top: 210.6px; left: 273.4px;"><div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">Series3<br>20%</div></span><span class="pieLabel" id="pieLabel2" style="position: absolute; top: 129.6px; left: 114.4px;"><div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">Series4<br>50%</div></span></div>
-            </div>
-            <!-- /.box-body-->
-          </div>
+			</div>
 			<!-- Chat box -->
 			<div class="box box-success">
 				<div class="box-header">
@@ -427,12 +409,21 @@
 				</div>
 			</div>
 			<!-- /.box -->
-
+				<table border=1 style="color: lime;">
+		<c:forEach items="${fbl }" var="f">
+			<tr>
+				<td>${f.num }</td>
+				<td>${f.title }</td>
+				<td>${f.name }</td>
+				<td>${f.read_count }</td>
+				<td>${f.day }</td>
+			</tr>
+		</c:forEach>	
+	</table>
 		</section>
 		<!-- right col -->
 	</div>
 	<!-- /.row (main row) -->
-
 </section>
 <!-- /.content -->
 </div>

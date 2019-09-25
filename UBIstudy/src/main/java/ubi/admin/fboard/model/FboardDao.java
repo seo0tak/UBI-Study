@@ -38,5 +38,5 @@ public class FboardDao
 	{
 		sqlSessionTemplate.delete(namespace + ".DeleteData", num);
 	}
-	
+
 }

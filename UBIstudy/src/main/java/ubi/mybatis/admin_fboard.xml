@@ -11,5 +11,6 @@
 	<delete id="DeleteData">
 		delete from free_board where num=#{num}
 	</delete>
+
 </mapper>
 	
