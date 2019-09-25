@@ -69,7 +69,7 @@
 					<img src="<%=request.getContextPath()%>/resources/images/eft1.png" width="${(fb.re_level-1)*25}px" height="5px">
 					<img src="<%=request.getContextPath()%>/resources/images/ref2.png" width="20px">
 				</c:if>
-				${fb.title }
+				<a href="admin_fboard_view.ubi?num=${fb.num }">${fb.title }</a>
 				<c:if test="${fb.read_count>=10}">
 					<img src="<%=request.getContextPath()%>/resources/images/hot2.gif" width="100px">
 				</c:if>

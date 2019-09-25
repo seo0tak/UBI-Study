@@ -115,7 +115,6 @@ public class Free_list_Controller {
 		Paging pageInfo 
 		= new Paging( pageNumber, pageSize, totalCount, url, whatColumn, keyword, null);
 		List<PlanerBean> plan =studyBoardDao.PlanByNick(bean.getNick());
-		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject( "bean", bean );
 		mav.addObject( "plan", plan );
