@@ -38,6 +38,18 @@ public class StudyBoardDao {
 		System.out.println(bean);
 		sqlSessionTemplate.selectList(namespace + ".InsertData", bean);
 	}
+
+	public String PlanByDescription(String start, String end) {
+		StudyBoardBean bean = new StudyBoardBean();
+		bean.setStart_day(start);
+		bean.setEnd_day(end);
+		String result = sqlSessionTemplate.selectOne(namespace + ".PlanByDescription", bean);
+		return	result;
+	}
+
+	public StudyBoardBean GetData(int num) {
+		return sqlSessionTemplate.selectOne(namespace + ".GetData", num);
+	}
 	
 	
 }

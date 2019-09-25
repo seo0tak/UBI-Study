@@ -38,4 +38,12 @@
 		insert into study_board values(study_board_seq.nextval,study_board_seq.currval,0,0,#{nick},#{title},#{memo},#{start_day},#{end_day},to_char(sysdate,'yyyy-MM-dd hh24:MI'),#{pw},#{flag},#{lang},#{color})
 	</insert>
 	
+	<select resultType="String" id="PlanByDescription">
+		select memo from study_board where start_day=#{start_day} and end_day=#{end_day}
+	</select>
+	
+	<select resultType="MyStudyBoard" id="GetData">
+		select * from study_board where num=#{num}
+	</select>
+	
 </mapper>

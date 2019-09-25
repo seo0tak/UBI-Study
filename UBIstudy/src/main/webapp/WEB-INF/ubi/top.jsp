@@ -307,6 +307,22 @@
 		});
 		
 	});
+	
+function online() {
+	var login = localStorage.getItem("loginId");
+	if(login==null){
+		alert('로그인을 해주세요');
+		location.reload();
+	}
+	else{
+		location.href="study_list.ubi?nick="+localStorage.getItem("nick");
+	}
+	/* //참여한 모임이 없으면 못들어감
+	else if(){
+		
+		location.reload();
+	} */
+}	
 </script>
 </head>
 <body>
@@ -394,7 +410,7 @@
 		</p>
 		<table style="margin:auto;width: 80%;">
 			<tr>
-				<td align="center" onClick="location.href='study_list.ubi'" onmouseover="this.style.border='2px solid #fa1'" onmouseout="this.style.border='2px solid white'" style="cursor:pointer;width:50%">
+				<td align="center" onClick="online()" onmouseover="this.style.border='2px solid #fa1'" onmouseout="this.style.border='2px solid white'" style="cursor:pointer;width:50%">
 					<img style="width: 100%" src="<%=request.getContextPath()%>/resources/images/online_icon.png"/><br><br>
 					<span style="font-size: 35px">온라인</span>
 				</td>

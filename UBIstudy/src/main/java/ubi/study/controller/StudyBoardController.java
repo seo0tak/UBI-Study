@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ubi.study.model.StudyBoardBean;
@@ -70,5 +71,12 @@ public class StudyBoardController {
 		System.out.println("닉이오냐       :"+bean.getNick());
 		System.out.println("flag이오냐       :"+bean.getFlag());
 		studyBoardDao.InsertData(bean);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/study_board_view.ubi")
+	public StudyBoardBean doAction(@RequestParam("num") int num) {
+		StudyBoardBean result = studyBoardDao.GetData(num);
+		return result;
 	}
 }
