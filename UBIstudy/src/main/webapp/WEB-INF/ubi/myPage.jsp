@@ -87,14 +87,27 @@ body {
 					title : '<%=list.get(i).getTitle()%>',
 					start : '<%=sdf2.format(sdf.parse(list.get(i).getStart_day()))%>',
 					end : '<%=sdf2.format(sdf.parse(list.get(i).getEnd_day()))%>',
-					description : '<%=list.get(i).getMemo()%>',
+					description : "<%=list.get(i).getMemo()%>",
 					backgroundColor: '<%=list.get(i).getColor()%>',
 					textColor: '#ffffff'
 				}
 			 <%if(i!=list.size()-1){%>,<%}}%>
       ],    
-      eventClick: function(event) {
-    		
+      eventClick: function(info) {
+    		var start_day = moment(info.event.start).format('YYYY-MM-DD HH:mm');
+    		var end_day = moment(info.event.end).format('YYYY-MM-DD HH:mm');
+    		$.ajax({
+    			url :"description.ubi",
+    			data:{
+    				start : start_day,
+    				end : end_day
+    			},
+    			success:function(result){
+    				$('#memo').html(result);
+    			}
+    		});
+    		$('#start').html(start_day);
+    		$('#end').html(end_day);
     	  $('#planDiv').animate({
 				opacity:1
 			},0);
@@ -200,6 +213,8 @@ body {
 				<p style="text-align: right;font-size: 30px;cursor: pointer;">
 					<span class="closeX">X</span>
 				</p>
+				±â°£ : <span id="start"></span> ~ <span id="end"></span> <br><br>
+				<div id="memo"></div>
 			</div>
 		</div>
 	 	
