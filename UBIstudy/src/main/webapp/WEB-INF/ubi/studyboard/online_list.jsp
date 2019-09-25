@@ -149,7 +149,7 @@ video{
 		$(document).ready(function() {
 			$.ajax({
 				type: 'POST',
-				url: 'http://localhost:9090/chat/file',
+				url: 'http://localhost:9090/ex/file.ubi',
 				success:function(data) {
 					//alert(data);
 					javaEditor.setValue(data);
@@ -174,6 +174,7 @@ video{
 			$("#msg_process").click(function() {
 				//소켓에 send_msg라는 이벤트로 input에 #msg의 벨류를 담고 보내준다.
 				socket.emit("send_msg", $("#msg").val());
+				socket.emit("nick", "${nick}");
 				//#msg에 벨류값을 비워준다.
 				$("#msg").val("");
 			});
@@ -189,19 +190,19 @@ video{
 			//소켓 서버로 부터 send_msg를 통해 이벤트를 받을 경우 
 			socket.on('send_msg', function(msg) {
 				//div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
-				$('<div></div>').text('${nick} : '+msg).appendTo("#chat_box");
+				$('<div></div>').text(msg).appendTo("#chat_box");
 				$('#chat_box').scrollTop($('#chat_box').prop('scrollHeight'));
 			});
 			
 			//소켓 서버로 부터 user_join를 통해 이벤트를 받을 경우 
-			socket.on('user_join', function() {
-				$('<div class="log"></div>').text('${nick}님 입장!!').appendTo("#chat_box");
+			socket.on('user_join', function(name) {
+				$('<div class="log"></div>').text(name+'님 입장!!').appendTo("#chat_box");
 				$('#chat_box').scrollTop($('#chat_box').prop('scrollHeight'));
 			});
 			
 			//소켓 서버로 부터 user_exit를 통해 이벤트를 받을 경우 
-			socket.on('user_exit', function() {
-				$('<div class="log"></div>').text('${nick}님 나감!!').appendTo("#chat_box");
+			socket.on('user_exit', function(name) {
+				$('<div class="log"></div>').text(name+'님 나감!!').appendTo("#chat_box");
 				$('#chat_box').scrollTop($('#chat_box').prop('scrollHeight'));
 			});
 			
