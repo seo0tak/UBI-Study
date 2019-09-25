@@ -20,7 +20,7 @@
 		<td>${bean.name }</td>
 		<td>${bean.num }</td>
 		<td>${bean.title }</td>
-		<td>${bean.content }</td>
+		<td>${bean.contents }</td>
 	</tr>
 </table>
 야호!.jsp

@@ -17,10 +17,10 @@
 		<th>내용</th>
 	</tr>
 	<tr>
-		<td>${bean.name }</td>
+		<td>${bean.nick }</td>
 		<td>${bean.num }</td>
 		<td>${bean.title }</td>
-		<td>${bean.content }</td>
+		<td>${bean.memo }</td>
 	</tr>
 </table>
 야호!.jsp

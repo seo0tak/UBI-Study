@@ -38,4 +38,11 @@ public class SboardDao
 	{
 		sqlSessionTemplate.delete(namespace + ".DeleteData", num);
 	}
+
+	public SboardBean GetData(int num) 
+	{
+		SboardBean bean = null;
+		bean = sqlSessionTemplate.selectOne(namespace + ".GetData", num);
+		return bean;
+	}
 }

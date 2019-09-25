@@ -11,19 +11,16 @@
 <section class="content">
 <table border=1>
 	<tr>
-		<th>글쓴이</th>
 		<th>글 번호</th>
 		<th>제목</th>
 		<th>내용</th>
 	</tr>
 	<tr>
-		<td>${bean.name }</td>
 		<td>${bean.num }</td>
 		<td>${bean.title }</td>
 		<td>${bean.content }</td>
 	</tr>
 </table>
-야호!.jsp
 </section>
 </div>
 </body>

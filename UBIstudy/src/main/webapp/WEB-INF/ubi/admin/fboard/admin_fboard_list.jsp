@@ -4,7 +4,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@include file="../header.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -18,6 +18,12 @@
 		{
 			location.href="admin_fboard_delete.ubi?num=" + num;
 		}
+	}
+	function insertData()
+	{
+		loginId = localStorage.getItem("loginId");
+		alert(loginId);
+		location.href = "admin_fboard_insert.ubi?id=" + loginId;
 	}
 </script>
 <body>
@@ -92,6 +98,13 @@
         </div>
         <!-- /.col -->
       </div>
+      <table align="right">
+      <tr>
+      <td>
+      <button type="button" class="btn btn-block btn-default" onClick="insertData()">글쓰기</button>
+      </td>
+      </tr>
+      </table>
       <!-- /.row -->
     </section>
     <!-- /.content -->

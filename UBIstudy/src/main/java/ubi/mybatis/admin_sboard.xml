@@ -12,5 +12,8 @@
 	<delete id="DeleteData">
 		delete from study_board where num=#{num}
 	</delete>
+	<select id="GetData" resultType="ASboard">
+		select * from study_board where num=#{num}
+	</select>
 </mapper>
 	
