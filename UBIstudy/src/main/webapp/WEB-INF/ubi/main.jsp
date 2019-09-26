@@ -99,7 +99,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-	$(function(){
+	$(function(){ 
 		var divNum=1;
 		var div="#div1_"+divNum;
 		

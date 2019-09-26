@@ -185,6 +185,20 @@ $(function(){
 			}
 		}
 	}
+	
+	$('#study_join').click(function() {
+		alert("참석 완료!!! 승인을 기다려주세요~");
+		$.ajax({
+			url:"study_join.ubi",
+			data:{nick : localStorage.getItem("nick")},
+			success: function(data) {
+				alert(data.id);
+			}
+		})
+		location.reload();
+	});
+	
+	
 });
 
 function view(num) {
@@ -328,7 +342,8 @@ function view(num) {
 		</p>
 		기간 : <span id="view_start"></span>&nbsp; ~ 
 		      &nbsp;<span id="view_end"></span> <br><br>
-			 <div id="view_memo"></div>
+			 <div id="view_memo"></div><br>
+			 <button id="study_join" class="button1" style="margin: auto;">참여</button>
 	</div>
 </div>		
 

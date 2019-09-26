@@ -48,5 +48,5 @@
 	<select resultType="MyStudyBoard" id="GetData">
 		select * from study_board where num=#{num}
 	</select>
-	
+
 </mapper>

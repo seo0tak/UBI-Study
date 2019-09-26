@@ -30,4 +30,9 @@
 	<update id="alter_proof" parameterType="MyMember">
 		update member set proof='o' where id=#{id} and proof=#{proof}
 	</update>
+	
+	<select resultType="MyMember" id="getDataByNick">
+		select * from member where nick=#{nick}
+	</select>
+	
 </mapper>
