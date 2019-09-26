@@ -41,9 +41,9 @@
                 <thead>
                 <tr>
                   <th>회원번호</th>
+                  <th>닉네임</th>
                   <th>이름</th>
                   <th>아이디</th>
-                  <th>이메일</th>
                   <th>가입날짜</th>
                   <th>강퇴</th>
                 </tr>
@@ -52,9 +52,9 @@
                 <c:forEach items="${lists }" var="mem">
 			<tr>
 				<td>${mem.num }</td>
-				<td>${mem.name }</td>
+				<td><a href="admin_member_view.ubi?num=${mem.num}">${mem.nick }</a></td>
+				<td><a href="admin_member_view.ubi?num=${mem.num}">${mem.name }</a></td>
 				<td>${mem.id }</td>
-				<td>${mem.email }</td>
 				<td>${mem.day }</td>
 				<td>
 				<button type="button" class="btn btn-block btn-danger" onClick="return deleteData(${mem.num})">

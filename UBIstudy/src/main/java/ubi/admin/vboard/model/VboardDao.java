@@ -45,5 +45,15 @@ public class VboardDao
 		bean = sqlSessionTemplate.selectOne(namespace + ".GetData", num);
 		return bean;
 	}
+
+	public void InsertData(VboardBean bean) 
+	{
+		sqlSessionTemplate.insert(namespace + ".InsertData", bean);
+	}
+
+	public void UpdateData(VboardBean bean) 
+	{
+		sqlSessionTemplate.update(namespace + ".UpdateData", bean);
+	}
 	
 }

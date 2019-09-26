@@ -6,7 +6,7 @@ public class VboardBean
 	private int read_count;
 	private String name;
 	private String title;
-	private String contents;
+	private String content;
 	private String day;
 	private String price;
 	private String url;
@@ -16,14 +16,14 @@ public class VboardBean
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public VboardBean(int num, int read_count, String name, String title, String contents, String day, String price,
+	public VboardBean(int num, int read_count, String name, String title, String content, String day, String price,
 			String url, String filename) {
 		super();
 		this.num = num;
 		this.read_count = read_count;
 		this.name = name;
 		this.title = title;
-		this.contents = contents;
+		this.content = content;
 		this.day = day;
 		this.price = price;
 		this.url = url;
@@ -53,11 +53,11 @@ public class VboardBean
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContents() {
-		return contents;
+	public String getContent() {
+		return content;
 	}
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public String getDay() {
 		return day;

@@ -4,9 +4,22 @@
 <mapper namespace="ubi.admin.vboard.model.VboardBean" >
 	<select resultType="int" id="GetTotalCount">
 		select count(*) from video_board
+		<if test="whatColumn == 'name'">
+			where name like #{keyword}
+		</if>		
+		<if test="whatColumn == 'title'">
+			where title like #{keyword}
+		</if>
 	</select>
 	<select resultType="AVboard" id="GetDataList" parameterType="hashmap" >
-		select * from video_board order by num desc
+		select * from video_board
+		<if test="whatColumn == 'name'">
+			where name like #{keyword}
+		</if>		
+		<if test="whatColumn == 'title'">
+			where title like #{keyword}
+		</if>
+		order by num desc
 	</select>
 	
 	<delete id="DeleteData">
@@ -15,5 +28,12 @@
 	<select id="GetData" resultType="AVboard">
 		select * from video_board where num=#{num}
 	</select>
+	<insert id="InsertData" parameterType="AVboard">
+		insert into video_board
+		values(video_board_seq.nextval,0,#{name},#{title},#{content},sysdate,#{price},#{url},#{filename})
+	</insert>
+	<update id="UpdateData" parameterType="AVboard">
+		update video_board set title=#{title}, content=#{content}, price=#{price}, url=#{url}, filename=#{filename} where num=#{num}
+	</update>
 </mapper>
 	

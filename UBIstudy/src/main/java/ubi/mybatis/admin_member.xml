@@ -15,6 +15,9 @@
 	<select id="GetThisMember" resultType="AMember">
 		select * from member where id=#{id}
 	</select>
+	<select id="GetData" resultType="AMember">
+		select * from member where num=#{num}
+	</select>
 	<!-- <select resultType="int" id="GetTodayCount">
 		select count(*) from member where day=to_char(sysdate, 'yy/mm/dd');
 	</select> -->

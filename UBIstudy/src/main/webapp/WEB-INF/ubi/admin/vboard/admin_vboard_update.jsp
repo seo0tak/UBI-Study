@@ -11,12 +11,14 @@
 <section class="content">
 <div class="box">
             <div class="box-header">
-              <h3 class="box-title">관리자 전용 글쓰기!
-                <small>자유게시판</small><br><br>
-                <form:form commandName="fboard" method="post" action="admin_fboard_insert.ubi">
-                <input type="text" name=title placeholder="제목 입력" required="required"><br>
-          		<input type="hidden" name=name value="${bean.nick }">  
-          		<input type="hidden" name=pw value="${bean.pw }">  
+              <h3 class="box-title">관리자 전용 글 수정!
+                <small>동영상 강의 게시판</small><br><br>
+                <form:form commandName="fboard" method="post" action="admin_vboard_update.ubi?num=${bean.num }">
+                <input type="text" name=title placeholder="제목 입력" required="required" size="70" value="${bean.title }">
+                <input type="text" name=price placeholder="가격 입력" required="required" size="30" value="${bean.price }">
+                <br>
+                <input type="text" name=url placeholder="영상 URL을 입력하세요" size="110" required="required" value="${bean.url }"><br>
+                <input type="file" name=filename value="${bean.filename }">
               </h3>
               <!-- tools box -->
               
@@ -33,13 +35,13 @@
             <!-- /.box-header -->
             <div class="box-body pad">
               
-                <textarea class="textarea" placeholder="Place some text here" name="content" required
+                <textarea class="textarea" placeholder="Place some text here" name="content" required="required"
                           style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
-                          </textarea>
+                          ${bean.content }</textarea>
                            <table align="right">
       <tr>
       <td>
-                    <button type="button" class="btn btn-block btn-info" onClick="location.href='admin_fboard_list.ubi'">
+                    <button type="button" class="btn btn-block btn-info" onClick="location.href='admin_vboard_list.ubi'">
                     	목록으로
                     </button>
                   </td>

@@ -12,6 +12,14 @@
 	{
 		location.href = "admin_nboard_update.ubi?num=" + num;
 	}
+	function deleteData(num)
+	{
+		var delconfirm = confirm("정말 삭제하실래용?");
+		if(delconfirm == true)
+		{
+			location.href="admin_nboard_delete.ubi?num=" + num;
+		}
+	}
 </script>
 <body>
 <section class="content">
@@ -41,22 +49,22 @@
             <div class="box-body">
               <table id="example2" class="table table-bordered table-hover">
                 <tr>
-                  <th>번호</th>
-                  <td align="center">${bean.num }</td>
-                  <th align="center">조회수</th>
-                  <td>${bean.read_count }</td>
+                 <th width="25%">번호</th>
+                  <td align="center" width="25%"><font color=gray>${bean.num }</font></td>
+                  <th align="center" width="25%">조회수</th>
+                  <td align="center" width="25%"><font color=gray>${bean.read_count }</font></td>
                  </tr>
                  <tr>
                   <th align="center">날짜</th>
-                  <td colspan=3  align="center">${bean.day }</td>
+                  <td colspan=3 align="center"><font color=gray>${bean.day }</font></td>
                  </tr>
                  <tr>
-                  <th>제목</th>
-                  <td colspan=3  align="center">${bean.title }</td>
+                   <th>제목</th>
+                  <td colspan=3  align="center"><font color=gray>${bean.title }</font></td>
                 </tr>
                 <tr>
                 	<th>내용</th>
-                	<td colspan=3 align="center" height="300px">${bean.content }</td>
+                	<td colspan=3 align="center" height="300px"><font color=gray>${bean.content }</font></td>
                 </tr>
               </table>
             </div>
@@ -69,10 +77,13 @@
       <table align="right">
       <tr>
       <td>
-      <button type="button" class="btn btn-block btn-default" onClick="location.href='admin_nboard_list.ubi'">목록으로</button>
+      <button type="button" class="btn btn-block btn-default" onClick="location.href='admin_nboard_list.ubi?pageNumber=${pageNumber}'">목록으로</button>
 		</td>
 		<td>
 		<button type="button" class="btn btn-block btn-primary" onClick="updateData(${bean.num})">글 수정</button>
+      </td>
+      <td>
+      	<button type="button" class="btn btn-block btn-danger" onClick="deleteData(${bean.num})">글 삭제</button>
       </td>
       </tr>
       </table>

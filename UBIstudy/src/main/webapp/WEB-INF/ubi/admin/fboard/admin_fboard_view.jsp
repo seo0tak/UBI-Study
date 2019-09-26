@@ -12,23 +12,17 @@
 	{
 		location.href = "admin_fboard_update.ubi?num=" + num;
 	}
+	function deleteData(num)
+	{
+		var delconfirm = confirm("정말 삭제하실래용?");
+		if(delconfirm == true)
+		{
+			location.href="admin_fboard_delete.ubi?num=" + num;
+		}
+	}
 </script>
 <body>
 <section class="content">
-<%-- <table border=1>
-	<tr>
-		<th>글쓴이</th>
-		<th>글 번호</th>
-		<th>제목</th>
-		<th>내용</th>
-	</tr>
-	<tr>
-		<td>${bean.name }</td>
-		<td>${bean.num }</td>
-		<td>${bean.title }</td>
-		<td>${bean.content }</td>
-	</tr>
-</table> --%>
 <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -41,22 +35,24 @@
             <div class="box-body">
               <table id="example2" class="table table-bordered table-hover">
                 <tr>
-                  <th>번호</th>
-                  <td align="center">${bean.num }</td>
-                  <th align="center">조회수</th>
-                  <td>${bean.read_count }</td>
+                  <th width="25%">번호</th>
+                  <td align="center" width="25%"><font color=gray>${bean.num }</font></td>
+                  <th align="center" width="25%">조회수</th>
+                  <td align="center" width="25%"><font color=gray>${bean.read_count }</font></td>
                  </tr>
                  <tr>
-                  <th align="center">날짜</th>
-                  <td colspan=3  align="center">${bean.day }</td>
+                  <th align="center" width="25%">글쓴이</th>
+                  <td align="center" width="25%"><font color=gray>${bean.name }</font></td>
+                  <th align="center" width="25%">날짜</th>
+                  <td align="center" width="25%"><font color=gray>${bean.day }</font></td>
                  </tr>
                  <tr>
                   <th>제목</th>
-                  <td colspan=3  align="center">${bean.title }</td>
+                  <td colspan=3  align="center"><font color=gray>${bean.title }</font></td>
                 </tr>
                 <tr>
                 	<th>내용</th>
-                	<td colspan=3 align="center" height="300px">${bean.content }</td>
+                	<td colspan=3 align="center" height="300px"><font color=gray>${bean.content }</font></td>
                 </tr>
               </table>
             </div>
@@ -69,10 +65,13 @@
       <table align="right">
       <tr>
       <td>
-      <button type="button" class="btn btn-block btn-default" onClick="location.href='admin_fboard_list.ubi'">목록으로</button>
+      <button type="button" class="btn btn-block btn-default" onClick="location.href='admin_fboard_list.ubi?pageNumber=${pageNumber}'">목록으로</button>
 		</td>
 		<td>
 		<button type="button" class="btn btn-block btn-primary" onClick="updateData(${bean.num})">글 수정</button>
+      </td>
+      <td>
+      	<button type="button" class="btn btn-block btn-danger" onClick="deleteData(${bean.num})">글 삭제</button>
       </td>
       </tr>
       </table>
