@@ -372,43 +372,24 @@
           </ul>
         </li>
         <li>
-          <a href="pages/widgets.html">
+          <a href="#">
             <i class="fa fa-pencil-square-o"></i> <span>스터디 관리</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
             </span>
           </a>
         </li>
-<!--         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-pie-chart"></i>
-            <span>차트(변경예정)</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-            <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-          </ul>
-        </li> -->
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-laptop"></i>
-            <span>UI속성(변경예정)</span>
+            <i class="fa fa-paper-plane-o"></i>
+            <span>쪽지 관리</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-            <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-            <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-            <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-            <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> 프리미엄 회원</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> 일반 회원</a></li>
           </ul>
         </li>
         <li class="treeview">

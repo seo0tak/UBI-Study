@@ -19,6 +19,10 @@ function deleteData(num)
 		location.href="admin_nboard_delete.ubi?num=" + num;
 	}
 }
+function insertData()
+	{
+	location.href="admin_nboard_insert.ubi";
+	}
 </script>
 <body>
 	<%-- <table border=1 align="center">
@@ -83,6 +87,13 @@ function deleteData(num)
         </div>
         <!-- /.col -->
       </div>
+      <table align="right">
+      <tr>
+      <td>
+      <button type="button" class="btn btn-block btn-default" onClick="insertData()">글쓰기</button>
+      </td>
+      </tr>
+      </table>
       <!-- /.row -->
     </section>
     <!-- /.content -->

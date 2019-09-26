@@ -33,7 +33,6 @@ public class StudyController {
 							HttpServletRequest request) {
 		String code = (String)param.get("code");
 		String path2 = request.getSession().getServletContext().getRealPath("/compile_temp/");
-		System.out.println("�����ι��� : "+path2);	
 		File file = new File(path2+"Main.class");
 		if( file.exists() ){
             file.delete();
@@ -56,6 +55,7 @@ public class StudyController {
 		cmd.execCommand(command);
 		command = cmd.inputCommand("cd "+path2+" & java Main");
 		String result = cmd.execCommand(command);
+		System.out.println("result : " + result);
 		return result;
 	}
 	
@@ -82,4 +82,5 @@ public class StudyController {
         }
 		return line;
 	}
+	
 }

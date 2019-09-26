@@ -11,7 +11,7 @@
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
 html,body { /* width:100%; height:100%; background: #21292e; overflow:hidden; margin: 0;  */}
 body {  font-size: 12px; color:#000000; background-color: white; }/* 드래그했을 때의 색상 */
-.CodeMirror {border-top: 1px solid #eee; border-bottom: 1px solid #eee; line-height: 1.3; height: 100%; }
+/* .CodeMirror {border-top: 1px solid #eee; border-bottom: 1px solid #eee; line-height: 1.3; height: 100%; } */
 .cm-matchhighlight {background-color: #376060; color: #ffffff !important;} /* 같은단어강조 */
 .CodeMirror-matchingbracket { background-color: #cc0000; color: #000000 !important; } /* 괄호강조 */
 /* CodeMirror */
@@ -39,11 +39,13 @@ body {  font-size: 12px; color:#000000; background-color: white; }/* 드래그�
 	color: gray;
 	font-size: 70%;
 	margin: 5px;
-	text-align: center;
+	text-align: center; 
 }
 .CodeMirror{
+	margin-top:5%;
 	width:700px;
 	border: 2px inset #dee;	
+	height: 50%;
 }
 .chat{
 	position:absolute;
@@ -88,6 +90,10 @@ video{
 	border-radius: 15px;
 	margin-bottom: 5%;
 }
+div.CodeMirror-cursorsVisible {
+	visibility: visible !important;
+}
+
 </style>
 <link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
 <link rel="stylesheet" href="https://codemirror.net/addon/scroll/simplescrollbars.css"><!-- 스크롤바 -->
@@ -113,8 +119,9 @@ video{
 	<input type="text" id="msg">
 	<input id="msg_process" type="button" class="img-button">
 	</div>
-	<textarea class="java_code" id='java-code' name='java_code' style="overflow: auto;margin: auto;"></textarea><br>
-	
+	<div align="center">
+		<textarea class="java_code" id='java-code' name='java_code'></textarea><br>
+	</div>
 	<button onclick="openTextFile()">Open</button>
 	<button id="code_process">Run</button>
 	
@@ -122,9 +129,6 @@ video{
 		<font style="font-family: NIXGONFONTS;font-size: 20px; color: rgba(0,0,0,0.5)">result</font><br>
 		<textarea id="output" name='output' readonly="readonly" style="resize: none;"></textarea>
 	</div>
-	<input id="txt-roomid">
-	<button id="btn-open-or-join-room">연결
-	</button>
 	
 	<div style="position: absolute;right:0;top:0;width: 20%;height: 20%;padding: 2%;">
 		<div id="local-videos-container" >
@@ -145,6 +149,18 @@ video{
 	        mode: "text/x-java"
 	      }); 
 		/* CodeMirror */
+		function toggleClass(elem, theClass, newState) {
+		var matchRegExp = new RegExp('(?:^|\\s)' + theClass + '(?!\\S)', 'g');
+		var add=(arguments.length>2 ? newState : (elem.className.match(matchRegExp) == null));
+		elem.className=elem.className.replace(matchRegExp, ''); // clear all
+		if (add) elem.className += ' ' + theClass;
+		}
+		
+		function cmToggleCursorsClass(cm, theClass, newState) {
+			toggleClass(cm.getWrapperElement().getElementsByClassName('CodeMirror-cursors')[0], theClass, newState);
+		}
+		javaEditor.on('blur', javaEditor => { cmToggleCursorsClass(javaEditor, 'CodeMirror-cursorsVisible', true); });
+		javaEditor.on('focus', javaEditor => { cmToggleCursorsClass(javaEditor, 'CodeMirror-cursorsVisible', false); });
 		
 		$(document).ready(function() {
 			$.ajax({
@@ -158,6 +174,7 @@ video{
 			
 			var connection = new RTCMultiConnection();
 			connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+			//connection.socketURL = 'https://floating-cove-33208.herokuapp.com/';
 
 			var socket = io("https://floating-cove-33208.herokuapp.com/");
 			
@@ -224,7 +241,6 @@ video{
 			socket.on('result', function(result) {
 				$('#output').val(result);
 			});
-			
 			
 			
 			var bitrates = 512;
@@ -313,17 +329,13 @@ video{
 				
 			}
 			
-			var roomid = document.getElementById('txt-roomid');
-			roomid.value = connection.token();
 			
-			document.getElementById('btn-open-or-join-room').onclick = function() {
-				this.disabled = true;
-				connection.openOrJoin('your-room-id' || 'predefiend-roomid');
-			}
-
+			this.disabled = true;
+			connection.openOrJoin('your-room-id' || 'predefiend-roomid');
+			
 				
-				var localVideosContainer = document.getElementById('local-videos-container');
-				var remoteVideosContainer = document.getElementById('remote-videos-container');
+			var localVideosContainer = document.getElementById('local-videos-container');
+			var remoteVideosContainer = document.getElementById('remote-videos-container');
 				
 			
 		});
@@ -337,6 +349,7 @@ video{
 					url: 'http://localhost:9090/ex/compile.ubi',
 					data: code_data,
 					success:function(result) {
+						alert(result);
 						$('#output').val(result);
 					}
 				});

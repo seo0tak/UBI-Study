@@ -2,6 +2,7 @@ package ubi.study.model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,6 +19,37 @@ public class StudyBoardDao {
 	
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
+	
+	// 키값 난수 만드는 메서드
+		private String init() {
+	     Random ran = new Random();
+	     StringBuffer sb = new StringBuffer();
+	     int num = 0;
+	
+	     do {
+	        num = ran.nextInt(75) + 48;
+	        if ((num >= 48 && num <= 57) || (num >= 65 && num <= 90) || (num >= 97 && num <= 122)) {
+	           sb.append((char) num);
+	        } else {
+	           continue;
+	        }
+	
+	     } while (sb.length() < size);
+	     if (lowerCheck) {	
+	        return sb.toString().toLowerCase();
+	     }
+	     return sb.toString();
+	  }
+		// 난수를 이용한 키 생성
+		private boolean lowerCheck;
+		private int size;
+
+		public String getKey(boolean lowerCheck, int size) {
+			this.lowerCheck = lowerCheck;
+			this.size = size;
+			return init();
+		}
+		
 
 	public int GetTotalCount(Map<String, String> map) {
 		int cnt = -1;
@@ -35,6 +67,9 @@ public class StudyBoardDao {
 	}
 
 	public void InsertData(StudyBoardBean bean) {
+		String key = getKey(false, 20);
+		System.out.println("key값뭐냐 ~~~~       :"+key);
+		bean.setFlag(key);
 		System.out.println(bean);
 		sqlSessionTemplate.selectList(namespace + ".InsertData", bean);
 	}
@@ -54,4 +89,5 @@ public class StudyBoardDao {
 	public List<StudyBoardBean> selectAllByNick(Paging pageInfo, Map<String, String> map,String nick) {
 		return sqlSessionTemplate.selectList(namespace + ".selectAllByNick", nick);
 	}
+
 }

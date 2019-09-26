@@ -41,6 +41,9 @@ public class MemberDao {
 	public String getName(String e_mail) {
 		return sqlSessionTemplate.selectOne(namespace+".getName",e_mail);
 	}
-	
-	
+
+	public MemberBean getDataByNick(String nick) {
+		return sqlSessionTemplate.selectOne(namespace + ".getDataByNick", nick);
+	}
+
 }
