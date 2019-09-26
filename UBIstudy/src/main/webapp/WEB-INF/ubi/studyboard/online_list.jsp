@@ -3,7 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/sweetalert/css/sweetalert2.min.css">
+<script src="<%=request.getContextPath() %>/resources/sweetalert/js/sweetalert2.min.js"></script>
+
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/jstree/themes/default/style.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/jstree/jstree.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>소켓 서버</title>
 
 <style>
@@ -11,7 +17,6 @@
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
 html,body { /* width:100%; height:100%; background: #21292e; overflow:hidden; margin: 0;  */}
 body {  font-size: 12px; color:#000000; background-color: white; }/* 드래그했을 때의 색상 */
-/* .CodeMirror {border-top: 1px solid #eee; border-bottom: 1px solid #eee; line-height: 1.3; height: 100%; } */
 .cm-matchhighlight {background-color: #376060; color: #ffffff !important;} /* 같은단어강조 */
 .CodeMirror-matchingbracket { background-color: #cc0000; color: #000000 !important; } /* 괄호강조 */
 /* CodeMirror */
@@ -30,7 +35,7 @@ body {  font-size: 12px; color:#000000; background-color: white; }/* 드래그�
 
 #msg_process {
 	position:relative;
-	top:5px;
+	top:15px;
 	width: 15%;
 	height: 15%;
 }
@@ -42,15 +47,15 @@ body {  font-size: 12px; color:#000000; background-color: white; }/* 드래그�
 	text-align: center; 
 }
 .CodeMirror{
-	margin-top:5%;
+	margin-top:3%;
 	width:60%;
 	border: 2px inset #dee;	
-	height: 60%;
+	font-size:25px;
 }
 .chat{
 	position:absolute;
 	bottom:3%;
-	right:22%;
+	left:32%;
 	width:25%;
 	height: 32%;
 }
@@ -74,7 +79,7 @@ input.img-button {
 .console{
 	position:absolute;
 	bottom:5%;
-	right:52%;
+	left:2%;
 	width:25%;
 	height: 30%;
 }
@@ -92,6 +97,86 @@ video{
 }
 div.CodeMirror-cursorsVisible {
 	visibility: visible !important;
+}
+#code_process{
+	position:absolute;
+	left:52%;
+}
+
+/* 버튼  */
+/* toggle this class */
+
+.color-bg-start {
+  background-color: salmon;
+}
+
+
+/* toggle class bg-animate-color */
+
+.bg-animate-color {
+  animation: random-bg .5s linear infinite;
+}
+
+
+/* add animation to bg color  */
+
+@keyframes random-bg {
+  from {
+    filter: hue-rotate(0);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.fun-btn {
+  /* change bg color to get different hues    */
+  background-color: salmon;
+  color: white;
+  padding: 2em 3em;
+  border: none;
+  transition: all .3s ease;
+  border-radius: 5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  outline: none;
+  align-self: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.fun-btn:hover {
+  animation: random-bg .5s linear infinite, grow 1300ms ease infinite;
+}
+
+.start-fun {
+  background-color: #fff !important;
+  /* change color of button text when fun is started   */
+  color: salmon !important;
+}
+
+/* pulsating effect on button */
+@keyframes grow {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.3);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.3);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+.demo { overflow:auto; border:1px solid silver; min-height:50%; }
+
+.jstree-node {
+    font-size: 13pt;
 }
 
 </style>
@@ -111,9 +196,15 @@ div.CodeMirror-cursorsVisible {
 <script src="https://codemirror.net/mode/htmlmixed/htmlmixed.js"></script><!-- 필수 -->
 <script src="https://codemirror.net/mode/clike/clike.js"></script>
 <script src="https://codemirror.net/addon/scroll/simplescrollbars.js"></script><!-- 스크롤바 -->
+
 </head>
 <body>
-	<div class="chat" >
+	<button onclick="openTextFile()">Open</button>
+	<button class="fun-btn" id="code_process">RUN</button>
+	
+	<div id="frmt" class="demo" style="position: absolute;right: 21%;top:9%;width: 20%;"></div>
+	
+	<div class="chat">
 		<font style="font-family: NIXGONFONTS;font-size: 20px; color: rgba(0,0,0,0.5)">chat</font>
 	<div id="chat_box" style="padding-top: 10px;padding-left: 10px"></div>
 	<input type="text" id="msg">
@@ -122,9 +213,11 @@ div.CodeMirror-cursorsVisible {
 	<div>
 		<textarea class="java_code" id='java-code' name='java_code'></textarea><br>
 	</div>
-	<button onclick="openTextFile()">Open</button>
-	<button id="code_process">Run</button>
 	
+	
+	
+		
+		
 	<div class="console">
 		<font style="font-family: NIXGONFONTS;font-size: 20px; color: rgba(0,0,0,0.5)">result</font><br>
 		<textarea id="output" name='output' readonly="readonly" style="resize: none;"></textarea>
@@ -140,9 +233,8 @@ div.CodeMirror-cursorsVisible {
 	<script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
 	<script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
 	<script src="https://floating-cove-33208.herokuapp.com/socket.io/socket.io.js"></script>
-	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-	<script>
 	
+	<script>
 		/* CodeMirror */
 		var javaEditor = CodeMirror.fromTextArea(document.getElementById("java-code"), {
 	        lineNumbers: true,
@@ -150,7 +242,54 @@ div.CodeMirror-cursorsVisible {
 	        mode: "text/x-java"
 	      }); 
 		/* CodeMirror */
+		
+		//그냥 참조할려고 예제로 넣어둔 파일트리
+			$('#frmt').jstree({
+				'core' : {
+					'data' : [
+						{
+							"text" : "Root node",
+							"state" : { "opened" : true },
+							"children" : [
+								{
+									"text" : "Child node 1",
+									"state" : { "selected" : true },
+									"icon" : "jstree-file"
+								},
+								{ "text" : "Child node 2", "state" : { "disabled" : true } }
+							]
+						}
+					]
+				}
+			});
+				
+		
+		
+		/* 	 다시 봐야할 트리 함수 건들지 말기
+			$('#frmt').jstree({
+				'core' : {
+					'data' : {
+						"url" : "http://localhost:9090/ex/jStree.ubi",
+					}
+				}
+			}); 
+		*/
+		
 		$(document).ready(function() {
+			
+			$('.fun-btn').on('click', function(event) {
+				  $(this).toggleClass('start-fun');
+				  var $page = $('.page');
+				  $page.toggleClass('color-bg-start')
+				    .toggleClass('bg-animate-color');
+
+				  $(this).hasClass('start-fun') ?
+				    $(this).text('stop the fun') :
+				    $(this).text('start the fun');
+
+			});
+			
+			javaEditor.setSize(1100, 500);
 			$.ajax({
 				type: 'POST',
 				url: 'http://localhost:9090/ex/file.ubi',
@@ -343,7 +482,6 @@ div.CodeMirror-cursorsVisible {
 				var localVideosContainer = document.getElementById('local-videos-container');
 				var remoteVideosContainer = document.getElementById('remote-videos-container');
 				
-			
 		});
 		
 		$("#code_process").click(function() {
@@ -383,8 +521,7 @@ div.CodeMirror-cursorsVisible {
 		 
 		    reader.readAsText(file, /* optional */ "UTF-8");
 		}
-		/* 캠 */
-	
+		
 	</script>
 </body>
 </html>

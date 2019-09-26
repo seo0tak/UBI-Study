@@ -32,8 +32,11 @@ body {
   padding: 0;
   font-size: 14px;
   background-image: url("<%=request.getContextPath()%>/resources/images/project_img8-3.png");
+  height: 100%;
 }
-
+html{
+	height: 100%;
+}
 
 #loading {
   display: none;
@@ -172,7 +175,7 @@ body {
 		
 		<%int k=0;%>
 		$(".leftContent").hide();
-		$('#cal').show();
+		$('#newMember').show();
 		$('input[id=myPageButton]').click(function(){
 			//alert("버튼클릭");
 			var tit=$(this).attr("title");
@@ -185,16 +188,35 @@ body {
 					$('#joinGroup').show();
 				}else if(tit=="만든그룹"){
 					$('#myGroup').show();
+				}else if(tit=="새로운맴버"){
+					$('#newMember').show();
 				}
 			});
+		});
+		
+		$('input[value=승인]').click(function(){
+			var conf=$(this).attr("id");
+			var id=localStorage.getItem("loginId");
+			location.href="confNewMember.ubi?conf="+conf+"&id="+id;
+		});
+		
+		$('#imageUpdate').click(function(){
+			var id=localStorage.getItem("loginId");
+			location.href="updateMember.ubi?id="+id;
 		});
 	});
 </script>
 <body style="overflow-x:hidden" >
 <%@ include file="top.jsp" %>
-<div style="float: none;width: 100%;">
-	<div style="float: left;padding: 20px;background-color: rgba(0,0,0,1);width: 17%;color: white;">
-		<img src="<%=request.getContextPath()%>/resources/images/default1.png" width="100%" height="100%">
+<div style="float: none;width: 100%;min-height: 100%;">
+	<div style="float: left;padding: 20px;background-color: rgba(0,0,0,1);width: 17%;color: white;min-height: 100%;position: fixed;">
+	</div>
+	<div style="float: left;padding: 20px;background-color: rgba(0,0,0,1);width: 17%;color: white;min-height: 100%;position: absolute;">
+		
+		
+		<img id="imageUpdate" src="<%=request.getContextPath()%>/resources/images/default1.png" width="100%" height="100%" style="cursor: pointer;" title="수정하려면 클릭">
+		
+		
 		<br>
 		<br>
 		<span style="color: #aaa;">${bean.id }</span><br><br>
@@ -206,6 +228,7 @@ body {
 		<input type="button" value="찜한 영상" class="button1" style="width: 95%;" id="myPageButton" title="찜한영상">
 		<input type="button" value="참여한 스터디 그룹" class="button1" style="width: 95%;" id="myPageButton" title="참여한그룹">
 		<input type="button" value="내가만든 스터디 그룹" class="button1" style="width: 95%;" id="myPageButton" title="만든그룹">
+		<input type="button" value="새로운 맴버" class="button1" style="width: 95%;" id="myPageButton" title="새로운맴버">
 		</div>
 		
 		
@@ -221,27 +244,12 @@ body {
 		<br><br>
 		<span style="font-size: 15px;color: #aaa;">${bean.nick }님이 선호하시는 언어</span><br><br>
 		<span style="font-size: 30px;">〔${bean.fav }〕</span>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
+		
+		<div style="height: 100px;"> </div>
 		<span style="font-size: 15px;color: #777">UBI STUDY<br><br>▶</span>
 		<br>
 	</div>
-
+	
 
 	<div style="width: 83%;float: none;margin-left: 100px;padding: 100px;" class="leftContent" id="cal">
 		<div id='loading'>loading...</div>
@@ -293,15 +301,35 @@ body {
     </div>
     
     <div class="leftContent" id="joinGroup" style="text-align: center;width: 83%;float: none;margin-left: 100px;padding: 100px;">
-    	joinGroup
-    	
-    	
+    	<table style="text-align: left;margin: auto;background-color: rgba(255,255,255,1);box-shadow: 0px 0px 10px 10px white;">
+    <tr><td style="text-align: center;">
+    	<span style="font-size: 45px;text-align: center;"><br>내가 참여한 스터디 그룹<hr><br></span>
+    </td></tr>
+    	<c:forEach items="${myStd }" var="std">
+    	<tr><td style="padding: 50px;">
+    		<span style="font-size: 40px;">${std.title }</span>
+    		<br>
+			<span style="font-size: 20px;color: rgba(0,0,0,0.3);">시작 : ${std.start_day } ~ 종료 : ${std.end_day }</span>
+			<br>
+			<span style="font-size: 24px;color: rgba(0,0,0,0.8);">${std.nick }님의 모임</span>
+			<hr color="#fa1">
+			<span style="font-size: 24px;color: rgba(0,0,0,0.5);">언어 : </span><span style="font-size: 24px;color: rgba(0,0,0,1);">${std.lang }</span>
+			<br>
+			<span style="font-size: 20px;">${std.memo }</span>
+    	</td></tr>
+    	<tr height="50"><td style="text-align: center;">
+    	<span style="font-size: 50px; color: rgba(0,0,0,0.2);">◇◇◇◇◇</span>
+    	</td></tr>
+    	</c:forEach>
+    	</table>
     	
     </div>
     
     <div class="leftContent" id="myGroup" style="text-align: center;width: 83%;float: none;margin-left: 100px;padding: 100px;">
     <table style="text-align: left;margin: auto;background-color: rgba(255,255,255,1);box-shadow: 0px 0px 10px 10px white;">
-    
+    <tr><td style="text-align: center;">
+    	<span style="font-size: 45px;text-align: center;"><br>내가 만든 스터디 그룹<hr><br></span>
+    </td></tr>
     	<c:forEach items="${stdBean }" var="std">
     	<tr><td style="padding: 50px;">
     		<span style="font-size: 40px;">${std.title }</span>
@@ -328,6 +356,28 @@ start_day
 end_day
 day
 lang -->
+    </div>
+    
+    
+    <div class="leftContent" id="newMember" style="text-align: center;width: 83%;float: none;margin-left: 100px;padding: 100px;">
+    	<table style="text-align: left;margin: auto;background-color: rgba(255,255,255,1);box-shadow: 0px 0px 10px 10px white;">
+    	<tr height="50">
+    		<td colspan="2" style="text-align: center;">
+    			<span style="font-size: 50px; color: rgba(0,0,0,0.2);">◇◇◇◇◇</span>
+    		</td>
+    	</tr>
+		<c:forEach items="${newMember }" var="news">
+		<tr>
+		<td style="padding: 20px;">
+		<span style="font-size: 30px; color: rgba(0,0,0,1);">〔 ${news.id } 〕</span>
+		<span style="font-size: 30px; color: rgba(0,0,0,0.7);">님께서 함께하고자 합니다.</span>
+		</td>
+		<td style="padding: 20px;">
+		<input type="button" class="button1" id="${news.num }" value="승인" title="">
+		</td>
+		</tr>
+		</c:forEach>
+    	</table>
     </div>
     
 </div>    

@@ -83,4 +83,29 @@ public class StudyController {
 		return line;
 	}
 	
+	
+	@RequestMapping(value="/jStree")
+	@ResponseBody
+	public String jStree(HttpServletRequest request) {
+		String path2 = request.getSession().getServletContext().getRealPath("/compile_temp/Main.txt");
+		String line = null;
+		BufferedReader br = null;
+		try{
+			br = new BufferedReader(new FileReader(path2));
+			StringBuffer sb = new StringBuffer();
+			while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+		} 
+		catch(Exception e){
+			e.getStackTrace();
+		} finally {
+            try { 
+                if (br!=null) 
+                    br.close();
+            } catch (Exception e) {}
+        }
+		return line;
+	}
+	
 }
