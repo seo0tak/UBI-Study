@@ -33,7 +33,6 @@ public class StudyController {
 							HttpServletRequest request) {
 		String code = (String)param.get("code");
 		String path2 = request.getSession().getServletContext().getRealPath("/compile_temp/");
-		System.out.println("�����ι��� : "+path2);	
 		File file = new File(path2+"Main.class");
 		if( file.exists() ){
             file.delete();
@@ -83,4 +82,5 @@ public class StudyController {
         }
 		return line;
 	}
+	
 }

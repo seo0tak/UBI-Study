@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import ubi.member.model.MemberBean;
+import ubi.member.model.MemberDao;
 import ubi.study.model.StudyBoardBean;
 import ubi.study.model.StudyBoardDao;
 import utility.Paging;
@@ -28,6 +30,9 @@ public class StudyBoardController {
 	
 	@Autowired 
 	StudyBoardDao studyBoardDao;
+	
+	@Autowired
+	MemberDao memberDao;
 	
 	@RequestMapping(value="/studyboard_list.ubi")
 	public ModelAndView doAction(@RequestParam(value = "whatColumn", required = false ) String whatColumn,
@@ -68,8 +73,6 @@ public class StudyBoardController {
 	
 	@RequestMapping(value="/studyboard_insert.ubi")
 	public void doAction(@ModelAttribute("study") StudyBoardBean bean) {
-		System.out.println("닉이오냐       :"+bean.getNick());
-		System.out.println("flag이오냐       :"+bean.getFlag());
 		studyBoardDao.InsertData(bean);
 	}
 	
@@ -77,6 +80,13 @@ public class StudyBoardController {
 	@RequestMapping(value="/study_board_view.ubi")
 	public StudyBoardBean doAction(@RequestParam("num") int num) {
 		StudyBoardBean result = studyBoardDao.GetData(num);
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/study_join.ubi")
+	public MemberBean doAction(@RequestParam("nick") String nick) {
+		MemberBean result = memberDao.getDataByNick(nick);
 		return result;
 	}
 }
