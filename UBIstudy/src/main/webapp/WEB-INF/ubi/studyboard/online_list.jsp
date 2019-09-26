@@ -43,9 +43,9 @@ body {  font-size: 12px; color:#000000; background-color: white; }/* 드래그�
 }
 .CodeMirror{
 	margin-top:5%;
-	width:700px;
+	width:60%;
 	border: 2px inset #dee;	
-	height: 50%;
+	height: 60%;
 }
 .chat{
 	position:absolute;
@@ -119,7 +119,7 @@ div.CodeMirror-cursorsVisible {
 	<input type="text" id="msg">
 	<input id="msg_process" type="button" class="img-button">
 	</div>
-	<div align="center">
+	<div>
 		<textarea class="java_code" id='java-code' name='java_code'></textarea><br>
 	</div>
 	<button onclick="openTextFile()">Open</button>
@@ -129,6 +129,7 @@ div.CodeMirror-cursorsVisible {
 		<font style="font-family: NIXGONFONTS;font-size: 20px; color: rgba(0,0,0,0.5)">result</font><br>
 		<textarea id="output" name='output' readonly="readonly" style="resize: none;"></textarea>
 	</div>
+	<input type="hidden" id="txt-roomid">
 	
 	<div style="position: absolute;right:0;top:0;width: 20%;height: 20%;padding: 2%;">
 		<div id="local-videos-container" >
@@ -149,19 +150,6 @@ div.CodeMirror-cursorsVisible {
 	        mode: "text/x-java"
 	      }); 
 		/* CodeMirror */
-		function toggleClass(elem, theClass, newState) {
-		var matchRegExp = new RegExp('(?:^|\\s)' + theClass + '(?!\\S)', 'g');
-		var add=(arguments.length>2 ? newState : (elem.className.match(matchRegExp) == null));
-		elem.className=elem.className.replace(matchRegExp, ''); // clear all
-		if (add) elem.className += ' ' + theClass;
-		}
-		
-		function cmToggleCursorsClass(cm, theClass, newState) {
-			toggleClass(cm.getWrapperElement().getElementsByClassName('CodeMirror-cursors')[0], theClass, newState);
-		}
-		javaEditor.on('blur', javaEditor => { cmToggleCursorsClass(javaEditor, 'CodeMirror-cursorsVisible', true); });
-		javaEditor.on('focus', javaEditor => { cmToggleCursorsClass(javaEditor, 'CodeMirror-cursorsVisible', false); });
-		
 		$(document).ready(function() {
 			$.ajax({
 				type: 'POST',
@@ -172,6 +160,20 @@ div.CodeMirror-cursorsVisible {
 				}
 			});
 			
+			function toggleClass(elem, theClass, newState) {
+			      var matchRegExp = new RegExp('(?:^|\\s)' + theClass + '(?!\\S)', 'g');
+			      var add=(arguments.length>2 ? newState : (elem.className.match(matchRegExp) == null));
+			      elem.className=elem.className.replace(matchRegExp, ''); // clear all
+			      if (add) elem.className += ' ' + theClass;
+			      }
+			      
+			      function cmToggleCursorsClass(cm, theClass, newState) {
+			         toggleClass(cm.getWrapperElement().getElementsByClassName('CodeMirror-cursors')[0], theClass, newState);
+			      }
+		      javaEditor.on('blur', javaEditor => { cmToggleCursorsClass(javaEditor, 'CodeMirror-cursorsVisible', true); });
+		      javaEditor.on('focus', javaEditor => { cmToggleCursorsClass(javaEditor, 'CodeMirror-cursorsVisible', false); });
+			
+			/* webSocket */
 			var connection = new RTCMultiConnection();
 			connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
 			//connection.socketURL = 'https://floating-cove-33208.herokuapp.com/';
@@ -249,23 +251,23 @@ div.CodeMirror-cursorsVisible {
 			if (resolutions == 'HD') {
 			    videoConstraints = {
 			        width: {
-			            ideal: 1280
+			            ideal: 640
 			        },
 			        height: {
-			            ideal: 720
+			            ideal: 480
 			        },
-			        frameRate: 30
+			        frameRate: 20
 			    };
 			}
 			if (resolutions == 'Ultra-HD') {
 			    videoConstraints = {
 			        width: {
-			            ideal: 1920
+			            ideal: 640
 			        },
 			        height: {
-			            ideal: 1080
+			            ideal: 480
 			        },
-			        frameRate: 30
+			        frameRate: 20
 			    };
 			}
 			connection.mediaConstraints = {
@@ -329,13 +331,17 @@ div.CodeMirror-cursorsVisible {
 				
 			}
 			
+			var roomid = document.getElementById('txt-roomid');
+			roomid.value = "UBISTUDY";
 			
-			this.disabled = true;
-			connection.openOrJoin('your-room-id' || 'predefiend-roomid');
-			
+			window.onload = function() {
+				this.disabled = true;
+				connection.openOrJoin('your-room-id' || 'predefiend-roomid');
+			}
+
 				
-			var localVideosContainer = document.getElementById('local-videos-container');
-			var remoteVideosContainer = document.getElementById('remote-videos-container');
+				var localVideosContainer = document.getElementById('local-videos-container');
+				var remoteVideosContainer = document.getElementById('remote-videos-container');
 				
 			
 		});

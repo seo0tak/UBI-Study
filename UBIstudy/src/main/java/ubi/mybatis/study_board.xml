@@ -15,6 +15,7 @@
 		<if test="whatColumn == 'title'">
 			where title like #{keyword}
 		</if>
+		order by num desc 
 	</select>
 	<select resultType="MyStudyBoard" id="selectAllByNick" parameterType="hashmap" >
 		select * from study_board where nick=#{nick}
@@ -48,5 +49,9 @@
 	<select resultType="MyStudyBoard" id="GetData">
 		select * from study_board where num=#{num}
 	</select>
+	
+	<delete id="Delete">
+		delete from study_board where num=#{num}
+	</delete>
 
 </mapper>

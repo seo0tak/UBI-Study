@@ -9,7 +9,6 @@
 <script src="<%=request.getContextPath() %>/resources/FullCalendar/vendor/js/moment.min.js"></script>
 <script src="<%=request.getContextPath() %>/resources/FullCalendar/vendor/js/bootstrap-datetimepicker.min.js"></script>
 <link rel="stylesheet" href='<%=request.getContextPath() %>/resources/FullCalendar/vendor/css/bootstrap-datetimepicker.min.css' />
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
@@ -24,9 +23,6 @@
 		background-image: url("<%=request.getContextPath()%>/resources/images/project_img8-3.png");
 		/* background-size: 100%;
 		background-repeat: no-repeat; */
-	}
-	#detailCon{
-		
 	}
 	.eft2{
 		position:absolute;
@@ -50,7 +46,7 @@
 	}
 	.input_study{
 		resize: none;
-		width: 400px;
+		width: 500px;
 		font-size: 22px;
 		outline-color: #fa1;
 		outline-width: 2px;
@@ -88,7 +84,12 @@ $(function(){
 	$('#inputBut').click(function(){
 		loginId=localStorage.getItem("loginId");
 		if(loginId==null){
-			alert("회원만 글을 쓸 수 있습니다.");
+			Swal.fire({
+				  title: '회원만 글을 쓸 수 있습니다!!',
+				  type: 'warning',
+				  confirmButtonText: '확인',
+				  width: '20%',
+			});
 		}else{
 			$('#detailCon').animate({opacity:'1'},0);
 			$('#StudyBoardInput').animate({opacity:'1'},0);
@@ -101,6 +102,14 @@ $(function(){
 	});
 	//글쓰기
 	$('#study_input').click(function () {
+		
+		$('#errtitle').css('display','none');
+		$('#errstart_day').css('display','none');
+		$('#errend_day').css('display','none');
+		$('#errlang').css('display','none');
+		$('#errcolor').css('display','none');
+		$('#errmemo').css('display','none');
+		$('#errpw').css('display','none');
 		var pwdCheck = 0;
 		var inick = localStorage.getItem("nick");
 		var ititle = $('#title').val();
@@ -111,49 +120,100 @@ $(function(){
 		var imemo = $('#memo').val();
 		var ipw = $('#pw').val();
 		var iflag = $('#flag').val();
+		var query = moment(istart_day,'YYYY-MM-DD HH:mm').isBefore(iend_day,'YYYY-MM-DD HH:mm');
 		
-		/* 
-		if(!ititle){
+		if(ititle==""){
 			$('#errtitle').html("모임명 입력은 필수입니다!!");
+			$('#errtitle').show();
+			return;
 		}
-		else if(!istart_day){
+		else if(istart_day==""){
 			$('#errstart_day').html("시작일 선택은 필수입니다!!");
+			$('#errstart_day').show();
+			return;
 		}
-		else if(!iend_day){
+		else if(iend_day==""){
 			$('#errend_day').html("마지막일 선택은 필수입니다!!");
+			$('#errend_day').show();
+			return;
 		}
-		else if(!ilang){
+		else if(query==false){
+			$('#errend_day').html("시작일보다 작습니다!!");
+			$('#errend_day').show();
+			return;
+		}
+		else if(ilang==""){
 			$('#errlang').html("언어 선택은 필수입니다!!");
+			$('#errlang').show();
+			return;
 		}
-		else if(!color){
+		else if(icolor==""){
 			$('#errcolor').html("컬러 선택은 필수입니다!!");
+			$('#errcolor').show();
+			return;
 		}
-		else if(!pw){
+		else if(imemo==""){
+			$('#errmemo').html("메모 입력은 필수입니다!!");
+			$('#errmemo').show();
+			return;
+		} 
+		else if(ipw==""){
 			$('#errpw').html("비밀번호 입력은 필수입니다!!");
-		} */
-		
-		$.ajax({
-			type:"POST",
-	        url:"studyboard_insert.ubi",
-	        data:{
-	        	nick : inick,
-	        	title : ititle,
-	        	start_day : istart_day,
-	        	end_day : iend_day,
-	        	lang : ilang,
-	        	color : icolor,
-	        	memo : imemo,
-	        	pw : ipw,
-	        	flag : iflag
-	        },
-	        success: function(){
-	        	location.reload();	
-	        },
-	        error: function () {
-	        	location.reload();
+			$('#errpw').show();
+			return;
+		}
+		else{
+			if(pwdCheck==0){
+				$.ajax({
+					  url:"studyboard_pwcheck.ubi",
+				      data : {id : localStorage.getItem("loginId")},
+				      success: function (pw) {
+				    	  if(ipw!=pw){
+					    	  $('#errpw').html("비밀번호가 맞지 않습니다!!");
+							  $('#errpw').show();
+							  return;
+				    	  }
+				    	  else{
+				    		  pwdCheck=1;
+				    		  $.ajax({
+				  				type:"POST",
+				  		        url:"studyboard_insert.ubi",
+				  		        data:{
+				  		        	nick : inick,
+				  		        	title : ititle,
+				  		        	start_day : istart_day,
+				  		        	end_day : iend_day,
+				  		        	lang : ilang,
+				  		        	color : icolor,
+				  		        	memo : imemo,
+				  		        	pw : ipw,
+				  		        	flag : iflag
+				  		        },
+				  		        success: function(){
+				  		        	Swal.fire({
+											  title: '입력 완료!! 마이페이지에서 확인가능!!',
+											  type: 'success',
+											  confirmButtonText: '확인',
+											  width: '20%',
+									})
+				  		        	location.reload();	
+				  		        },
+				  		        error: function () {
+				  		        	location.reload();
+				  				}
+				  			});
+				    	  }
+					  },
+					  error: function () {
+						  return;
+					  }
+				})
 			}
-		});
+		}
 	});
+	
+	
+	
 	
 	
 	var nowTime=new Date();
@@ -186,37 +246,85 @@ $(function(){
 		}
 	}
 	
-	$('#study_join').click(function() {
-		alert("참석 완료!!! 승인을 기다려주세요~");
-		$.ajax({
-			url:"study_join.ubi",
-			data:{nick : localStorage.getItem("nick")},
-			success: function(data) {
-				alert(data.id);
-			}
-		})
-		location.reload();
-	});
-	
-	
 });
 
 function view(num) {
-	var view_num = num;
-	$('#StudyBoardView').animate({opacity:'1'},0);
-	$('#StudyBoardView').show("fade",100);
-	$.ajax({
-		url :"study_board_view.ubi",
-		data:{
-			num : view_num
-		},
-		success:function(result){
-			$('#view_memo').html(result.memo);
-			$('#view_start').html(result.start_day);
-			$('#view_end').html(result.end_day);
-		}
-	});
-}	
+	$('#study_delete').css('display','none');
+	$('#study_join').css('display','none');
+
+	var nick = localStorage.getItem("nick");
+	if(localStorage.getItem("loginId")==null){
+		
+		Swal.fire({
+				  title: '로그인 해주세요!',
+				  type: 'warning',
+				  confirmButtonText: '확인',
+				  width: '20%',
+		})
+	}
+	else{
+		var view_num = num;
+		$('#StudyBoardView').animate({opacity:'1'},0);
+		$('#StudyBoardView').show("fade",100);
+		$.ajax({
+			url :"study_board_view.ubi",
+			data:{
+				num : view_num
+			},
+			success:function(result){
+				if(result.nick==nick){
+					 $('#study_delete').show();
+				}
+				else{
+					 $('#study_join').show();
+				}	
+				$('#view_memo').html(result.memo);
+				$('#view_start').html(result.start_day);
+				$('#view_end').html(result.end_day);
+			}
+		});
+		$('#study_join').click(function() {
+			$.ajax({
+				url:"study_join.ubi",
+				data:{nick : localStorage.getItem("nick")},
+				success: function(data) {
+					Swal.fire({
+						  title: '참석 완료!!! 승인을 기다려주세요~',
+						  type: 'success',
+						  confirmButtonText: '확인',
+						  width: '20%',
+					});
+				}
+			})
+			location.reload();
+		});
+		
+		$('#study_delete').click(function() {
+			var deleteconfirm = confirm("정말삭제하시겠습니까?");
+			if(deleteconfirm){
+				$.ajax({
+					url:"study_delete.ubi",
+					data:{num : num},
+					success: function(data) {
+						Swal.fire({
+							  title: '삭제 완료!!',
+							  type: 'success',
+							  confirmButtonText: '확인',
+							  width: '20%',
+						});
+					}
+				})
+				location.reload();
+			}
+		});
+	}
+	
+}
+
+
+
+
+
 </script>
 </head>
 <body>
@@ -256,31 +364,37 @@ function view(num) {
 		<span style="font-size: 40px;" id="inputTitleW">모임만들기</span>
 		<hr>
 		<input type="hidden" name="flag" id="flag" value="125125125"/>
-		<table border="1" style="width:100%;">
+		<table style="border:1px;width: 100%">
 			<tr>
 				<th>모임명</th>
-				<td>
+				<td align="left">
 					<input class="input_study" type="text" name="title" id="title" value="">
-					<span id="errtitle" style="color: red"></span>
+				</td>
+				<td align="left">
+					<span id="errtitle" style="color:red;display:none;"></span>
 				</td>
 			</tr>
 			<tr>
 				<th>시작</th>
-				<td>
+				<td align="left">
 					<input class="input_study" type="text" name="start_day" id="start_day" value="">
-					<span id="errstart_day" style="color: red"></span>
+				</td>
+				<td align="left" width="40%">
+					<span id="errstart_day" style="color: red;display:none;"></span>
 				</td>
 			</tr>
 			<tr>
 				<th>마지막</th>
-				<td>
+				<td align="left">
 					<input class="input_study" type="text" name="end_day" id="end_day" value="">
-					<span id="errend_day" style="color: red"></span>
+				</td>
+				<td align="left" width="40%">
+					<span id="errend_day" style="color: red;display:none;"></span>
 				</td>
 			</tr>
 			<tr>
 				<th>언어</th>
-				<td>
+				<td align="left">
 				  <select name="lang" id="lang" style="width:30%">
 	                  <option value="">선택</option>
 	                  <option value="JAVA">JAVA</option>
@@ -288,13 +402,15 @@ function view(num) {
 	                  <option value="C++">C++</option>
 	                  <option value="Python">Python</option>
                   </select>
-                  <span id="errlang" style="color: red"></span>
+                </td>
+				<td align="left" width="40%">
+                  <span id="errlang" style="color: red;display:none;"></span>
 				</td>
 			</tr>
 			<tr>
 				<th>색상</th>
-				<td>
-					<select name="color" id="color">
+				<td align="left">
+					<select name="color" id="color" style="width: 45%">
 						<option value="">선택</option>
 		                <option value="#D25565" style="color:#D25565;">빨간색</option>
 		                <option value="#9775fa" style="color:#9775fa;">보라색</option>
@@ -306,26 +422,32 @@ function view(num) {
 		                <option value="#4d638c" style="color:#4d638c;">남색</option>
 		                <option value="#495057" style="color:#495057;">검정색</option>
 	                </select>
-	                <span style="font-size: 15px;color:#fa1;">*마이페이지에 등록될 색상입니다.*</span>
-	                <span id="errcolor" style="color: red"></span>
+	                <span style="font-size: 15px;color:#fa1;"> &nbsp;*마이페이지에 등록될 색상입니다.*</span>
+	            </td>
+				<td align="left" width="40%">
+	                <span id="errcolor" style="color: red;display:none;"></span>
 				</td>
 			</tr>
 			<tr>
 				<th>메모</th>
-				<td>
+				<td align="left">
 					<textarea rows="4" cols="50" class="input_study" name="memo" id="memo"></textarea>
-					<span id="errmemo" style="color: red"></span>
+				</td>
+				<td align="left" width="40%">	
+					<span id="errmemo" style="color: red;display:none;"></span>
 				</td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td>
+				<td align="left">
 					<input class="input_study" type="password" name="pw" id="pw" value="">
-					<span id="errpw" style="color: red"></span>
+				</td>
+				<td align="left" width="40%">	
+					<span id="errpw" style="color: red;display:none;"></span>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center">
+				<td colspan="3" align="center">
 					<input type="button" value="만들기" class="button1" id="study_input">
 				</td>
 			</tr>
@@ -343,7 +465,8 @@ function view(num) {
 		기간 : <span id="view_start"></span>&nbsp; ~ 
 		      &nbsp;<span id="view_end"></span> <br><br>
 			 <div id="view_memo"></div><br>
-			 <button id="study_join" class="button1" style="margin: auto;">참여</button>
+			 <button id="study_join" class="button1" style="margin: auto;display:none;" onClick="">참여</button>
+			 <button id="study_delete" class="button1" style="margin: auto;display:none;" onClick="">삭제</button>
 	</div>
 </div>		
 
@@ -361,7 +484,8 @@ function view(num) {
 <c:forEach items="${lists }" var="list">
 	<%i+=1; %>
 	<tr>
-	<td class="eft1" id="${list.num}" style="border: 1px solid #ddd;background-color: white;">
+	<td class="eft1" id="${list.num}" style="border: 1px solid #ddd;background-color: white;" onclick="view('${list.num}')" 
+	onmouseover="this.style.background='rgba(255,217,102,0.5)'" onmouseout="this.style.background='#fff'" >
 	<input type="hidden" value="${list.num}" name="num">
 	<div class="listOne" style="cursor: pointer;">
 		<c:if test="${list.re_level==0}">
@@ -371,7 +495,7 @@ function view(num) {
 			<img src="<%=request.getContextPath()%>/resources/images/eft1.png" width="${(list.re_level-1)*25}px" height="5px">
 			<img src="<%=request.getContextPath()%>/resources/images/ref2.png" width="20px">
 		</c:if>
-		<span style="font-size: 20px;" onclick="view('${list.num}')">${list.title}</span>
+		<span style="font-size: 20px;">${list.title}</span>
 		<c:if test="${list.read_count>=10}">
 			<img src="<%=request.getContextPath()%>/resources/images/hot2.gif" width="100px">
 		</c:if>

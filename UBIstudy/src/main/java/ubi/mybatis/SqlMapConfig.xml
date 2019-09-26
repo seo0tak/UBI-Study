@@ -16,7 +16,6 @@
  		<typeAlias type="ubi.member.model.PlanerBean" alias="MyPlaner"/>
  		<typeAlias type="ubi.model.VideoBean" alias="MyVideo"/>
  		<typeAlias type="ubi.model.Fav_VideoBean" alias="MyFav"/>
- 		
  	</typeAliases>
  	<mappers>
  		<mapper resource="ubi/mybatis/member.xml"/>

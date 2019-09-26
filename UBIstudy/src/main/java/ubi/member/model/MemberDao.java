@@ -46,4 +46,8 @@ public class MemberDao {
 		return sqlSessionTemplate.selectOne(namespace + ".getDataByNick", nick);
 	}
 
+	public String getPw(String id) {
+		return sqlSessionTemplate.selectOne(namespace+".getPw",id);
+	}
+
 }

@@ -35,4 +35,8 @@
 		select * from member where nick=#{nick}
 	</select>
 	
+	<select resultType="String" id="getPw">
+		select pw from member where id=#{id}
+	</select>
+	
 </mapper>

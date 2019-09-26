@@ -71,9 +71,19 @@ public class StudyBoardController {
 		return mav;
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/studyboard_insert.ubi")
 	public void doAction(@ModelAttribute("study") StudyBoardBean bean) {
 		studyBoardDao.InsertData(bean);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/studyboard_pwcheck.ubi")
+	public String pwcheck(@RequestParam("id") String id) {
+		System.out.println("여긴오냐");
+		String pw = memberDao.getPw(id);
+		System.out.println("비밀번호 비교 왜안하냐"+pw);
+		return pw;
 	}
 	
 	@ResponseBody
@@ -81,6 +91,11 @@ public class StudyBoardController {
 	public StudyBoardBean doAction(@RequestParam("num") int num) {
 		StudyBoardBean result = studyBoardDao.GetData(num);
 		return result;
+	}
+	
+	@RequestMapping(value="/study_delete.ubi")
+	public void delete(@RequestParam("num") int num) {
+		studyBoardDao.Delete(num);
 	}
 	
 	@ResponseBody

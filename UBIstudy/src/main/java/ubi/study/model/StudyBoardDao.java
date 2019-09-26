@@ -68,10 +68,9 @@ public class StudyBoardDao {
 
 	public void InsertData(StudyBoardBean bean) {
 		String key = getKey(false, 20);
-		System.out.println("key값뭐냐 ~~~~       :"+key);
 		bean.setFlag(key);
 		System.out.println(bean);
-		sqlSessionTemplate.selectList(namespace + ".InsertData", bean);
+		sqlSessionTemplate.insert(namespace + ".InsertData", bean);
 	}
 
 	public String PlanByDescription(String start, String end) {
@@ -88,6 +87,11 @@ public class StudyBoardDao {
 	
 	public List<StudyBoardBean> selectAllByNick(Paging pageInfo, Map<String, String> map,String nick) {
 		return sqlSessionTemplate.selectList(namespace + ".selectAllByNick", nick);
+	}
+
+
+	public void Delete(int num) {
+		sqlSessionTemplate.delete(namespace + ".Delete",num);
 	}
 
 }

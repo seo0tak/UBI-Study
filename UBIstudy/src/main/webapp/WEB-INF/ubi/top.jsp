@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/sweetalert/css/sweetalert2.min.css">
+<script src="<%=request.getContextPath() %>/resources/sweetalert/js/sweetalert2.min.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
 	@font-face{
@@ -95,6 +97,7 @@
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <%
 	String[] util={"스터디 그룹","동영상 강의","자유 게시판","공지"};
 	String[] ubi={"studyboard_list.ubi","videoboard_list.ubi","freeboard_list.ubi",""};
