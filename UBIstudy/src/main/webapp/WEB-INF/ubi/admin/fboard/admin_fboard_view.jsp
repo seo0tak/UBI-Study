@@ -8,9 +8,9 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	function updataData()
+	function updateData(num)
 	{
-		location.href = "admin_fboard_update.ubi";
+		location.href = "admin_fboard_update.ubi?num=" + num;
 	}
 </script>
 <body>
@@ -72,7 +72,7 @@
       <button type="button" class="btn btn-block btn-default" onClick="location.href='admin_fboard_list.ubi'">목록으로</button>
 		</td>
 		<td>
-		<button type="button" class="btn btn-block btn-primary" onClick="updatetData()">글 수정</button>
+		<button type="button" class="btn btn-block btn-primary" onClick="updateData(${bean.num})">글 수정</button>
       </td>
       </tr>
       </table>

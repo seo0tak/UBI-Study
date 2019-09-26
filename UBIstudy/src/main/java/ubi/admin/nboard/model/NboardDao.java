@@ -50,4 +50,9 @@ public class NboardDao
 	{
 		sqlSessionTemplate.insert(namespace + ".InsertData", bean);
 	}
+
+	public void updateData(NboardBean bean) 
+	{
+		sqlSessionTemplate.update(namespace + ".UpdateData", bean);
+	}
 }

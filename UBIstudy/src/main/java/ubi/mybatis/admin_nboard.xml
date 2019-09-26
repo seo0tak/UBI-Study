@@ -19,5 +19,8 @@
 		insert into noti_board 
 		values(noti_board_seq.nextval,0,#{title},#{content},sysdate)
 	</insert>
+	<update id="UpdateData" parameterType="ANboard">
+		update noti_board set title=#{title}, content=#{content} where num=#{num}
+	</update>
 </mapper>
 	

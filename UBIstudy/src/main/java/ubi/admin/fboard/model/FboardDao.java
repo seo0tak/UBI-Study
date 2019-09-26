@@ -50,4 +50,15 @@ public class FboardDao
 		sqlSessionTemplate.insert(namespace + ".InsertData", bean);
 	}
 
+	public void UpdateData(FboardBean bean) 
+	{
+		sqlSessionTemplate.update(namespace + ".UpdateData", bean);
+	}
+
+/*	public int GetCount() {
+		int cnt = 0;
+		cnt = sqlSessionTemplate.selec
+		return 0;
+	}
+*/
 }
