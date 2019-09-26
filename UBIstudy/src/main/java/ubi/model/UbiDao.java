@@ -164,4 +164,22 @@ public class UbiDao {
 		bean=(VideoBean)sqlSessionTemplate.selectList(namespace + ".selectVideoByNum", num).get(0);
 		return bean;
 	}
+	
+	public List<KeyBean> selectKeyById(String id){
+		List<KeyBean> list=null;
+		list=sqlSessionTemplate.selectList(namespace + ".selectKeyById", id);
+		return list;
+	}
+	public List<KeyBean> selectKeyByKey(String key){
+		List<KeyBean> list=null;
+		list=sqlSessionTemplate.selectList(namespace + ".selectKeyByKey", key);
+		return list;
+	}
+	public void updateConf(int num) {
+		System.out.println("허춘삼            "+num);
+		sqlSessionTemplate.selectList(namespace + ".updateConf", num);
+	}
+	
+	
+	
 }

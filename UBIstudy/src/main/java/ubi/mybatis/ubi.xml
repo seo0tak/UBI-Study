@@ -89,4 +89,15 @@
 		select * from video_board where num=#{num} order by num desc
 	</select>
 	
+	<select resultType="MyKey" id="selectKeyById" parameterType="hashmap" >
+		select * from key where id=#{id}
+	</select>
+	<select resultType="MyKey" id="selectKeyByKey" parameterType="hashmap" >
+		select * from key where key=#{key}
+	</select>
+	
+	<update id="updateConf" parameterType="int">
+		update key set conf='o' where num=#{num}
+	</update>
+	
 </mapper>
