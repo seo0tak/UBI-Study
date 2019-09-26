@@ -35,7 +35,7 @@ body {  font-size: 12px; color:#000000; background-color: white; }/* 드래그�
 
 #msg_process {
 	position:relative;
-	top:15px;
+	top:10px;
 	width: 15%;
 	height: 15%;
 }
@@ -47,10 +47,11 @@ body {  font-size: 12px; color:#000000; background-color: white; }/* 드래그�
 	text-align: center; 
 }
 .CodeMirror{
-	margin-top:3%;
-	width:60%;
+	margin-top:2%;
+	width:57%;
 	border: 2px inset #dee;	
 	font-size:25px;
+	height: 100%;
 }
 .chat{
 	position:absolute;
@@ -98,10 +99,6 @@ video{
 div.CodeMirror-cursorsVisible {
 	visibility: visible !important;
 }
-#code_process{
-	position:absolute;
-	left:52%;
-}
 
 /* 버튼  */
 /* toggle this class */
@@ -133,7 +130,7 @@ div.CodeMirror-cursorsVisible {
   /* change bg color to get different hues    */
   background-color: salmon;
   color: white;
-  padding: 2em 3em;
+  padding: 1em 2em;
   border: none;
   transition: all .3s ease;
   border-radius: 5px;
@@ -179,6 +176,14 @@ div.CodeMirror-cursorsVisible {
     font-size: 13pt;
 }
 
+.page {
+  position:absolute;
+  top:1%;
+  left:50%;
+  display: flex;
+  justify-content: center;
+}
+
 </style>
 <link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
 <link rel="stylesheet" href="https://codemirror.net/addon/scroll/simplescrollbars.css"><!-- 스크롤바 -->
@@ -200,7 +205,10 @@ div.CodeMirror-cursorsVisible {
 </head>
 <body>
 	<button onclick="openTextFile()">Open</button>
-	<button class="fun-btn" id="code_process">RUN</button>
+	
+	<div class="page">
+ 		<button class="fun-btn" id="code_process">RUN</button>
+	</div>
 	
 	<div id="frmt" class="demo" style="position: absolute;right: 21%;top:9%;width: 20%;"></div>
 	
@@ -239,7 +247,8 @@ div.CodeMirror-cursorsVisible {
 		var javaEditor = CodeMirror.fromTextArea(document.getElementById("java-code"), {
 	        lineNumbers: true,
 	        matchBrackets: true,
-	        mode: "text/x-java"
+	        mode: "text/x-java",
+	        autofocus : true
 	      }); 
 		/* CodeMirror */
 		
@@ -289,7 +298,7 @@ div.CodeMirror-cursorsVisible {
 
 			});
 			
-			javaEditor.setSize(1100, 500);
+			//javaEditor.setSize(860,400);
 			$.ajax({
 				type: 'POST',
 				url: 'http://localhost:9090/ex/file.ubi',
@@ -299,7 +308,7 @@ div.CodeMirror-cursorsVisible {
 				}
 			});
 			
-			function toggleClass(elem, theClass, newState) {
+			/* function toggleClass(elem, theClass, newState) {
 			      var matchRegExp = new RegExp('(?:^|\\s)' + theClass + '(?!\\S)', 'g');
 			      var add=(arguments.length>2 ? newState : (elem.className.match(matchRegExp) == null));
 			      elem.className=elem.className.replace(matchRegExp, ''); // clear all
@@ -311,7 +320,7 @@ div.CodeMirror-cursorsVisible {
 			      }
 		      javaEditor.on('blur', javaEditor => { cmToggleCursorsClass(javaEditor, 'CodeMirror-cursorsVisible', true); });
 		      javaEditor.on('focus', javaEditor => { cmToggleCursorsClass(javaEditor, 'CodeMirror-cursorsVisible', false); });
-			
+			 */
 			/* webSocket */
 			var connection = new RTCMultiConnection();
 			connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
@@ -493,7 +502,6 @@ div.CodeMirror-cursorsVisible {
 					url: 'http://localhost:9090/ex/compile.ubi',
 					data: code_data,
 					success:function(result) {
-						alert(result);
 						$('#output').val(result);
 					}
 				});
