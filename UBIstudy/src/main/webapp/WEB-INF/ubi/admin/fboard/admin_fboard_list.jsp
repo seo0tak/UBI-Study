@@ -27,24 +27,6 @@
 	}
 </script>
 <body>
-	<%-- <table border=1 align="center">
-		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>글쓴이</th>
-			<th>조회수</th>
-			<th>날짜</th>
-		</tr>
-		<c:forEach items="${fbList }" var="fb">
-			<tr>
-				<td>${fb.num }</td>
-				<td>${fb.title }</td>
-				<td>${fb.name }</td>
-				<td>${fb.read_count }</td>
-				<td>${fb.day }</td>
-			</tr>
-		</c:forEach>
-	</table> --%>
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -75,7 +57,7 @@
 					<img src="<%=request.getContextPath()%>/resources/images/eft1.png" width="${(fb.re_level-1)*25}px" height="5px">
 					<img src="<%=request.getContextPath()%>/resources/images/ref2.png" width="20px">
 				</c:if>
-				<a href="admin_fboard_view.ubi?num=${fb.num }">${fb.title }</a>
+				<a href="admin_fboard_view.ubi?num=${fb.num }&pageNumber=${pageInfo.pageNumber}">${fb.title }</a>
 				<c:if test="${fb.read_count>=10}">
 					<img src="<%=request.getContextPath()%>/resources/images/hot2.gif" width="100px">
 				</c:if>
@@ -89,9 +71,31 @@
 			</tr>
 		</c:forEach>
                 </tbody>
-              </table>
+              </table><br>
+               <div align="left">
+            	<form action="admin_fboard_list.ubi" method="get">
+            		<table id="example2">
+            		<tr>
+            		<td>
+            		<select name="whatColumn" class="form-control">
+            			<option value="title">제목</option>
+            			<option value="name">글쓴이</option>
+            			<option value="all">제목 + 글쓴이</option>
+            		</select>
+            		</td>
+            		<td>
+            		<input type="text" name=keyword class="form-control"></td>
+            		<td>
+            		<button type="submit" class="btn btn-block btn-info btn-flat">검색</button>
+            		</td>
+            		</tr>
+            		</table>
+            	</form>
+            	
+           <center><font size="5p">${pageInfo.pagingHtml}</font></center>
+           
             </div>
-           <center> ${pageInfo.pagingHtml}</center>
+            </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->

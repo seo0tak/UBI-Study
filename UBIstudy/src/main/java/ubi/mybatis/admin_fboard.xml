@@ -4,9 +4,22 @@
 <mapper namespace="ubi.admin.fboard.model.FboardBean" >
 	<select resultType="int" id="GetTotalCount">
 		select count(*) from free_board
+		<if test="whatColumn == 'name'">
+			where name like #{keyword}
+		</if>		
+		<if test="whatColumn == 'title'">
+			where title like #{keyword}
+		</if>
 	</select>
 	<select resultType="AFboard" id="GetDataList" parameterType="hashmap" >
-		select * from free_board order by ref desc, re_level asc,num desc
+		select * from free_board 
+		<if test="whatColumn == 'name'">
+			where name like #{keyword}
+		</if>		
+		<if test="whatColumn == 'title'">
+			where title like #{keyword}
+		</if>
+		order by ref desc, re_level asc,num desc
 	</select>
 	<delete id="DeleteData">
 		delete from free_board where num=#{num}

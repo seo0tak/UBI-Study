@@ -4,9 +4,28 @@
 <mapper namespace="ubi.admin.sboard.model.SboardBean" >
 	<select resultType="int" id="GetTotalCount">
 		select count(*) from study_board
+		<if test="whatColumn == 'name'">
+			where nick like #{keyword}
+		</if>		
+		<if test="whatColumn == 'title'">
+			where title like #{keyword}
+		</if>
+		<if test="whatColumn == 'lang'">
+			where lang like #{keyword}
+		</if>
 	</select>
 	<select resultType="ASboard" id="GetDataList" parameterType="hashmap" >
-		select * from study_board order by ref desc, re_level asc,num desc
+		select * from study_board 
+		<if test="whatColumn == 'name'">
+			where nick like #{keyword}
+		</if>		
+		<if test="whatColumn == 'lang'">
+			where lang like #{keyword}
+		</if>
+		<if test="whatColumn == 'title'">
+			where title like #{keyword}
+		</if>
+		order by ref desc, re_level asc,num desc
 	</select>
 	
 	<delete id="DeleteData">
@@ -15,5 +34,12 @@
 	<select id="GetData" resultType="ASboard">
 		select * from study_board where num=#{num}
 	</select>
+	<insert id="InsertData" parameterType="ASboard">
+		insert into study_board values 
+		(study_board_seq.nextval,study_board_seq.currval,0,0,#{nick},#{title},#{memo},#{start_day},#{end_day},to_char(sysdate,'yyyy-MM-dd hh24:MI'),#{pw},'key',#{lang},#{color})
+	</insert>
+	<update id="UpdateData" parameterType="ASboard">
+		update study_board set title=#{title}, memo=#{memo}, start_day=#{start_day}, end_day=#{end_day}, lang=#{lang}, color=#{color} where num=#{num}
+	</update>
 </mapper>
 	

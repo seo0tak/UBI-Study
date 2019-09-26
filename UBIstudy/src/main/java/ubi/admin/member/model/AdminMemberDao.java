@@ -45,4 +45,11 @@ public class AdminMemberDao
 		bean = sqlSessionTemplate.selectOne(namespace + ".GetThisMember", id);
 		return bean;
 	}
+
+	public AdminMemberBean GetData(int num) 
+	{
+		AdminMemberBean bean = null;
+		bean = sqlSessionTemplate.selectOne(namespace + ".GetData", num);
+		return bean;
+	}
 }

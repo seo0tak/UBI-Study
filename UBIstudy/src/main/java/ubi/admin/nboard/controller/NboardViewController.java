@@ -22,10 +22,12 @@ public class NboardViewController
 	private NboardDao nboardDao;
 	
 	@RequestMapping(value = command, method = RequestMethod.GET)
-	public String doAction(@RequestParam(value = "num", required = true) int num, Model model)
+	public String doAction(@RequestParam(value = "num", required = true) int num,
+			@RequestParam(value = "pageNumber", required = false) String pageNumber, Model model)
 	{
 		NboardBean bean = nboardDao.GetData(num);
 		model.addAttribute("bean", bean);
+		model.addAttribute("pageNumber", pageNumber);
 		return getPage;
 	}
 }

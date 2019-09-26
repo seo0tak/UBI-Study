@@ -4,7 +4,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@include file="../header.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,24 +25,6 @@ function insertData()
 	}
 </script>
 <body>
-	<%-- <table border=1 align="center">
-		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>글쓴이</th>
-			<th>조회수</th>
-			<th>날짜</th>
-		</tr>
-		<c:forEach items="${fbList }" var="fb">
-			<tr>
-				<td>${fb.num }</td>
-				<td>${fb.title }</td>
-				<td>${fb.name }</td>
-				<td>${fb.read_count }</td>
-				<td>${fb.day }</td>
-			</tr>
-		</c:forEach>
-	</table> --%>
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -68,7 +50,7 @@ function insertData()
 			<tr>
 				<td>${nb.num }</td>
 				<td>
-				<a href="admin_nboard_view.ubi?num=${nb.num }">${nb.title }</a>
+				<a href="admin_nboard_view.ubi?num=${nb.num }&pageNumber=${pageInfo.pageNumber}">${nb.title }</a>
 				</td>
 				<td>${nb.read_count }</td>
 				<td>${nb.day }</td>
@@ -78,9 +60,23 @@ function insertData()
 			</tr>
 		</c:forEach>
                 </tbody>
-              </table>
+              </table><br>
+               <div align="left">
+            	<form action="admin_nboard_list.ubi" method="get">
+            		<table id="example2">
+            		<tr>
+            		<td>
+            		</td>
+            		<td>
+            		<input type="hidden" name="whatColumn" value="title">
+            		<input type="text" name=keyword placeholder="제목으로 검색" class="form-control"></td>
+            		<td>
+					<button type=submit class="btn btn-block btn-info btn-flat">검색</button>            		</td>
+            		</tr>
+            		</table>
+            	</form>
+           <center><font size="5p">${pageInfo.pagingHtml}</font></center>
             </div>
-           <center> ${pageInfo.pagingHtml}</center>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->

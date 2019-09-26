@@ -45,4 +45,14 @@ public class SboardDao
 		bean = sqlSessionTemplate.selectOne(namespace + ".GetData", num);
 		return bean;
 	}
+
+	public void InsertData(SboardBean bean) 
+	{
+		sqlSessionTemplate.insert(namespace + ".InsertData", bean);
+	}
+
+	public void UpdateData(SboardBean bean) 
+	{
+		sqlSessionTemplate.update(namespace + ".UpdateData", bean);
+	}
 }
