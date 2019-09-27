@@ -4,7 +4,7 @@
 <mapper namespace="ubi.admin.sboard.model.SboardBean" >
 	<select resultType="int" id="GetTotalCount">
 		select count(*) from study_board
-		<if test="whatColumn == 'name'">
+		<if test="whatColumn == 'nick'">
 			where nick like #{keyword}
 		</if>		
 		<if test="whatColumn == 'title'">
@@ -16,7 +16,7 @@
 	</select>
 	<select resultType="ASboard" id="GetDataList" parameterType="hashmap" >
 		select * from study_board 
-		<if test="whatColumn == 'name'">
+		<if test="whatColumn == 'nick'">
 			where nick like #{keyword}
 		</if>		
 		<if test="whatColumn == 'lang'">
