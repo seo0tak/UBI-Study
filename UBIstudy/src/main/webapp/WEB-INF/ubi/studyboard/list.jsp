@@ -46,7 +46,7 @@
 	}
 	.input_study{
 		resize: none;
-		width: 500px;
+		width: 400px;
 		font-size: 22px;
 		outline-color: #fa1;
 		outline-width: 2px;
@@ -255,12 +255,20 @@ function view(num) {
 	var nick = localStorage.getItem("nick");
 	if(localStorage.getItem("loginId")==null){
 		
-		Swal.fire({
+		/* Swal.fire({
 				  title: '로그인 해주세요!',
 				  type: 'warning',
 				  confirmButtonText: '확인',
 				  width: '20%',
+		}) */
+		Swal.fire({
+				  title: '로그인 해주세요!',
+				  animation: false,
+				  customClass: {
+					    popup: 'animated heartBeat'
+				  }
 		})
+		
 	}
 	else{
 		var view_num = num;
@@ -296,7 +304,6 @@ function view(num) {
 					});
 				}
 			})
-			location.reload();
 		});
 		
 		$('#study_delete').click(function() {
@@ -314,7 +321,6 @@ function view(num) {
 						});
 					}
 				})
-				location.reload();
 			}
 		});
 	}
@@ -410,7 +416,7 @@ function view(num) {
 			<tr>
 				<th>색상</th>
 				<td align="left">
-					<select name="color" id="color" style="width: 45%">
+					<select name="color" id="color" style="width: 40%">
 						<option value="">선택</option>
 		                <option value="#D25565" style="color:#D25565;">빨간색</option>
 		                <option value="#9775fa" style="color:#9775fa;">보라색</option>
@@ -422,7 +428,7 @@ function view(num) {
 		                <option value="#4d638c" style="color:#4d638c;">남색</option>
 		                <option value="#495057" style="color:#495057;">검정색</option>
 	                </select>
-	                <span style="font-size: 15px;color:#fa1;"> &nbsp;*마이페이지에 등록될 색상입니다.*</span>
+	                <span> &nbsp;<font style="font-size: 13px;color: #fa1;"> *마이페이지에 등록될 색상입니다.*</font></span>
 	            </td>
 				<td align="left" width="40%">
 	                <span id="errcolor" style="color: red;display:none;"></span>
@@ -448,7 +454,7 @@ function view(num) {
 			</tr>
 			<tr>
 				<td colspan="3" align="center">
-					<input type="button" value="만들기" class="button1" id="study_input">
+					<br><input type="button" value="만들기" class="button1" id="study_input">
 				</td>
 			</tr>
 		</table>

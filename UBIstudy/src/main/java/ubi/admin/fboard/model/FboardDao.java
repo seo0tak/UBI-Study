@@ -55,6 +55,12 @@ public class FboardDao
 		sqlSessionTemplate.update(namespace + ".UpdateData", bean);
 	}
 
+	public int GetNewCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 /*	public int GetCount() {
 		int cnt = 0;
 		cnt = sqlSessionTemplate.selec

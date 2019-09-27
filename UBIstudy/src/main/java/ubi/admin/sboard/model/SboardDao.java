@@ -55,4 +55,9 @@ public class SboardDao
 	{
 		sqlSessionTemplate.update(namespace + ".UpdateData", bean);
 	}
+
+	public int GetNewCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

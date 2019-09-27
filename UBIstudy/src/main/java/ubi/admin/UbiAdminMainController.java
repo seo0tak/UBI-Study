@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,4 +62,13 @@ public class UbiAdminMainController
 		mav.setViewName(getPage);
 		return mav;
 	}
+	
+	/*@RequestMapping(value="/chart.ubi")
+	public int chart() {
+		int new_fcount = fboardDao.GetNewCount();
+		int new_ncount = nboardDao.GetNewCount();
+		int new_scount = sboardDao.GetNewCount();
+		int new_vcount = vboardDao.GetNewCount();
+		return 0;
+	}*/
 }

@@ -5,8 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="<%=request.getContextPath() %>/resources/sweetalert/js/sweetalert2.all.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/sweetalert/css/sweetalert2.min.css">
-<script src="<%=request.getContextPath() %>/resources/sweetalert/js/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/sweetalert/css/animate.css">
 <title>Insert title here</title>
 <style type="text/css">
 	@font-face{
@@ -440,7 +441,12 @@
 		            			location.reload();
 		            		}
 		            		else{
-		            			alert("이메일 인증이 필요합니다.");
+		            			Swal.fire({
+									 title: '이메일 인증이 필요합니다!!',
+								  	 type: 'warning',
+									 confirmButtonText: '확인',
+									 width: '20%',
+								})
 		            			location.reload();
 		            		}
 		            		
@@ -529,7 +535,12 @@
 function online() {
 	var login = localStorage.getItem("loginId");
 	if(login==null){
-		alert('로그인을 해주세요');
+		Swal.fire({
+			 title: '로그인을 해주세요!!',
+		  	 type: 'warning',
+			 confirmButtonText: '확인',
+			 width: '20%',
+		})
 		location.reload();
 	}
 	else{

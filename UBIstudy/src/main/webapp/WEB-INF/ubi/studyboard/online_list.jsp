@@ -4,7 +4,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/sweetalert/css/sweetalert2.min.css">
-<script src="<%=request.getContextPath() %>/resources/sweetalert/js/sweetalert2.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/sweetalert/js/sweetalert2.all.min.js"></script>
 
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/jstree/themes/default/style.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -269,7 +269,7 @@ div.CodeMirror-cursorsVisible {
 		/* CodeMirror */
 		
 		//그냥 참조할려고 예제로 넣어둔 파일트리
-			$('#frmt').jstree({
+	/* 		$('#frmt').jstree({
 				'core' : {
 					'data' : [
 						{
@@ -286,19 +286,20 @@ div.CodeMirror-cursorsVisible {
 						}
 					]
 				}
-			});
+			}); */
 				
 		
 		
-		/* 	 다시 봐야할 트리 함수 건들지 말기
+		 	// 다시 봐야할 트리 함수 건들지 말기
 			$('#frmt').jstree({
 				'core' : {
 					'data' : {
 						"url" : "http://localhost:9090/ex/jStree.ubi",
+						"dataType" : "json"
 					}
 				}
 			}); 
-		*/
+		
 		
 		$(document).ready(function() {
 			
