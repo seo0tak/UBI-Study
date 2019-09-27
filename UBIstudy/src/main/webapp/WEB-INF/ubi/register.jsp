@@ -23,8 +23,10 @@ input{
 input::placeholder {
   color: rgba(200,200,200,1);
 }
+
 </style>
 <script type="text/javascript">
+
 function checkId() {
 	   var inputed = $('#checkaa').val();
 	     $.ajax({
@@ -44,7 +46,7 @@ function checkId() {
 	     });
 	     var calendar =[]
 }
-//재입력 비밀번호 체크하여 가입버튼 비활성화 또는 맞지않음을 알림.
+
  function checkPwd() {
      var inputed = $('#pw').val();
      var reinputed = $('#repwd').val();
@@ -55,8 +57,6 @@ function checkId() {
      }
      else if (inputed == reinputed) {
          $("#repwd").css("background-color", "#B0F6AC");
-         if(idCheck==1 && pwdCheck == 1) {
-         }
      } else if (inputed != reinputed) {
          $("#repwd").css("background-color", "#FFCECE");
      }
@@ -78,10 +78,12 @@ function checkId() {
 	             } 
 	         }
 	     });
-}
+ }
+
 </script>
 </head>
 <body>
+
 <div style="background-color: rgba(255,255,255,0.8); padding: 40px;box-shadow: 0px 10px 8px 8px rgba(255,255,255,0.8);padding-left: 100px;">
 <span style="font-size: 50px;">
 회원 등록
@@ -101,7 +103,7 @@ function checkId() {
                <br>
                <br>
                <br>
-                   <form:form commandName="member" method="post" action="register.ubi">
+                   <form:form id="myForm" commandName="member" method="post" action="register.ubi">
                        <div>
                            <input class="input1" type="text" name="id" placeholder="아이디" oninput="checkId()" id="checkaa" value="${member.id}" autofocus>
                            <br><form:errors cssClass="err" path="id"/>

@@ -9,13 +9,16 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/jstree/themes/default/style.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="<%=request.getContextPath() %>/resources/jstree/jstree.min.js"></script>
+
+<script src="<%=request.getContextPath() %>/resources/js/lottie/lottie.js"></script>
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>소켓 서버</title>
 
 <style>
 /* CodeMirror */
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
-html,body { /* width:100%; height:100%; background: #21292e; overflow:hidden; margin: 0;  */}
 body {  font-size: 12px; color:#000000; background-color: white; }/* 드래그했을 때의 색상 */
 .cm-matchhighlight {background-color: #376060; color: #ffffff !important;} /* 같은단어강조 */
 .CodeMirror-matchingbracket { background-color: #cc0000; color: #000000 !important; } /* 괄호강조 */
@@ -47,11 +50,10 @@ body {  font-size: 12px; color:#000000; background-color: white; }/* 드래그�
 	text-align: center; 
 }
 .CodeMirror{
-	margin-top:2%;
+	margin-top:4%;
 	width:57%;
 	border: 2px inset #dee;	
-	font-size:25px;
-	height: 100%;
+	font-size:20px;
 }
 .chat{
 	position:absolute;
@@ -90,6 +92,7 @@ input.img-button {
 	width: 100%;
 	height: 90%;
 	overflow: auto;
+	padding: 10px;
 }
 video{
 	width:100%;
@@ -183,6 +186,19 @@ div.CodeMirror-cursorsVisible {
   display: flex;
   justify-content: center;
 }
+/* 레고 로딩 */
+#animationWindow {
+ position:absolute;
+ top:0;
+ left:0;
+ background-color: rgba(253, 200, 0,0.05);
+ overflow: hidden;
+ text-align: center;
+ height: 100%;
+ width: 100%;
+ z-index: 10;
+}
+
 
 </style>
 <link rel="stylesheet" href="https://codemirror.net/lib/codemirror.css">
@@ -204,8 +220,11 @@ div.CodeMirror-cursorsVisible {
 
 </head>
 <body>
-	<button onclick="openTextFile()">Open</button>
-	
+
+<div id="animationWindow" style="display: none;">
+</div> 
+<!-- <button onclick="openTextFile()">Open</button> -->
+	<span style="position: absolute;top:4%;"><font style="font-family: NIXGONFONTS;font-size: 25px; color: rgba(0,0,0,0.5)">editor</font></span>
 	<div class="page">
  		<button class="fun-btn" id="code_process">RUN</button>
 	</div>
@@ -213,21 +232,17 @@ div.CodeMirror-cursorsVisible {
 	<div id="frmt" class="demo" style="position: absolute;right: 21%;top:9%;width: 20%;"></div>
 	
 	<div class="chat">
-		<font style="font-family: NIXGONFONTS;font-size: 20px; color: rgba(0,0,0,0.5)">chat</font>
+		<font style="font-family: NIXGONFONTS;font-size: 25px; color: rgba(0,0,0,0.5)">chat</font>
 	<div id="chat_box" style="padding-top: 10px;padding-left: 10px"></div>
 	<input type="text" id="msg">
 	<input id="msg_process" type="button" class="img-button">
 	</div>
 	<div>
-		<textarea class="java_code" id='java-code' name='java_code'></textarea><br>
+		<textarea class="java_code" id='java-code' name='java_code' style="z-index: -3"></textarea>
 	</div>
 	
-	
-	
-		
-		
 	<div class="console">
-		<font style="font-family: NIXGONFONTS;font-size: 20px; color: rgba(0,0,0,0.5)">result</font><br>
+		<font style="font-family: NIXGONFONTS;font-size: 25px; color: rgba(0,0,0,0.5)">result</font><br>
 		<textarea id="output" name='output' readonly="readonly" style="resize: none;"></textarea>
 	</div>
 	<input type="hidden" id="txt-roomid">
@@ -243,6 +258,7 @@ div.CodeMirror-cursorsVisible {
 	<script src="https://floating-cove-33208.herokuapp.com/socket.io/socket.io.js"></script>
 	
 	<script>
+		
 		/* CodeMirror */
 		var javaEditor = CodeMirror.fromTextArea(document.getElementById("java-code"), {
 	        lineNumbers: true,
@@ -286,19 +302,7 @@ div.CodeMirror-cursorsVisible {
 		
 		$(document).ready(function() {
 			
-			$('.fun-btn').on('click', function(event) {
-				  $(this).toggleClass('start-fun');
-				  var $page = $('.page');
-				  $page.toggleClass('color-bg-start')
-				    .toggleClass('bg-animate-color');
-
-				  $(this).hasClass('start-fun') ?
-				    $(this).text('stop the fun') :
-				    $(this).text('start the fun');
-
-			});
-			
-			//javaEditor.setSize(860,400);
+			javaEditor.setSize(null,400);
 			$.ajax({
 				type: 'POST',
 				url: 'http://localhost:9090/ex/file.ubi',
@@ -340,8 +344,8 @@ div.CodeMirror-cursorsVisible {
 			//msg_process를 클릭할 때
 			$("#msg_process").click(function() {
 				//소켓에 send_msg라는 이벤트로 input에 #msg의 벨류를 담고 보내준다.
-				socket.emit("send_msg", $("#msg").val());
 				socket.emit("nick", "${nick}");
+				socket.emit("send_msg", $("#msg").val());
 				//#msg에 벨류값을 비워준다.
 				$("#msg").val("");
 			});
@@ -354,12 +358,6 @@ div.CodeMirror-cursorsVisible {
 				socket.emit("coords", coords);
 		    });
 			
-			//소켓 서버로 부터 send_msg를 통해 이벤트를 받을 경우 
-			socket.on('send_msg', function(msg) {
-				//div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
-				$('<div></div>').text(msg).appendTo("#chat_box");
-				$('#chat_box').scrollTop($('#chat_box').prop('scrollHeight'));
-			});
 			
 			//소켓 서버로 부터 user_join를 통해 이벤트를 받을 경우 
 			socket.on('user_join', function(name) {
@@ -367,11 +365,36 @@ div.CodeMirror-cursorsVisible {
 				$('#chat_box').scrollTop($('#chat_box').prop('scrollHeight'));
 			});
 			
+			
+			//수정중
+			/* javaEditor.on('cursorActivity', e => {
+	            const stPos = ed.getCursor('start');
+	            const edPos = ed.getCursor('end');
+	            const hdPos = ed.getCursor('head');
+
+	            const stindex = ed.indexFromPos(stPos);
+	            const edindex = ed.indexFromPos(edPos);
+	            const hdindex = ed.indexFromPos(hdPos);
+	            const prefixed = hdindex === stindex && stindex !== edindex
+
+	            io.emit('anchor-update', { stindex, edindex, prefixed });
+	        });
+			 */
+			//수정중
+			
 			//소켓 서버로 부터 user_exit를 통해 이벤트를 받을 경우 
 			socket.on('user_exit', function(name) {
 				$('<div class="log"></div>').text(name+'님 나감!!').appendTo("#chat_box");
 				$('#chat_box').scrollTop($('#chat_box').prop('scrollHeight'));
 			});
+			
+			//소켓 서버로 부터 send_msg를 통해 이벤트를 받을 경우 
+			socket.on('send_msg', function(msg) {
+				//div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
+				$('<div></div>').text(msg).appendTo("#chat_box");
+				$('#chat_box').scrollTop($('#chat_box').prop('scrollHeight'));
+			});
+			
 			
 			//소켓 서버로 부터 send_code를 통해 이벤트를 받을 경우 
 			socket.on('send_code', function(code) {
@@ -383,13 +406,8 @@ div.CodeMirror-cursorsVisible {
 			socket.on('coords', function(coords) {
 				//alert(coords.line);
 				//alert(coords.ch);
-				javaEditor.focus();
-				javaEditor.setCursor(coords.line,coords.ch);//커서위치 셋팅 커서 절대값
-			});
-			
-			//소켓 서버로 부터 result를 통해 이벤 트를 받는경우
-			socket.on('result', function(result) {
-				$('#output').val(result);
+				//javaEditor.focus();
+				//javaEditor.setCursor(coords.line,coords.ch);//커서위치 셋팅 커서 절대값
 			});
 			
 			
@@ -493,6 +511,10 @@ div.CodeMirror-cursorsVisible {
 				
 		});
 		
+		/* <div id="animationWindow">
+		</div> */
+		
+		
 		$("#code_process").click(function() {
 			//javaEditor.select();//전체선택
 			var code_value = javaEditor.getValue();
@@ -501,9 +523,18 @@ div.CodeMirror-cursorsVisible {
 					type: 'POST',
 					url: 'http://localhost:9090/ex/compile.ubi',
 					data: code_data,
+					beforeSend:function(){
+				        /* (로딩 div 보여주기) */
+						$('#animationWindow').show();
+					},
 					success:function(result) {
+						alert(typeof result);
 						$('#output').val(result);
-					}
+					},
+				    complete:function(){
+				       /*  (로딩 div 숨기기) */
+				     $('#animationWindow').css('display','none');
+				    }
 				});
 			});
 		
@@ -529,6 +560,18 @@ div.CodeMirror-cursorsVisible {
 		 
 		    reader.readAsText(file, /* optional */ "UTF-8");
 		}
+		
+		//레고 로딩
+		var animData = {
+				wrapper: document.querySelector('#animationWindow'),
+				animType: 'svg',
+				loop: true,
+				prerender: true,
+				autoplay: true,
+				path: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/LEGO_loader.json'
+			};
+			var anim = bodymovin.loadAnimation(animData);
+		anim.setSpeed(3.4);
 		
 	</script>
 </body>
