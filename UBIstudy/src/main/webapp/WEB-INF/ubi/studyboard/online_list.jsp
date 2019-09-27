@@ -528,12 +528,22 @@ div.CodeMirror-cursorsVisible {
 						$('#animationWindow').show();
 					},
 					success:function(result) {
-						alert(typeof result);
+						if(result.replace(/(\s*)/g,"")==""){
+							Swal.fire({
+								 title: '컴파일 에러!!',
+							  	 type: 'error',
+								 confirmButtonText: '확인',
+								 width: '20%',
+							})
+						}
 						$('#output').val(result);
 					},
 				    complete:function(){
 				       /*  (로딩 div 숨기기) */
 				     $('#animationWindow').css('display','none');
+				    },
+				    error:function(){
+				    	
 				    }
 				});
 			});
