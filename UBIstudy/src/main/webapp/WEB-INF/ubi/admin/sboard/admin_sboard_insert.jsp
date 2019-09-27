@@ -34,7 +34,7 @@
 		                <option value="#495057" style="color:#495057;">검정색</option>
                 </select>
                 <input type="text" name=title placeholder="모임명 입력" required="required"><br>
-                                시작날짜 : <input type="date" name=start_day>  종료날짜 : <input type="date" name=end_day>
+                                시작날짜 : <input type="datetime-local" name=start_day>  종료날짜 : <input type="datetime-local" name=end_day>
           		<input type="hidden" name=nick value="${bean.nick }">  
           		<input type="hidden" name=pw value="${bean.pw }">  
               </h3>
