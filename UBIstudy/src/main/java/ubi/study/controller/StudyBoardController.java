@@ -85,15 +85,14 @@ public class StudyBoardController {
 	@ResponseBody
 	@RequestMapping(value="/studyboard_pwcheck.ubi")
 	public String pwcheck(@RequestParam("id") String id) {
-		System.out.println("여긴오냐");
 		String pw = memberDao.getPw(id);
-		System.out.println("비밀번호 비교 왜안하냐"+pw);
 		return pw;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/study_board_view.ubi")
 	public StudyBoardBean doAction(@RequestParam("num") int num) {
+		studyBoardDao.updateReadCount(num);
 		StudyBoardBean result = studyBoardDao.GetData(num);
 		return result;
 	}
@@ -110,8 +109,4 @@ public class StudyBoardController {
 		return result;
 	}
 	
-	/*@RequestMapping(value="read_count_update")
-	public void updateReadCount(@RequestParam(value = "id", required = false ) String id) {
-		studyBoardDao.updateReadCount(Integer.valueOf(id));
-	}*/
 }

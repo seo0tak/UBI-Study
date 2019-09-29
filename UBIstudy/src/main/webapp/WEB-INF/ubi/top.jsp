@@ -316,6 +316,13 @@
 <script type="text/javascript">
 	$(function(){
 		
+		//esc키누르면 x클릭함
+		$(document).keyup(function(key) {
+			if (key.keyCode == 27) {
+				$('.closeX').click();
+			}
+		});
+		
 		$(window).load(function() {
 			    $('.loading').hide();  
 		});
