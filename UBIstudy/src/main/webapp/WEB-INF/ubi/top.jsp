@@ -309,13 +309,8 @@
 
 <%
 	String[] util={"스터디 그룹","동영상 강의","자유 게시판","공지"};
-<<<<<<< HEAD
 	String[] ubi={"studyboard_list.ubi","videoboard_list.ubi","freeboard_list.ubi","notiboard_list.ubi"};
-=======
-	String[] ubi={"studyboard_list.ubi","videoboard_list.ubi","freeboard_list.ubi",""};
 	session.setMaxInactiveInterval(24*60*60);
-	
->>>>>>> c75db834186b62f22c4b21e94216c3a744860a9e
 %>
 <script type="text/javascript">
 	$(function(){
