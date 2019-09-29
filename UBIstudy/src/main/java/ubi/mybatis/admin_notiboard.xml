@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ubi.admin.notibaord.model.NotiboardBean" >
+	<select resultType="int" id="GetTotalCount">
+		select count(*) from noti_board
+<!-- 		<if test="whatColumn == 'name'">
+			where name like #{keyword}
+		</if>		
+		<if test="whatColumn == 'title'">
+			where title like #{keyword}
+		</if> -->
+	</select>
+	<select resultType="ANOboard" id="GetDataList" parameterType="hashmap" >
+		select * from noti_board order by num desc
+<!-- 		<if test="whatColumn == 'name'">
+			where name like #{keyword}
+		</if>		
+		<if test="whatColumn == 'title'">
+			where title like #{keyword}
+		</if> -->
+		
+	</select>
+	
+	<delete id="DeleteData">
+	
+		delete from noti_board where num=#{num}
+	
+	</delete>
+	
+	
+	<select id="GetData" resultType="ANOboard">
+		select * from noti_board where num=#{num}
+	</select>
+	
+	<insert id="InsertData" parameterType="ANOboard">
+		insert into noti_board
+		values(free_board_seq.nextval,free_board_seq.currval,0,0,#{name},#{title},#{content},#{pw},sysdate)
+	</insert>
+	
+	
+	<update id="UpdateData" parameterType="ANOboard">
+		update noti_board set title=#{title}, content=#{content} where num=#{num}
+	</update>
+	<!-- <select resultType="int" id="GetTodayCount">
+		select count(*) from free_board where day=to_char(sysdate, 'yy/mm/dd');
+	</select> -->
+</mapper>
+	

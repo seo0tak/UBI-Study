@@ -309,7 +309,7 @@
 
 <%
 	String[] util={"스터디 그룹","동영상 강의","자유 게시판","공지"};
-	String[] ubi={"studyboard_list.ubi","videoboard_list.ubi","freeboard_list.ubi",""};
+	String[] ubi={"studyboard_list.ubi","videoboard_list.ubi","freeboard_list.ubi","notiboard_list.ubi"};
 %>
 <script type="text/javascript">
 	$(function(){

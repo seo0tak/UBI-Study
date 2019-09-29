@@ -198,11 +198,12 @@
 	</div>
 	<div id="div1_obj2" align="center">
 		<img src="<%=request.getContextPath()%>/resources/images/logo1.png" width="700px" height="140px">
-		<p style="color: rgb(255,242,204);font-size: 30px;">유비쿼터스 뭔가 그런거 유비쿼터스</p>
+		<p style="color: rgb(255,242,204);font-size: 30px;">언제나, 어디서나 함께 코딩 스터디 하세요!</p>
 		<p style="text-align: left;margin-left: 107px;color: rgb(255,230,153);font-size: 20px;">
-		대충 프로젝트의 설명같은 것. 긴 문장이어야 한다. 대충 그런<br> 내용들이다아아ㅏ아ㅏ아아아아아<br>
-		대충 강의에 대한 설명이나 사이트에<br>
-		대한 설명이나 그런거 
+		몇 시에 어디에서?, 책상 넓나요?, 빔 있어요?, 스터디룸 너무 비싸요..<br>
+		<br>이제 이런 걱정은 그만, UBI-STUDY에서 모이자!<br><br>
+		<br>
+		신개념 스터디공간 UBI-STUDY 
 		</p>
 		<p style="color: rgb(255,230,153);font-size: 30px;" id="detail1">▲<br>
 		자세히 보기 </p>
@@ -242,14 +243,14 @@ background-image: url('<%=request.getContextPath()%>/resources/images/project_im
 	<div style="color: white;text-align: center;font-size: 40px;">
 	
 	<span style="color:rgba(207,175,100,1);">
-	│ Make Ubi Study Great Again │<br>
+	│ 언제나, 어디서나 서로 얼굴보며, 대화하며 스터디! │<br>
 	<br>
-	│ No Ubi No Study │<br>
+	│ 실시간 코드공유, 컴파일, 채팅까지 │<br>
 	<br>
-	│ Ubi is Gold │<br>
+	│ 비싼 스터디룸 비용, 예약전쟁, 교통지옥은 이제 그만! │<br>
 	<br><br>
 	</span>
-	<span style="color: white;">〔 대충 이 사이트를 이용하면 이득본다는 내용 〕</span>
+	<span style="color: white;">〔   〕</span>
 	<br>
 	<br>
 	<span style="color:rgba(207,175,100,1);font-size: 35px;">
