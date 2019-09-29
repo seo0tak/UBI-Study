@@ -43,6 +43,10 @@ public class StudyBoardController {
 		Map<String, String> map = new HashMap<String, String>() ;
 		
 		map.put("whatColumn", whatColumn ) ;
+		/*검색 단어 대문자로 바꿔주는 작업*/
+		
+		//System.out.println("공백제거해주냐                  :"+keyword.replaceAll(" ", ""));
+		//System.out.println("한글+영문도 대문자로 바꿔주나                   :"+keyword.toUpperCase());
 		map.put("keyword", "%" + keyword + "%" ) ;
 		
 		int totalCount = studyBoardDao.GetTotalCount( map );
@@ -50,6 +54,7 @@ public class StudyBoardController {
 		
 		Paging pageInfo 
 		= new Paging( pageNumber, pageSize, totalCount, url, whatColumn, keyword, null);
+		
 		
 		List<StudyBoardBean> lists=studyBoardDao.selectAll(pageInfo,map);
 		
@@ -104,4 +109,9 @@ public class StudyBoardController {
 		MemberBean result = memberDao.getDataByNick(nick);
 		return result;
 	}
+	
+	/*@RequestMapping(value="read_count_update")
+	public void updateReadCount(@RequestParam(value = "id", required = false ) String id) {
+		studyBoardDao.updateReadCount(Integer.valueOf(id));
+	}*/
 }

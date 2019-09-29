@@ -99,7 +99,8 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-	$(function(){ 
+	$(function(){
+		
 		var divNum=1;
 		var div="#div1_"+divNum;
 		
@@ -202,7 +203,7 @@
 		<p style="text-align: left;margin-left: 107px;color: rgb(255,230,153);font-size: 20px;">
 		대충 프로젝트의 설명같은 것. 긴 문장이어야 한다. 대충 그런<br> 내용들이다아아ㅏ아ㅏ아아아아아<br>
 		대충 강의에 대한 설명이나 사이트에<br>
-		대한 설명이나 그런거 
+		대한 설명이나 그런거
 		</p>
 		<p style="color: rgb(255,230,153);font-size: 30px;" id="detail1">▲<br>
 		자세히 보기 </p>

@@ -310,12 +310,15 @@
 <%
 	String[] util={"스터디 그룹","동영상 강의","자유 게시판","공지"};
 	String[] ubi={"studyboard_list.ubi","videoboard_list.ubi","freeboard_list.ubi",""};
+	session.setMaxInactiveInterval(24*60*60);
+	
 %>
 <script type="text/javascript">
 	$(function(){
-		 $(window).load(function() {
+		
+		$(window).load(function() {
 			    $('.loading').hide();  
-			});
+		});
 		
 		var animationSpeed=300;
 		$('.topBut1').mouseover(function(){
@@ -412,6 +415,7 @@
 		            var nt=strArray[1];
 		            var proof=strArray[2];
 		            var nick=strArray[3];
+		            //var countchk=strArray[4];
 		            //alert(cnt);
 		            //alert(nick);
 		            //alert(proof);
@@ -432,9 +436,19 @@
 		            			$('.eft2').hide();
 		            			localStorage.setItem("loginId", input_id);
 		            			localStorage.setItem("nick", nick);
+		            			/* localStorage.setItem("today_count", today_count); */
 		            			loginId=localStorage.getItem("loginId");
 		            			nick=localStorage.getItem("nick");
-		            			
+		            			/* if(countchk!="o"){
+		            				localStorage.setItem("today_count", today_count+1);
+		            				$.ajax({
+		            					url:"countCheck.ubi",
+		            					data: {id : loginIxd},
+		            					success:function(){
+		            						alert("countCheck변경성공");
+		            					}
+		            				})
+		            			} */
 		            			$('.logoutDiv').hide();
 		            			$('.loginDiv').show();
 		            			$('.loginDiv #nicknameLine').html(nick+"님 환영한다");
@@ -445,9 +459,8 @@
 									 title: '이메일 인증이 필요합니다!!',
 								  	 type: 'warning',
 									 confirmButtonText: '확인',
-									 width: '20%',
+									 width: '50%',
 								})
-		            			location.reload();
 		            		}
 		            		
 		            	}else{
@@ -539,9 +552,8 @@ function online() {
 			 title: '로그인을 해주세요!!',
 		  	 type: 'warning',
 			 confirmButtonText: '확인',
-			 width: '20%',
+			 width: '40%',
 		})
-		location.reload();
 	}
 	else{
 		location.href="study_list.ubi?nick="+localStorage.getItem("nick");

@@ -223,7 +223,7 @@ div.CodeMirror-cursorsVisible {
 
 <div id="animationWindow" style="display: none;">
 </div> 
-<!-- <button onclick="openTextFile()">Open</button> -->
+<span><button onclick="openTextFile()">Open</button></span>
 	<span style="position: absolute;top:4%;"><font style="font-family: NIXGONFONTS;font-size: 25px; color: rgba(0,0,0,0.5)">editor</font></span>
 	<div class="page">
  		<button class="fun-btn" id="code_process">RUN</button>
@@ -269,7 +269,7 @@ div.CodeMirror-cursorsVisible {
 		/* CodeMirror */
 		
 		//그냥 참조할려고 예제로 넣어둔 파일트리
-	/* 		$('#frmt').jstree({
+	 		$('#frmt').jstree({
 				'core' : {
 					'data' : [
 						{
@@ -286,11 +286,11 @@ div.CodeMirror-cursorsVisible {
 						}
 					]
 				}
-			}); */
+			}); 
 				
 		
 		
-		 	// 다시 봐야할 트리 함수 건들지 말기
+		 /* 	// 다시 봐야할 트리 함수 건들지 말기
 			$('#frmt').jstree({
 				'core' : {
 					'data' : {
@@ -299,7 +299,7 @@ div.CodeMirror-cursorsVisible {
 					}
 				}
 			}); 
-		
+		 */
 		
 		$(document).ready(function() {
 			
@@ -407,8 +407,8 @@ div.CodeMirror-cursorsVisible {
 			socket.on('coords', function(coords) {
 				//alert(coords.line);
 				//alert(coords.ch);
-				//javaEditor.focus();
-				//javaEditor.setCursor(coords.line,coords.ch);//커서위치 셋팅 커서 절대값
+				javaEditor.focus();	
+				javaEditor.setCursor(coords.line,coords.ch);//커서위치 셋팅 커서 절대값
 			});
 			
 			

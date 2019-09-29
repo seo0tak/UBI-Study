@@ -101,15 +101,17 @@ public class Free_list_Controller {
 		String pw="";
 		String proof="";
 		String nick="";
+		String countchk="";
 		cnt=ubiDao.loginCheck(bean);
 		pw=ubiDao.loginPwCheck(bean);
 		proof=ubiDao.SelectProof(bean);
 		nick=ubiDao.SelectNick(bean);
+		countchk=ubiDao.SelectCount(bean);
 		if(cnt==0) {
 		}
 		System.out.println("cnt : "+cnt);
 		System.out.println("ctrl : "+nick);
-		String cnts=String.valueOf(cnt)+"/"+pw+"/"+proof+"/"+nick;
+		String cnts=String.valueOf(cnt)+"/"+pw+"/"+proof+"/"+nick+"/"+countchk;
 		return cnts;
 	}
 	
