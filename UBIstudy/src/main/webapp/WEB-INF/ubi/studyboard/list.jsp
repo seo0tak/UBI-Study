@@ -88,7 +88,7 @@ $(function(){
 				  title: '회원만 글을 쓸 수 있습니다!!',
 				  type: 'warning',
 				  confirmButtonText: '확인',
-				  width: '20%',
+				  width: '40%',
 			});
 		}else{
 			$('#detailCon').animate({opacity:'1'},0);
@@ -196,7 +196,6 @@ $(function(){
 											  confirmButtonText: '확인',
 											  width: '20%',
 									})
-				  		        	location.reload();	
 				  		        },
 				  		        error: function () {
 				  		        	location.reload();
@@ -254,20 +253,12 @@ function view(num) {
 
 	var nick = localStorage.getItem("nick");
 	if(localStorage.getItem("loginId")==null){
-		
-		/* Swal.fire({
-				  title: '로그인 해주세요!',
-				  type: 'warning',
-				  confirmButtonText: '확인',
-				  width: '20%',
-		}) */
 		Swal.fire({
-				  title: '로그인 해주세요!',
-				  animation: false,
-				  customClass: {
-					    popup: 'animated heartBeat'
-				  }
-		})
+			  title: '로그인을 해주세요!!',
+			  type: 'warning',
+			  confirmButtonText: '확인',
+			  width: '40%',
+		});
 		
 	}
 	else{
