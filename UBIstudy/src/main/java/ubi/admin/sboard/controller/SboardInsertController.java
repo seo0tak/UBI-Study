@@ -31,7 +31,6 @@ public class SboardInsertController
 	@RequestMapping(value = command, method = RequestMethod.GET)
 	public String doAction(@RequestParam(value = "id", required = true) String id, Model model )
 	{
-		System.out.println("id : " + id);
 		AdminMemberBean bean = adminMemberDao.GetThisMember(id);
 		model.addAttribute("bean", bean);
 		return getPage;

@@ -31,7 +31,6 @@ public class FboardInsertController
 	@RequestMapping(value = command, method = RequestMethod.GET)//admin_fboard_list에서 글쓰기 클릭
 	public String doAction(@RequestParam(value = "id", required = true) String id, Model model)
 	{
-		System.out.println("id: " + id);
 		AdminMemberBean bean = adminMemberDao.GetThisMember(id);
 		model.addAttribute("bean", bean);
 		return getPage;
