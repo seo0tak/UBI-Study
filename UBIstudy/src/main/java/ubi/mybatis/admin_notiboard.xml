@@ -42,6 +42,12 @@
 	<update id="UpdateData" parameterType="ANOboard">
 		update noti_board set title=#{title}, content=#{content} where num=#{num}
 	</update>
+	
+	<update id="notiReadcount" parameterType="ANOboard">
+		update noti_board set read_count=read_count+1 where num=#{num}
+	</update>
+	
+	
 	<!-- <select resultType="int" id="GetTodayCount">
 		select count(*) from free_board where day=to_char(sysdate, 'yy/mm/dd');
 	</select> -->

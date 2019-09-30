@@ -59,6 +59,12 @@ public class NotiboardDao {
 		sqlSessionTemplate.update(namespace + ".UpdateData", bean);
 	}
 
+	public void updateReadCount(Integer num) {
+		// TODO Auto-generated method stub
+		System.out.println("num:"+num);  
+		sqlSessionTemplate.update(namespace+".notiReadcount", num);
+	}
+
 	
 	
 	

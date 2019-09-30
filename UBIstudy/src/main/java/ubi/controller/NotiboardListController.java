@@ -55,6 +55,12 @@ public class NotiboardListController {
 		mav.setViewName(getPage);
 		return mav; 
 	}
+	
+	@RequestMapping(value="noti_read_count")
+	public void updateReadCount(@RequestParam(value = "id", required = false ) String id) {
+		notiboardDao.updateReadCount(Integer.valueOf(id));
+	}
+	
 			
 			
 			

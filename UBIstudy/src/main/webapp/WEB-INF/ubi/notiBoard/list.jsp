@@ -85,7 +85,7 @@
 			fid1=$(this).attr("id");
 			$.ajax({
 				 	type:"POST",
-			        url:"read_count_update.ubi",
+			        url:"noti_read_count.ubi",
 			        data : {id : fid1},
 			        success: function(){
 			            //alert("success");			            
@@ -295,10 +295,10 @@
 </span>
 </div>
 
-<div style="position: absolute;left: 10px; bottom: 10px; position: fixed;"> 
+<!-- <div style="position: absolute;left: 10px; bottom: 10px; position: fixed;"> 
 	<input id="inputBut" type="button" value="글쓰기" style="font-size: 25px; background-color: rgba(255,255,255,1); border: 1px solid #ccc; padding: 10px;padding-right: 50px;padding-left: 50px;">
 </div>
-
+ -->
 <div style="margin: 100px;text-align: center;">
 
 <table style="margin: auto;width: 85%;background-color: rgba(255,255,255,1);box-shadow: 0px 0px 10px 10px rgba(255,255,255,1);text-align:left;border-collapse: collapse;">
@@ -311,6 +311,7 @@
 </tr>
 <%int i=0; %>
 <c:forEach items="${lists }" var="list">
+
 	<%i+=1; %>
 	<tr>
 	<%-- <td class="eft1" id="${list.num}"> --%>
@@ -323,7 +324,12 @@
 		<c:if test="${list.read_count>=10}">
 			<img src="<%=request.getContextPath()%>/resources/images/hot2.gif" width="100px">
 		</c:if>
-
+			<input type="hidden" value="${list.read_count}" name="read_count">
+			<input type="hidden" value="${list.title}" name="title">
+			<input type="hidden" value="${list.content}" name="content">
+			<input type="hidden" value="${list.day}" name="day">
+			<input type="hidden" value="${list.num}" name="num">
+	
 	</div>
 	</td>
 	<%-- <td style="border: 1px solid #ddd; text-align: center;background-color: #fafafa;">
@@ -351,10 +357,10 @@
 			◇title
 		</span><br><br>
 		<span id="name" style="font-size: 20px;color: rgba(0,0,0,0.5);">
-			작성자아아아ㅏㅏ아ㅏ
+			작성자 - 관리자
 		</span>
 		<span id="day" style="font-size: 20px;color: rgba(0,0,0,0.2);">
-			작성이잉링ㄹ닌ㅁㅇㄹ
+			작성일
 		</span><br><br>
 		<span id="read_count" style="font-size: 20px;color: rgba(0,0,0,0.7);">
 			조회수 : ?
@@ -364,10 +370,10 @@
 		<span id="content" style="font-size: 25px;">
 			내요오오오옹
 		</span>
-		<p style="text-align: right;">
+		<!-- <p style="text-align: right;">
 			<input type="button" value="수정" class="button1" id="updateBut">
 			<input type="button" value="삭제" class="button1" id="deleteBut">
-		</p>
+		</p> -->
 	</div>
 
 </div>
