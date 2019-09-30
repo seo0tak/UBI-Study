@@ -34,9 +34,6 @@ public class VboardListController
 			@RequestParam(value = "pageSize", required = false) String pageSize,
 			HttpServletRequest request)
 	{	
-		System.out.print("검색할 컬럼(whatColumn) : " + whatColumn + ", ");
-		System.out.print("검색할 단어(keyword) : " + keyword + ", ");
-		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("whatColumn", whatColumn);
 		map.put("keyword", "%" + keyword + "%");

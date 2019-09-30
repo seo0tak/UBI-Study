@@ -22,7 +22,6 @@ function deleteData(num)
 function insertData()
 {
 	loginId = localStorage.getItem("loginId");
-	alert(loginId);
 	location.href = "admin_sboard_insert.ubi?id=" + loginId;
 }
 </script>

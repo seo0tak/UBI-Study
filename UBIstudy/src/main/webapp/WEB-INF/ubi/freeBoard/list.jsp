@@ -399,7 +399,7 @@
 		<input type="text" value="" name="input_title" class="input1" autofocus><br><br>
 		<span>작성자</span>
 		<br>
-		<%= pageContext.getAttribute("nick") %><br><br>
+		<%= pageContext.getAttribute("num") %><br><br>
 		<div id="pwDiv"><span>패스워드</span>
 		<br>
 		<input type="password" value="" name="input_pw" class="input1"></div><br><br>

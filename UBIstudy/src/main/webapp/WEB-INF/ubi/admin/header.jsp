@@ -42,6 +42,9 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/sweetalert/css/sweetalert2.min.css">
+<script src="<%=request.getContextPath() %>/resources/sweetalert/js/sweetalert2.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/sweetalert/js/animate.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">

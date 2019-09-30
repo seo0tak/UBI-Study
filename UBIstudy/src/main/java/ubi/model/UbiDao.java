@@ -38,10 +38,9 @@ public class UbiDao {
 		sqlSessionTemplate.update(namespace + ".updateReadCount", id);
 	}
 	
-	public void freeUpdate(int id,String name,String title,String content) {
+	public void freeUpdate(int num,String title,String content) {
 		UbiBean bean=new UbiBean(0, 0, 0, 0,"0","0","0","0","0");
-		bean.setNum(id);
-		bean.setName(name);
+		bean.setNum(num);
 		bean.setTitle(title);
 		bean.setContent(content);
 		sqlSessionTemplate.update(namespace + ".FreeUpdate", bean);
