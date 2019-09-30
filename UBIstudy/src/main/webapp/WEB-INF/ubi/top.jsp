@@ -315,6 +315,14 @@
 <script type="text/javascript">
 	$(function(){
 		
+		//해당하는 키가 엔터키(13) 일떄
+		$(document).keyup(function(key) {
+			if (key.keyCode == 13) {
+				$('#loginBut').click();
+			}
+		});
+		
+		
 		//esc키누르면 x클릭함
 		$(document).keyup(function(key) {
 			if (key.keyCode == 27) {

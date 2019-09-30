@@ -47,34 +47,37 @@ public class StudyController {
 	public String doAction(@RequestParam Map<String,Object> param,
 							HttpServletRequest request) {
 		String code = (String)param.get("code");
-		//String file_name = (String)param.get("file_name");
-		//file_name = file_name.substring(file_name.length()-5, file_name.length());
-		String path2 = request.getSession().getServletContext().getRealPath("/compile_temp/");
-		//File file = new File(path2+file_name+".class");
-		File file = new File(path2+"Main.class");
-		if( file.exists() ){
-            file.delete();
-        }
-		File Folder = new File(path2);
-		file = new File(path2+"Main.java");
-		FileWriter fw;
-		try{
-		    Folder.mkdir(); 
-		    fw = new FileWriter(file);
-			fw.write(code);
-			fw.close();
-	    } 
-        catch(Exception e){
-		    e.getStackTrace();
-		}        
-		
-		Cmd cmd = new Cmd();
-		//String command = cmd.inputCommand("cd "+path2+" & javac "+file_name+".java");
-		String command = cmd.inputCommand("cd "+path2+" & javac Main.java");
-		cmd.execCommand(command);
-		//command = cmd.inputCommand("cd "+path2+" & java "+file_name);
-		command = cmd.inputCommand("cd "+path2+" & java Main");
-		String result = cmd.execCommand(command);
+		String file_name = (String)param.get("file_name");
+		String result = null;
+		if(file_name!="") {
+			String path2 = request.getSession().getServletContext().getRealPath("/compile_temp/");
+			File file = new File(path2+file_name+".class");
+			//File file = new File(path2+"Main.class");
+			if( file.exists() ){
+	            file.delete();
+	        }
+			File Folder = new File(path2);
+			//file = new File(path2+"Main.java");
+			file = new File(path2+file_name+".java");
+			FileWriter fw;
+			try{
+			    Folder.mkdir(); 
+			    fw = new FileWriter(file);
+				fw.write(code);
+				fw.close();
+		    } 
+	        catch(Exception e){
+			    e.getStackTrace();
+			}        
+			
+			Cmd cmd = new Cmd();
+			String command = cmd.inputCommand("cd "+path2+" & javac "+file_name+".java");
+			//String command = cmd.inputCommand("cd "+path2+" & javac Main.java");
+			cmd.execCommand(command);
+			command = cmd.inputCommand("cd "+path2+" & java "+file_name);
+			//command = cmd.inputCommand("cd "+path2+" & java Main");
+			result = cmd.execCommand(command);
+		}
 		System.out.println("result : " + result);
 		return result;
 	}

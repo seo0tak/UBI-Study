@@ -223,7 +223,7 @@ div.CodeMirror-cursorsVisible {
 
 <div id="animationWindow" style="display: none;">
 </div> 
-<!-- <span><button onclick="openTextFile()">Open</button></span> -->
+<span><button onclick="openTextFile()">Open</button></span>
 	<span style="position: absolute;top:4%;"><font style="font-family: NIXGONFONTS;font-size: 25px; color: rgba(0,0,0,0.5)">editor</font></span>
 	<div class="page">
  		<button class="fun-btn" id="code_process">RUN</button>
@@ -271,6 +271,7 @@ div.CodeMirror-cursorsVisible {
 		
 		
 		$(document).ready(function() {	
+			//alert(javaEditor.getTokenAt(type,def));
 		
 			javaEditor.setSize(null,400);
 			$.ajax({
@@ -281,6 +282,39 @@ div.CodeMirror-cursorsVisible {
 					javaEditor.getDoc().setValue(data);
 				}
 			});
+			
+			//파일트리
+			<%
+				String[] fileList = (String[])request.getAttribute("fileList");
+			%>
+			$('#frmt').jstree({
+				'core' : {
+					'data' : [
+						{
+							"text" : "compile_temp",
+							"state" : { "opened" : true },
+							"children" : [
+								<%for(int i=0;i<fileList.length;i++){%>
+								{
+									"text" : "<%=fileList[i]%>",
+									"icon" : "jstree-file"
+								}
+								<%if(i!=fileList.length-1){%>,<%}}%>
+							]	
+						}
+					]
+				}
+			}).bind('select_node.jstree', function(event, data){
+			    var text = data.instance.get_node(data.selected).text;
+			    $.ajax({
+					type: 'POST',
+					url: 'http://localhost:9090/ex/file.ubi',
+					data:{file_name:text},
+					success:function(data) {
+						javaEditor.setValue(data);
+					}
+				});
+			})
 			
 			
 
@@ -303,6 +337,8 @@ div.CodeMirror-cursorsVisible {
 			/* webSocket */
 			var connection = new RTCMultiConnection();
 			connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+			//connection.socketURL = 'https://floating-cove-33208.herokuapp.com/';
+
 			var socket = io("https://floating-cove-33208.herokuapp.com/");
 			
 			//msg에서 키를 누를떄
@@ -457,7 +493,7 @@ div.CodeMirror-cursorsVisible {
 			};
 			
 			connection.onstream = function(event) {
-				//document.video_box.appendChild(event.mediaElement);
+				 //document.video_box.appendChild(event.mediaElement);
 				var video = event.mediaElement;
 				
 				if(event.type == 'local'){
@@ -473,20 +509,26 @@ div.CodeMirror-cursorsVisible {
 			var roomid = document.getElementById('txt-roomid');
 			roomid.value = "UBISTUDY";
 			
-			this.disabled = true;
-			connection.openOrJoin('your-room-id' || 'predefiend-roomid');
-
-			var localVideosContainer = document.getElementById('local-videos-container');
-			var remoteVideosContainer = document.getElementById('remote-videos-container');
-				
-		$("#code_process").click(function() {
-			//javaEditor.select();//전체선택
-			var file_name = text.split(".");
-			var code_value = javaEditor.getValue();
-			if(file_name==""){
-				file_name[0] = "Main";
+			window.onload = function() {
+				this.disabled = true;
+				connection.openOrJoin('your-room-id' || 'predefiend-roomid');
 			}
-			var code_data = {"code":code_value,"file_name":file_name[0]};
+
+				
+				var localVideosContainer = document.getElementById('local-videos-container');
+				var remoteVideosContainer = document.getElementById('remote-videos-container');
+				
+		});
+		
+		/* <div id="animationWindow">
+		</div> */
+		
+		$("#code_process").click(function() {
+			
+			//javaEditor.select();//전체선택
+			var code_value = javaEditor.getValue();
+			//var code_data = {"code":code_value,"file_name":text};
+			var code_data = {"code":code_value};
 				$.ajax({
 					type: 'POST',
 					url: 'http://localhost:9090/ex/compile.ubi',
@@ -515,46 +557,6 @@ div.CodeMirror-cursorsVisible {
 				    }
 				});
 			});
-		
-			 //파일트리
-			<%
-				String[] fileList = (String[])request.getAttribute("fileList");
-			%>
-			 var text = "";
-			$('#frmt').jstree({
-				'core' : {
-					'data' : [
-						{
-							"text" : "compile_temp",
-							"state" : { "opened" : true },
-							"children" : [
-								<%for(int i=0;i<fileList.length;i++){%>
-								{
-									"text" : "<%=fileList[i]%>",
-									"icon" : "jstree-file"
-								}
-								<%if(i!=fileList.length-1){%>,<%}}%>
-							]	
-						}
-					]
-				}
-			}).bind('select_node.jstree', function(event, data){
-				jstext = data.instance.get_node(data.selected).text;
-			    $.ajax({
-					type: 'POST',
-					url: 'http://localhost:9090/ex/file.ubi',
-					data:{file_name:text},
-					success:function(data) {
-						javaEditor.setValue(data);
-					}
-				});
-			}) 
-		
-		});
-		
-		/* <div id="animationWindow">
-		</div> */
-		
 		
 		function openTextFile() {
 		    var input = document.createElement("input");
