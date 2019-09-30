@@ -51,10 +51,17 @@ public class NotiboardListController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		mav.addObject("lists",lists);
+		mav.addObject("pageInfo", pageInfo);
 		mav.addObject("totalCount", totalCount);
 		mav.setViewName(getPage);
 		return mav; 
 	}
+	
+	@RequestMapping(value="noti_read_count")
+	public void updateReadCount(@RequestParam(value = "id", required = false ) String id) {
+		notiboardDao.updateReadCount(Integer.valueOf(id));
+	}
+	
 			
 			
 			

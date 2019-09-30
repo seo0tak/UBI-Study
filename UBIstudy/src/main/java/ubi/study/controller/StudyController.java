@@ -2,9 +2,11 @@ package ubi.study.controller;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -79,26 +81,25 @@ public class StudyController {
 	
 	@RequestMapping(value="/file")
 	@ResponseBody
-	public String doAction(HttpServletRequest request) {
-		String path2 = request.getSession().getServletContext().getRealPath("/compile_temp/Main.java");
-		String line = null;
-		BufferedReader br = null;
+	public String doAction(HttpServletRequest request,@RequestParam("file_name") String file_name) throws IOException {
+		String path2 = request.getSession().getServletContext().getRealPath("/compile_temp/"+file_name);
+		StringBuilder  stringBuilder;
+	    FileReader     fileReader     = null;
+	    BufferedReader bufferedReader = null;
 		try{
-			br = new BufferedReader(new FileReader(path2));
-			StringBuffer sb = new StringBuffer();
-			while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-		} 
-		catch(Exception e){
-			e.getStackTrace();
-		} finally {
-            try { 
-                if (br!=null) 
-                    br.close();
-            } catch (Exception e) {}
-        }
-		return line;
+			stringBuilder = new StringBuilder();
+			fileReader = new FileReader(path2);
+	        bufferedReader = new BufferedReader(fileReader);
+		    String line;
+		    while ((line = bufferedReader.readLine()) != null)
+		            stringBuilder.append(line).append('\n');
+		         
+		    } finally {
+		        if (bufferedReader != null) try { bufferedReader.close(); } catch (Exception ex) { /* Do Nothing */ }
+		        if (fileReader     != null) try { fileReader    .close(); } catch (Exception ex) { /* Do Nothing */ }
+		    }
+		    
+		    return stringBuilder.toString();
 	}
 	
 }
