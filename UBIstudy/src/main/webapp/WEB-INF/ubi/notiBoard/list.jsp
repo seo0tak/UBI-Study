@@ -294,9 +294,12 @@
 조회된 게시물 수 : ${totalCount }
 </span>
 </div>
-
 <!-- <div style="position: absolute;left: 10px; bottom: 10px; position: fixed;"> 
 	<input id="inputBut" type="button" value="글쓰기" style="font-size: 25px; background-color: rgba(255,255,255,1); border: 1px solid #ccc; padding: 10px;padding-right: 50px;padding-left: 50px;">
+=======
+<div style="position: absolute;left: 10px; bottom: 10px; position: fixed;"> 
+	<input id="inputBut" type="button" value="글쓰기" style="font-size: 25px; background-color: rgba(255,255,255,1); border: 1px solid #ccc; padd1ng: 10px;padding-right: 50px;padding-left: 50px;">
+>>>>>>> b04ae29c1e4b4e404db7ecfc53daf1bb5bab635c
 </div>
  -->
 <div style="margin: 100px;text-align: center;">
@@ -417,7 +420,9 @@
 	</div>
 </div>
 
-
+<div>
+<center><font size="5p">${pageInfo.pagingHtml}</font></center>
+</div>
 
 
 <%@ include file="../bottom.jsp" %>

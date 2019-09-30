@@ -51,6 +51,7 @@ public class NotiboardListController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		mav.addObject("lists",lists);
+		mav.addObject("pageInfo", pageInfo);
 		mav.addObject("totalCount", totalCount);
 		mav.setViewName(getPage);
 		return mav; 

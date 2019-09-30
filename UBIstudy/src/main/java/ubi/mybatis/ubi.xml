@@ -24,7 +24,7 @@
 	</insert>
 	
 	<update id="FreeUpdate" parameterType="MyUbi">
-		update free_board set name=#{name},title=#{title},content=#{content} where num=#{num}
+		update free_board set title=#{title},content=#{content} where num=#{num}
 	</update>
 	
 	<delete id="FreeDelete">	

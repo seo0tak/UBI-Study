@@ -68,7 +68,7 @@
                 </tr>
                 <tr>
                 	<th>내용</th>
-                	<td colspan=3 align="center"><font color=gray>${bean.content } + ${pageNumber }</font></td>
+                	<td colspan=3 align="center"><font color=gray>${bean.content }</font></td>
                 </tr>
                 <tr>
                 	<td colspan=4 align="center" height="300px">

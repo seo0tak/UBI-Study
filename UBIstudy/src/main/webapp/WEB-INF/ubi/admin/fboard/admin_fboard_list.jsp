@@ -22,7 +22,6 @@
 	function insertData()
 	{
 		loginId = localStorage.getItem("loginId");
-		alert(loginId);
 		location.href = "admin_fboard_insert.ubi?id=" + loginId;
 	}
 </script>
