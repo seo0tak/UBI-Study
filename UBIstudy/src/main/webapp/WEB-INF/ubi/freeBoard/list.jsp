@@ -196,7 +196,7 @@
 		
 		$('#FreeBoardInputBut').click(function(){
 			
-			name1=$('input[name=input_name]').val();
+			name1=localStorage.getItem("nick");
 			title1=$('input[name=input_title]').val();
 			content1=$('textarea[name=input_content]').val();
 			pw1=$('input[name=input_pw]').val();
@@ -397,9 +397,6 @@
 		<span style="">제목</span>
 		<br>
 		<input type="text" value="" name="input_title" class="input1" autofocus><br><br>
-		<span>작성자</span>
-		<br>
-		<%= pageContext.getAttribute("num") %><br><br>
 		<div id="pwDiv"><span>패스워드</span>
 		<br>
 		<input type="password" value="" name="input_pw" class="input1"></div><br><br>

@@ -47,16 +47,16 @@ public class Free_inputs_Controller {
 	}
 	@RequestMapping(value="freeboard_input.ubi", method=RequestMethod.POST)
 	public void FreeInsert(@RequestParam(value = "id", required = false ) String id,
-			@RequestParam(value = "f_nick", required = false ) String nick,
+			@RequestParam(value = "f_name", required = false ) String name,
 			@RequestParam(value = "f_title", required = false ) String title,
 			@RequestParam(value = "f_content", required = false ) String content,
 			@RequestParam(value = "pw", required = false ) String pw
 			) {
 		System.out.println("insert id : "+id);
-		System.out.println("insert nick : "+nick);
+		System.out.println("insert nick : "+name);
 		System.out.println("insert title : "+title);
 		System.out.println("insert content : "+content);
-		ubiDao.freeInsert(Integer.valueOf(id),nick,title,content,pw);
+		ubiDao.freeInsert(Integer.valueOf(id),name,title,content,pw);
 	}
 	
 	@RequestMapping(value="freeboard_delete.ubi", method=RequestMethod.POST)
