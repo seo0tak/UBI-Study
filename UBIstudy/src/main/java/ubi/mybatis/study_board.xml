@@ -17,6 +17,7 @@
 		</if>
 		order by num desc 
 	</select>
+	
 	<select resultType="MyStudyBoard" id="selectAllByNick" parameterType="hashmap" >
 		select * from study_board where nick=#{nick}
 	</select>
@@ -33,6 +34,10 @@
 			where title like #{keyword}
 		</if>
 	</select>
+	
+	<update id="updateReadCount">
+		update study_board set read_count=read_count+1 where num=#{num}
+	</update>
 	
 	<select resultType="MyPlaner" id="PlanByNick">
 		select num,nick,title,start_day,end_day,color,memo from study_board where nick=#{nick}

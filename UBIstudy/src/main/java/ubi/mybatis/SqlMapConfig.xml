@@ -7,6 +7,7 @@
  	<typeAliases>
  		<typeAlias type="ubi.model.UbiBean" alias="MyUbi"/>
  		<typeAlias type="ubi.admin.fboard.model.FboardBean" alias="AFboard"/>
+ 		<typeAlias type="ubi.admin.notiboard.model.NotiboardBean" alias="ANOboard"/>
  		<typeAlias type="ubi.admin.sboard.model.SboardBean" alias="ASboard"/>
  		<typeAlias type="ubi.admin.nboard.model.NboardBean" alias="ANboard"/>
  		<typeAlias type="ubi.admin.vboard.model.VboardBean" alias="AVboard"/>
@@ -27,6 +28,7 @@
  		<mapper resource="ubi/mybatis/admin_nboard.xml"/>
  		<mapper resource="ubi/mybatis/admin_vboard.xml"/>
  		<mapper resource="ubi/mybatis/admin_member.xml"/>
+ 		<mapper resource="ubi/mybatis/admin_notiboard.xml"/>
  	</mappers>
  </configuration>
  

@@ -43,6 +43,10 @@ public class StudyBoardController {
 		Map<String, String> map = new HashMap<String, String>() ;
 		
 		map.put("whatColumn", whatColumn ) ;
+		/*검색 단어 대문자로 바꿔주는 작업*/
+		
+		//System.out.println("공백제거해주냐                  :"+keyword.replaceAll(" ", ""));
+		//System.out.println("한글+영문도 대문자로 바꿔주나                   :"+keyword.toUpperCase());
 		map.put("keyword", "%" + keyword + "%" ) ;
 		
 		int totalCount = studyBoardDao.GetTotalCount( map );
@@ -50,6 +54,7 @@ public class StudyBoardController {
 		
 		Paging pageInfo 
 		= new Paging( pageNumber, pageSize, totalCount, url, whatColumn, keyword, null);
+		
 		
 		List<StudyBoardBean> lists=studyBoardDao.selectAll(pageInfo,map);
 		
@@ -80,15 +85,14 @@ public class StudyBoardController {
 	@ResponseBody
 	@RequestMapping(value="/studyboard_pwcheck.ubi")
 	public String pwcheck(@RequestParam("id") String id) {
-		System.out.println("여긴오냐");
 		String pw = memberDao.getPw(id);
-		System.out.println("비밀번호 비교 왜안하냐"+pw);
 		return pw;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/study_board_view.ubi")
 	public StudyBoardBean doAction(@RequestParam("num") int num) {
+		studyBoardDao.updateReadCount(num);
 		StudyBoardBean result = studyBoardDao.GetData(num);
 		return result;
 	}
@@ -104,4 +108,5 @@ public class StudyBoardController {
 		MemberBean result = memberDao.getDataByNick(nick);
 		return result;
 	}
+	
 }

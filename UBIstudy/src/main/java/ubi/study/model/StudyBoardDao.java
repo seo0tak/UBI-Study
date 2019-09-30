@@ -94,4 +94,9 @@ public class StudyBoardDao {
 		sqlSessionTemplate.delete(namespace + ".Delete",num);
 	}
 
+
+	public void updateReadCount(int num) {
+		sqlSessionTemplate.update(namespace + ".updateReadCount", num);
+	}
+
 }

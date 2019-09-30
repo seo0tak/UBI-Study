@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +21,21 @@ public class StudyController {
 	private static final String command = "/study_list.ubi";
 	
 	@RequestMapping(value=command)
-	public ModelAndView doAction(@RequestParam("nick") String nick) {
+	public ModelAndView doAction(@RequestParam("nick") String nick,HttpServletRequest request) {
+		
+		String isDir = request.getSession().getServletContext().getRealPath("/compile_temp/");
+		File path = new File(isDir);
+		
+		String fileList[] = path.list(new FilenameFilter() {
+			  @Override
+			  public boolean accept(File dir, String name) {
+				  return name.endsWith("java"); //java로 끝나는 파일
+			  }
+		});
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("nick", nick);
+		mav.addObject("fileList", fileList);
 		mav.setViewName(getPage);
 		return mav;
 	}
@@ -32,7 +45,10 @@ public class StudyController {
 	public String doAction(@RequestParam Map<String,Object> param,
 							HttpServletRequest request) {
 		String code = (String)param.get("code");
+		//String file_name = (String)param.get("file_name");
+		//file_name = file_name.substring(file_name.length()-5, file_name.length());
 		String path2 = request.getSession().getServletContext().getRealPath("/compile_temp/");
+		//File file = new File(path2+file_name+".class");
 		File file = new File(path2+"Main.class");
 		if( file.exists() ){
             file.delete();
@@ -51,8 +67,10 @@ public class StudyController {
 		}        
 		
 		Cmd cmd = new Cmd();
+		//String command = cmd.inputCommand("cd "+path2+" & javac "+file_name+".java");
 		String command = cmd.inputCommand("cd "+path2+" & javac Main.java");
 		cmd.execCommand(command);
+		//command = cmd.inputCommand("cd "+path2+" & java "+file_name);
 		command = cmd.inputCommand("cd "+path2+" & java Main");
 		String result = cmd.execCommand(command);
 		System.out.println("result : " + result);
@@ -62,32 +80,7 @@ public class StudyController {
 	@RequestMapping(value="/file")
 	@ResponseBody
 	public String doAction(HttpServletRequest request) {
-		String path2 = request.getSession().getServletContext().getRealPath("/compile_temp/Main.txt");
-		String line = null;
-		BufferedReader br = null;
-		try{
-			br = new BufferedReader(new FileReader(path2));
-			StringBuffer sb = new StringBuffer();
-			while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-		} 
-		catch(Exception e){
-			e.getStackTrace();
-		} finally {
-            try { 
-                if (br!=null) 
-                    br.close();
-            } catch (Exception e) {}
-        }
-		return line;
-	}
-	
-	
-	@RequestMapping(value="/jStree")
-	@ResponseBody
-	public String jStree(HttpServletRequest request) {
-		String path2 = request.getSession().getServletContext().getRealPath("/compile_temp/Main.txt");
+		String path2 = request.getSession().getServletContext().getRealPath("/compile_temp/Main.java");
 		String line = null;
 		BufferedReader br = null;
 		try{

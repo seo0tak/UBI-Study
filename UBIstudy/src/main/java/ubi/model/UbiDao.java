@@ -178,7 +178,10 @@ public class UbiDao {
 		System.out.println("허춘삼            "+num);
 		sqlSessionTemplate.selectList(namespace + ".updateConf", num);
 	}
-	
+
+	public String SelectCount(MemberBean id) {
+		return sqlSessionTemplate.selectOne(namespace + ".SelectCount", id);
+	}
 	
 	
 }
