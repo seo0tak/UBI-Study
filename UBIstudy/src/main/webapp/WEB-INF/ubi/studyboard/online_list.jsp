@@ -269,15 +269,17 @@ div.CodeMirror-cursorsVisible {
 		/* CodeMirror */
 		
 		
-		$(document).ready(function() {
-			
+		
+		$(document).ready(function() {	
+			//alert(javaEditor.getTokenAt(type,def));
+		
 			javaEditor.setSize(null,400);
 			$.ajax({
 				type: 'POST',
 				url: 'http://localhost:9090/ex/file.ubi',
+				data:{file_name:"Main.java"},
 				success:function(data) {
-					//alert(data);
-					javaEditor.setValue(data);
+					javaEditor.getDoc().setValue(data);
 				}
 			});
 			
@@ -289,13 +291,12 @@ div.CodeMirror-cursorsVisible {
 				'core' : {
 					'data' : [
 						{
-							"text" : "Root node",
+							"text" : "compile_temp",
 							"state" : { "opened" : true },
 							"children" : [
 								<%for(int i=0;i<fileList.length;i++){%>
 								{
 									"text" : "<%=fileList[i]%>",
-									"state" : { "selected" : true },
 									"icon" : "jstree-file"
 								}
 								<%if(i!=fileList.length-1){%>,<%}}%>
@@ -304,9 +305,15 @@ div.CodeMirror-cursorsVisible {
 					]
 				}
 			}).bind('select_node.jstree', function(event, data){
-				
 			    var text = data.instance.get_node(data.selected).text;
-			    //alert(text);
+			    $.ajax({
+					type: 'POST',
+					url: 'http://localhost:9090/ex/file.ubi',
+					data:{file_name:text},
+					success:function(data) {
+						javaEditor.setValue(data);
+					}
+				});
 			})
 			
 			
@@ -408,8 +415,8 @@ div.CodeMirror-cursorsVisible {
 			socket.on('coords', function(coords) {
 				//alert(coords.line);
 				//alert(coords.ch);
-				javaEditor.focus();	//커서 자동으로 셋팅
 				javaEditor.setCursor(coords.line,coords.ch);//커서위치 셋팅 커서 절대값
+				javaEditor.focus();	//커서 자동으로 셋팅
 			});
 			
 			
@@ -517,6 +524,7 @@ div.CodeMirror-cursorsVisible {
 		</div> */
 		
 		$("#code_process").click(function() {
+			
 			//javaEditor.select();//전체선택
 			var code_value = javaEditor.getValue();
 			//var code_data = {"code":code_value,"file_name":text};
