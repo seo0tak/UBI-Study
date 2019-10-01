@@ -49,6 +49,7 @@ public class StudyController {
 		String code = (String)param.get("code");
 		String file_name = (String)param.get("file_name");
 		String result = null;
+		System.out.println("aaa"+file_name);
 		if(file_name!="") {
 			String path2 = request.getSession().getServletContext().getRealPath("/compile_temp/");
 			File file = new File(path2+file_name+".class");

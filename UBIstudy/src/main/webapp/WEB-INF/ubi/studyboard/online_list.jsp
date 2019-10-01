@@ -539,7 +539,7 @@ div.CodeMirror-cursorsVisible {
 					]
 				}
 			}).bind('select_node.jstree', function(event, data){
-				jstext = data.instance.get_node(data.selected).text;
+				text = data.instance.get_node(data.selected).text;
 			    $.ajax({
 					type: 'POST',
 					url: 'http://localhost:9090/ex/file.ubi',

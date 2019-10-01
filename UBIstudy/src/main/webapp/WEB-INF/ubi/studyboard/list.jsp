@@ -194,8 +194,12 @@ $(function(){
 											  title: '입력 완료!! 마이페이지에서 확인가능!!',
 											  type: 'success',
 											  confirmButtonText: '확인',
-											  width: '20%',
-									})
+											  width: '40%',
+									}).then(function() {
+										$('.eft2').hide("fade",1,function(){
+											location.reload();					
+										});
+									});
 				  		        },
 				  		        error: function () {
 				  		        	location.reload();
@@ -291,28 +295,38 @@ function view(num) {
 						  title: '참석 완료!!! 승인을 기다려주세요~',
 						  type: 'success',
 						  confirmButtonText: '확인',
-						  width: '20%',
+						  width: '40%',
+					}).then(function() {
+						$('.eft2').hide("fade",1,function(){
+							location.reload();					
+						});
 					});
+					
 				}
 			})
 		});
 		
 		$('#study_delete').click(function() {
-			var deleteconfirm = confirm("정말삭제하시겠습니까?");
-			if(deleteconfirm){
-				$.ajax({
-					url:"study_delete.ubi",
-					data:{num : num},
-					success: function(data) {
-						Swal.fire({
-							  title: '삭제 완료!!',
-							  type: 'success',
-							  confirmButtonText: '확인',
-							  width: '20%',
-						});
-					}
+			Swal.fire({
+				  title: '정말삭제하시겠습니까?',
+				  type: 'warning',
+				  width: '40%',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '네, 삭제 하겠습니다!'
+				}).then((result) => {
+				  if (result.value) {
+				    $.ajax({
+						url:"study_delete.ubi",
+						data:{num : num}
+					})
+				  }
+				}).then(function() {
+					$('.eft2').hide("fade",1,function(){
+						location.reload();
+					});
 				})
-			}
 		});
 	}
 	
