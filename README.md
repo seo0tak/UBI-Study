@@ -38,12 +38,12 @@
 
 > FUNCTION
 
-![Alt text](./readmeimg/function1.png)
-![Alt text](./readmeimg/function2.png)
-![Alt text](./readmeimg/function3.png)
-![Alt text](./readmeimg/function4.png)
-![Alt text](./readmeimg/function5.png)
-![Alt text](./readmeimg/function6.png)
-![Alt text](./readmeimg/function7.png)
+![Alt text](./readmeimg/funtion1.png)
+![Alt text](./readmeimg/funtion2.png)
+![Alt text](./readmeimg/funtion3.png)
+![Alt text](./readmeimg/funtion4.png)
+![Alt text](./readmeimg/funtion5.png)
+![Alt text](./readmeimg/funtion6.png)
+![Alt text](./readmeimg/funtion7.png)
 
 
