@@ -22,4 +22,4 @@
   
 > SCHEDULE
 
-![Alt text](/path/UBI_STUDY_5.png)
+![Alt text](/path/to/UBI_STUDY_5.png)
