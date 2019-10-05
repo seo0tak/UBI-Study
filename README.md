@@ -36,3 +36,14 @@
 
 ![Alt text](./readmeimg/contents.png)
 
+> FUNCTION
+
+![Alt text](./readmeimg/function1.png)
+![Alt text](./readmeimg/function2.png)
+![Alt text](./readmeimg/function3.png)
+![Alt text](./readmeimg/function4.png)
+![Alt text](./readmeimg/function5.png)
+![Alt text](./readmeimg/function6.png)
+![Alt text](./readmeimg/function7.png)
+
+
