@@ -23,3 +23,6 @@
 > SCHEDULE
 
 ![Alt text](./UBI_STUDY_5.png)
+
+> ERD
+
