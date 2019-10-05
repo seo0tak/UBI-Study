@@ -14,15 +14,25 @@
   * 오프라인 팀워크 채널 지원
   
 > CREW & SHARE
-  * 서영탁 - Server, Onlie-study board, WEBRTC, DB 
-  * 이민석 - Design, DB, Board 
-  * 조성주 - About Admin page, Board, DB 
-  * 조용철 - WEBRTC, Presentation, Board, ERD 
-  * 조혁 - DB, Data Acquisition
+  * 서영탁 - Server, Onlie-study board, WEBRTC, DB, Data Acquisition
+  * 이민석 - Design, DB, Board , Data Acquisition
+  * 조성주 - About Admin page, Board, DB, Data Acquisition
+  * 조용철 - WEBRTC, Presentation, Board, ERD, Data Acquisition
+  * 조혁 - DB
   
 > SCHEDULE
 
-![Alt text](./UBI_STUDY_5.png)
+![Alt text](./readmeimg/schedule.png)
 
 > ERD
+
+![Alt text](./readmeimg/erd.png)
+
+> DEVELOPMENT-ENVIRONMENT
+
+![Alt text](./readmeimg/development-environment.png)
+
+> CONTENTS
+
+![Alt text](./readmeimg/contents.png)
 
