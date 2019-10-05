@@ -21,4 +21,5 @@
   * 조혁 - DB, Data Acquisition
   
 > SCHEDULE
-![Alt text](/path/img.jpg)
+
+![Alt text](/path/UBI_STUDY_5.png)
