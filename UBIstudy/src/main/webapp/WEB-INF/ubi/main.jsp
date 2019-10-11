@@ -201,16 +201,10 @@
 		<img src="<%=request.getContextPath()%>/resources/images/logo1.png" width="700px" height="140px">
 		<p style="color: rgb(255,242,204);font-size: 30px;">언제나, 어디서나 함께 코딩 스터디 하세요!</p>
 		<p style="text-align: left;margin-left: 107px;color: rgb(255,230,153);font-size: 20px;">
-<<<<<<< HEAD
 		몇 시에 어디에서?, 책상 넓나요?, 빔 있어요?, 스터디룸 너무 비싸요..<br>
 		<br>이제 이런 걱정은 그만, UBI-STUDY에서 모이자!<br><br>
 		<br>
 		신개념 스터디공간 UBI-STUDY 
-=======
-		대충 프로젝트의 설명같은 것. 긴 문장이어야 한다. 대충 그런<br> 내용들이다아아ㅏ아ㅏ아아아아아<br>
-		대충 강의에 대한 설명이나 사이트에<br>
-		대한 설명이나 그런거
->>>>>>> c75db834186b62f22c4b21e94216c3a744860a9e
 		</p>
 		<p style="color: rgb(255,230,153);font-size: 30px;" id="detail1">▲<br>
 		자세히 보기 </p>
@@ -256,21 +250,8 @@ background-image: url('<%=request.getContextPath()%>/resources/images/project_im
 	<br>
 	│ 비싼 스터디룸 비용, 예약전쟁, 교통지옥은 이제 그만! │<br>
 	<br><br>
-	</span>
-	<span style="color: white;">〔   〕</span>
-	<br>
-	<br>
-	<span style="color:rgba(207,175,100,1);font-size: 35px;">
-	유비ㅎㅁㄷㄹㅇ리러훅ㄴㅇ날<br>;ㄴ이ㅗㅁㄹ너<br>
-	<br>
-	│<br>
-	│<br>
-	│<br>
-	│<br>
-	│<br>
 	</span>	
 	</div>
-
 </div>
 
 
@@ -282,16 +263,23 @@ background-image: url('<%=request.getContextPath()%>/resources/images/project_im
 		<p class="smallTitle_logo">UBI STUDY<br>
 		▼</p>
 	</div>
-<%for(int i=0;i<3;i++){ %>
+<c:forEach items="${study_list }" var="lists" varStatus="status">
+	<c:if test="${status.count<4}">
+	<form action="">
+	<input type="hidden" name="num">
 	<div style="margin: auto;border-bottom:1px solid black;width: 1000px;height: 200px;margin-top: 50px;text-align: left;">
 		<img src="<%=request.getContextPath()%>/resources/images/default1.png" style="float: left;margin-right: 20px;" width="190px" height="190px;">
-		<span style="font-size:30px;">title<%=i %></span>
+		<span style="font-size:30px;">${lists.title }</span>
 		<br>
 		<br>
-		<span style="font-size: 20px;">contents/memo/<%=i %></span><br>
-		<p style="text-align: right;"><input type="button" value="참여" class="button2" id="<%=i%>"></p> 
+		<span style="font-size: 20px;">${lists.memo }</span><br>
+		<p style="text-align: right;"><input type="button" value="참여" class="button2"></p>
 	</div>
-<%}%>
+	</form>
+	</c:if>
+</c:forEach>
+<br>
+<input type="button" class="button1" value="더보기" onclick="location.href='studyboard_list.ubi'">
 </div>
 
 <!-- 조회수나 접속자 수를 나타내는 항목 -->
