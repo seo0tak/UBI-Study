@@ -37,7 +37,8 @@
 ![Alt text](./readmeimg/contents.png)
 
 > FUNCTION
-이메일인증(https://github.com/seo0tak/UBI-Study/tree/master/UBIstudy/src/main/java/ubi/study)
+이메일인증
+(https://github.com/seo0tak/UBI-Study/tree/master/UBIstudy/src/main/java/ubi/study)
 ![Alt text](./readmeimg/funtion1.png)
 ![Alt text](./readmeimg/funtion2.png)
 ![Alt text](./readmeimg/funtion3.png)
